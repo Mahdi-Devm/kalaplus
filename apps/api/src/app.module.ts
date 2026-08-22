@@ -4,7 +4,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { TypeOrmConfig } from './config/typeorm.config';
-import { TestModule } from './modules/test/test.module';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
@@ -12,7 +12,7 @@ import { TestModule } from './modules/test/test.module';
     TypeOrmModule.forRootAsync({ useClass: TypeOrmConfig }),
     RedisModule.forRootAsync(),
     AppCacheModule,
-    TestModule,
+    AuthModule,
   ],
 })
 export class AppModule {}

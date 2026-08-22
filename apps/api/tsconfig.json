@@ -23,7 +23,7 @@
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@auth/*": ["src/auth/*"],
+      "@auth/*": ["src/modules/auth/*"],
       "@common/*": ["src/common/*"]
     }
   }

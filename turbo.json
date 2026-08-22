@@ -1,0 +1,27 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "ui": "tui",
+  "tasks": {
+    "build": {
+      "dependsOn": ["^build"],
+      "inputs": ["$TURBO_DEFAULT$", ".env*"],
+      "outputs": [".next/**", "dist/**", "!.next/cache/**", "!.next/dev/**"]
+    },
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+
+    "lint": {
+      "dependsOn": ["^lint"]
+    },
+
+    "check-types": {
+      "dependsOn": ["^check-types"]
+    },
+
+    "test": {
+      "dependsOn": ["build"]
+    }
+  }
+}

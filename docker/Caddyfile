@@ -1,0 +1,7 @@
+{$FRONTEND_DOMAIN} {
+    reverse_proxy web:3000
+}
+
+{$BACKEND_DOMAIN} {
+    reverse_proxy api:3001
+}

@@ -146,8 +146,21 @@ export class AuthService {
     }
   }
 
-  SummaryUser(SummaryUserDto: SummaryUserDataDto) {
-    console.log(SummaryUserDto);
-    return `This action updates a  auth`;
+  async SummaryUser(summaryUserDto: SummaryUserDataDto, userId: string) {
+    const user = await this.userRepository.findOne({
+      where: { id: userId },
+    });
+
+    if (!user) {
+      throw new NotFoundException('کاربر پیدا نشد');
+    }
+
+    user.name = summaryUserDto.fullName;
+
+    await this.userRepository.save(user);
+
+    return {
+      message: 'اطلاعات کاربر با موفقیت بروزرسانی شد',
+    };
   }
 }

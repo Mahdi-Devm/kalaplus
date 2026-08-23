@@ -9,9 +9,10 @@ import {
 } from '@common/constants/jwt.constants';
 import { Cookie } from '@common/decorators/cookie.decorator';
 import { setCookies } from '@common/utils/set-cookie';
-import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Body, Controller, Patch, Post, Res } from '@nestjs/common';
 import type { Response } from 'express';
 import { AuthService } from '../services/auth.service';
+import { UserInfo } from './../../../common/decorators/user.decorator';
 
 @Controller('auth')
 export class AuthController {
@@ -75,8 +76,11 @@ export class AuthController {
     response.json({ success: true });
   }
 
-  @Post('summary-user')
-  SummaryUser(@Body() SummaryUserDto: SummaryUserDataDto) {
-    return this.authService.SummaryUser(SummaryUserDto);
+  @Patch('summary-user')
+  SummaryUser(
+    @Body() summaryUserDto: SummaryUserDataDto,
+    @UserInfo('userId') userId: string,
+  ) {
+    return this.authService.SummaryUser(summaryUserDto, userId);
   }
 }

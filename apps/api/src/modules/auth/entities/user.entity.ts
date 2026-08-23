@@ -14,6 +14,6 @@ export class User extends BaseEntity {
   role: Roles;
   @Column({ unique: true })
   phone: string;
-  @Column({ unique: true })
+  @Column({ nullable: true, unique: true })
   refreshToken: string;
 }

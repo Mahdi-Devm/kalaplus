@@ -7,6 +7,7 @@ import {
   refreshTokenExpireTimeByMilliSecond,
   refreshTokenName,
 } from '@common/constants/jwt.constants';
+import { Cookie } from '@common/decorators/cookie.decorator';
 import { setCookies } from '@common/utils/set-cookie';
 import { Body, Controller, Post, Res } from '@nestjs/common';
 import type { Response } from 'express';
@@ -52,8 +53,26 @@ export class AuthController {
   }
 
   @Post('refresh')
-  Refresh() {
-    return this.authService.Refresh();
+  async Refresh(
+    @Cookie(refreshTokenName) token: string,
+    @Res() response: Response,
+  ) {
+    const accessToken = await this.authService.Refresh(token);
+
+    setCookies(response, [
+      {
+        name: accessTokenName,
+        value: accessToken,
+        options: {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'lax',
+          maxAge: accessTokenExpireTimeByMilliSecond,
+        },
+      },
+    ]);
+
+    response.json({ success: true });
   }
 
   @Post('summary-user')

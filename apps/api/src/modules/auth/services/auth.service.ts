@@ -3,7 +3,6 @@ import { SummaryUserDataDto } from '@auth/dto/summary-user-otp.dto';
 import { VrifyOtpDto } from '@auth/dto/vrify-otp.dto';
 import { User } from '@auth/entities/user.entity';
 import { JwtPayload } from '@common/@types/jwt-payload.type';
-import { Roles } from '@common/enums/role-app.enum';
 import { CacheService } from '@common/services/cache.service';
 import { generateOtp } from '@common/utils/code-generator.util';
 import {
@@ -11,6 +10,8 @@ import {
   HttpException,
   HttpStatus,
   Injectable,
+  NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -103,12 +104,13 @@ export class AuthService {
       });
       await this.userRepository.save(user);
     }
-
     const payload: JwtPayload = {
       sub: user.id,
-      role: Roles.USER,
+      role: user.role,
     };
     const tokens = await this.jwtAuthService.generateToken(payload);
+    user.refreshToken = tokens.refreshToken;
+    await this.userRepository.save(user);
 
     return {
       success: true,
@@ -118,8 +120,30 @@ export class AuthService {
     };
   }
 
-  Refresh() {
-    return `This action returns a  auth`;
+  async Refresh(token?: string) {
+    if (!token) throw new NotFoundException('token not provided');
+    try {
+      const payload = await this.jwtAuthService.verifyRefreshToken(token);
+
+      const user = await this.userRepository.findOne({
+        where: { id: payload.sub, refreshToken: token },
+      });
+
+      if (!user) {
+        throw new BadRequestException('this token is not related to you!');
+      }
+
+      return await this.jwtAuthService.generateAccessToken({
+        sub: user.id,
+        role: user.role,
+      });
+    } catch (error: unknown) {
+      if (error instanceof HttpException) {
+        throw error;
+      }
+
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 
   SummaryUser(SummaryUserDto: SummaryUserDataDto) {

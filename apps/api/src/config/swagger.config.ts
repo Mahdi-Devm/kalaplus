@@ -7,13 +7,13 @@ import {
 
 export function initSwagger(app: INestApplication): void {
   const config = new DocumentBuilder()
-    .setTitle('auth api')
+    .setTitle('kalaplus api')
     .setVersion('1.0.0')
     .addBearerAuth()
     .addSecurityRequirements('bearer')
     .build();
   const customOptions: SwaggerCustomOptions = {
-    customSiteTitle: 'auth backend',
+    customSiteTitle: 'kalaplus backend',
     customCss: '.swagger-ui .topbar { background-color: #2c3e50; }',
     swaggerOptions: {
       persistAuthorization: true,

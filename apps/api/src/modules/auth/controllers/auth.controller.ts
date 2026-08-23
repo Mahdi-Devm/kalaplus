@@ -1,18 +1,21 @@
-import { Controller, Post } from '@nestjs/common';
+import { RequestOtpDto } from '@auth/dto/req-otp.dto';
+import { Body, Controller, Post } from '@nestjs/common';
 import { AuthService } from '../services/auth.service';
+import { VrifyOtpDto } from '@auth/dto/vrify-otp.dto';
+import { SummaryUserDataDto } from '@auth/dto/summary-user-otp.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('request-otp')
-  ReqOtp() {
-    return this.authService.ReqOtp();
+  ReqOtp(@Body() ReqOtpDto: RequestOtpDto) {
+    return this.authService.ReqOtp(ReqOtpDto);
   }
 
   @Post('vrify-otp')
-  VrifyOtp() {
-    return this.authService.VrifyOtp();
+  VrifyOtp(@Body() vrifyOtpDto: VrifyOtpDto) {
+    return this.authService.VrifyOtp(vrifyOtpDto);
   }
 
   @Post('refresh')
@@ -21,7 +24,7 @@ export class AuthController {
   }
 
   @Post('summary-user')
-  SummaryUser() {
-    return this.authService.SummaryUser();
+  SummaryUser(@Body() SummaryUserDto: SummaryUserDataDto) {
+    return this.authService.SummaryUser(SummaryUserDto);
   }
 }

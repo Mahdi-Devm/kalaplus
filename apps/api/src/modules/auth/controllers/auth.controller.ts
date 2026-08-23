@@ -1,8 +1,16 @@
 import { RequestOtpDto } from '@auth/dto/req-otp.dto';
-import { Body, Controller, Post } from '@nestjs/common';
-import { AuthService } from '../services/auth.service';
-import { VrifyOtpDto } from '@auth/dto/vrify-otp.dto';
 import { SummaryUserDataDto } from '@auth/dto/summary-user-otp.dto';
+import { VrifyOtpDto } from '@auth/dto/vrify-otp.dto';
+import {
+  accessTokenExpireTimeByMilliSecond,
+  accessTokenName,
+  refreshTokenExpireTimeByMilliSecond,
+  refreshTokenName,
+} from '@common/constants/jwt.constants';
+import { setCookies } from '@common/utils/set-cookie';
+import { Body, Controller, Post, Res } from '@nestjs/common';
+import type { Response } from 'express';
+import { AuthService } from '../services/auth.service';
 
 @Controller('auth')
 export class AuthController {
@@ -14,8 +22,33 @@ export class AuthController {
   }
 
   @Post('vrify-otp')
-  VrifyOtp(@Body() vrifyOtpDto: VrifyOtpDto) {
-    return this.authService.VrifyOtp(vrifyOtpDto);
+  async VrifyOtp(@Body() vrifyOtpDto: VrifyOtpDto, @Res() response: Response) {
+    const tokens = await this.authService.VrifyOtp(vrifyOtpDto);
+
+    setCookies(response, [
+      {
+        name: refreshTokenName,
+        value: tokens.refreshToken,
+        options: {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'lax',
+          maxAge: refreshTokenExpireTimeByMilliSecond,
+        },
+      },
+      {
+        name: accessTokenName,
+        value: tokens.accessToken,
+        options: {
+          httpOnly: true,
+          secure: true,
+          sameSite: 'lax',
+          maxAge: accessTokenExpireTimeByMilliSecond,
+        },
+      },
+    ]);
+
+    response.json({ success: true });
   }
 
   @Post('refresh')

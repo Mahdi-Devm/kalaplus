@@ -1,8 +1,9 @@
 import { BaseEntity } from '@common/abstracts/base.entity';
-import { Column } from 'typeorm';
+import { Column, Entity } from 'typeorm';
 
+@Entity()
 export class User extends BaseEntity {
-  @Column()
+  @Column({ nullable: true })
   name: string;
   @Column({ unique: true })
   phone: string;

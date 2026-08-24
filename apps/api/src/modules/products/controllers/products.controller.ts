@@ -31,14 +31,6 @@ export class ProductsController {
   }
 
   //دریافت محصولات تخفیف‌ دار
-  @Get('on-sale')
-  @ApiOperation({
-    summary: 'دریافت محصولات تخفیف‌دار',
-    description: 'لیست محصولاتی که در حال حاضر تخفیف دارند و معتبر است.',
-  })
-  findProductsOnSale() {
-    return this.productsService.findProductsOnSale();
-  }
 
   @Get('admin/list')
   @ApiOperation({

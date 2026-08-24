@@ -7,15 +7,6 @@ export class ProductsService {
   create(createProductDto: CreateProductDto) {
     return 'This action adds a new product';
   }
-  findProductsOnSale() {
-    return 'This action adds a new product';
-  }
-  removeDiscount(createProductDto: CreateProductDto) {
-    return 'This action adds a new product';
-  }
-  addDiscount(createProductDto: CreateProductDto, addDiscountDto) {
-    return 'This action adds a new product';
-  }
 
   listForAdmin() {
     return `This action returns all products`;

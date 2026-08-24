@@ -1,12 +1,12 @@
 import { RolesDecorator } from '@common/decorators/roles.decorator';
 import { Roles } from '@common/enums/role-app.enum';
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import { ProductsService } from '../services/products.service';
+import { DiscountService } from '../services/discount.service';
 
 @Controller('products')
 export class DiscountController {
-  constructor(private readonly productsService: ProductsService) {}
+  constructor(private readonly discountService: DiscountService) {}
 
   @Post(':id/discount')
   @ApiOperation({
@@ -15,7 +15,7 @@ export class DiscountController {
   })
   @RolesDecorator(Roles.ADMIN, Roles.OWNER)
   addDiscount(@Param('id') id: string, @Body() addDiscountDto) {
-    return this.productsService.addDiscount(id, addDiscountDto);
+    return this.discountService.addDiscount(id, addDiscountDto);
   }
 
   @Delete(':id/discount')
@@ -25,6 +25,15 @@ export class DiscountController {
   })
   @RolesDecorator(Roles.ADMIN, Roles.OWNER)
   removeDiscount(@Param('id') id: string) {
-    return this.productsService.removeDiscount(id);
+    return this.discountService.removeDiscount(id);
+  }
+
+  @Get('on-sale')
+  @ApiOperation({
+    summary: 'دریافت محصولات تخفیف‌دار',
+    description: 'لیست محصولاتی که در حال حاضر تخفیف دارند و معتبر است.',
+  })
+  findProductsOnSale() {
+    return this.discountService.findProductsOnSale();
   }
 }

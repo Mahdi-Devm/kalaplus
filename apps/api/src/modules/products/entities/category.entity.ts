@@ -5,7 +5,7 @@ import { Product } from '../../products/entities/product.entity';
 @Entity()
 export class Category extends BaseEntity {
   @Column({ unique: true })
-  name: string;
+  title: string;
 
   @Column({ unique: true })
   slug: string;

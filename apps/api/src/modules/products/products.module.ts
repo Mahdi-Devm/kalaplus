@@ -9,6 +9,7 @@ import { Product } from './entities/product.entity';
 import { CategoriesService } from './services/categories.service';
 import { ProductsService } from './services/products.service';
 import { UploadService } from './services/upload.service';
+import { DiscountService } from './services/discount.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([Product, Category])],
@@ -18,6 +19,11 @@ import { UploadService } from './services/upload.service';
     DiscountController,
     CategoriesController,
   ],
-  providers: [ProductsService, UploadService, CategoriesService],
+  providers: [
+    ProductsService,
+    UploadService,
+    CategoriesService,
+    DiscountService,
+  ],
 })
 export class ProductsModule {}

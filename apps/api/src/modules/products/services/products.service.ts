@@ -7,8 +7,20 @@ export class ProductsService {
   create(createProductDto: CreateProductDto) {
     return 'This action adds a new product';
   }
+  findProductsOnSale() {
+    return 'This action adds a new product';
+  }
+  removeDiscount(createProductDto: CreateProductDto) {
+    return 'This action adds a new product';
+  }
+  addDiscount(createProductDto: CreateProductDto, addDiscountDto) {
+    return 'This action adds a new product';
+  }
 
-  findAll() {
+  listForAdmin() {
+    return `This action returns all products`;
+  }
+  listForUser() {
     return `This action returns all products`;
   }
 
@@ -16,7 +28,10 @@ export class ProductsService {
     return `This action returns a #${id} product`;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
+  updateProduct(id: number, updateProductDto: UpdateProductDto) {
+    return `This action updates a #${id} product`;
+  }
+  updateDetail(id: number, updateProductDto: UpdateProductDto) {
     return `This action updates a #${id} product`;
   }
 

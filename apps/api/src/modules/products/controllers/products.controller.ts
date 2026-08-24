@@ -1,3 +1,4 @@
+import { PaginationOptions } from '@common/decorators/pagination-option.decorator';
 import { RolesDecorator } from '@common/decorators/roles.decorator';
 import { Roles } from '@common/enums/role-app.enum';
 import {
@@ -10,8 +11,11 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiOperation } from '@nestjs/swagger';
+import { ApiOkResponse, ApiOperation } from '@nestjs/swagger';
+import type { PaginateQuery } from 'nestjs-paginate';
+import { Paginate } from 'nestjs-paginate';
 import { CreateProductDto } from '../dto/create-product.dto';
+import { PaginateProductResponse } from '../dto/paginate-product-response.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { ProductsService } from '../services/products.service';
 
@@ -30,26 +34,86 @@ export class ProductsController {
     return this.productsService.create(createProductDto);
   }
 
-  //دریافت محصولات تخفیف‌ دار
-
   @Get('admin/list')
   @ApiOperation({
     summary: 'لیست همه محصولات برای ادمین',
     description:
       'همه محصولات را با اطلاعات کامل شامل موجودی و قیمت دقیق نمایش می‌دهد.',
   })
+  @ApiOkResponse({ type: PaginateProductResponse })
+  @PaginationOptions({
+    searchOptions: [
+      {
+        field: 'title',
+        example: 'کیف',
+      },
+      {
+        field: 'slug',
+        example: 'cement-type-2',
+      },
+    ],
+    sortOptions: [
+      { example: 'createdAt:DESC' },
+      { example: 'createdAt:ASC' },
+      { example: 'price:DESC' },
+      { example: 'price:ASC' },
+      { example: 'title:ASC' },
+    ],
+    filterOptions: [
+      {
+        field: 'categoryId',
+        example: 'uuid-category',
+      },
+      {
+        field: 'price',
+        example: '$gte:100000',
+      },
+      {
+        field: 'discountPercent',
+        example: '$gt:0',
+      },
+    ],
+  })
   @RolesDecorator(Roles.ADMIN, Roles.OWNER)
-  listForAdmin() {
-    return this.productsService.listForAdmin();
+  listForAdmin(@Paginate() query: PaginateQuery) {
+    return this.productsService.listForAdmin(query);
   }
 
   @Get('user/list')
+  @ApiOkResponse({ type: PaginateProductResponse })
+  @PaginationOptions({
+    searchOptions: [
+      {
+        field: 'title',
+        example: 'سیمان',
+      },
+    ],
+    sortOptions: [
+      { example: 'createdAt:DESC' },
+      { example: 'price:ASC' },
+      { example: 'price:DESC' },
+    ],
+    filterOptions: [
+      {
+        field: 'categoryId',
+        example: 'uuid-category',
+      },
+      {
+        field: 'price',
+        example: '$gte:100000',
+      },
+      {
+        field: 'price',
+        example: '$lte:500000',
+      },
+    ],
+  })
   @ApiOperation({
     summary: 'لیست محصولات برای کاربران',
-    description: 'محصولات با قیمت‌های تخفیف‌خورده (اگر تخفیف داشته باشند).',
+    description: 'محصولات با قیمت‌های تخفیف‌ خورده (اگر تخفیف داشته باشند).',
   })
-  listForUser() {
-    return this.productsService.listForUser();
+  listForUser(@Paginate() query: PaginateQuery) {
+    return this.productsService.listForUser(query);
   }
 
   @Get(':id')
@@ -59,7 +123,7 @@ export class ProductsController {
       'اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف.',
   })
   findOne(@Param('id') id: string) {
-    return this.productsService.findOne(+id);
+    return this.productsService.findOne(id);
   }
 
   @Put(':id')
@@ -73,7 +137,7 @@ export class ProductsController {
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
   ) {
-    return this.productsService.updateProduct(+id, updateProductDto);
+    return this.productsService.updateProduct(id, updateProductDto);
   }
 
   @Patch(':id')
@@ -87,7 +151,7 @@ export class ProductsController {
     @Param('id') id: string,
     @Body() updateProductDto: UpdateProductDto,
   ) {
-    return this.productsService.updateDetail(+id, updateProductDto);
+    return this.productsService.updateDetail(id, updateProductDto);
   }
 
   @Delete(':id')
@@ -98,6 +162,6 @@ export class ProductsController {
   })
   @RolesDecorator(Roles.ADMIN, Roles.OWNER)
   remove(@Param('id') id: string) {
-    return this.productsService.remove(+id);
+    return this.productsService.remove(id);
   }
 }

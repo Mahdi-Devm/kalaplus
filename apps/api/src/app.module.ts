@@ -7,6 +7,7 @@ import { TypeOrmConfig } from './config/typeorm.config';
 import { AuthModule } from './modules/auth/auth.module';
 import { ProductsModule } from './modules/products/products.module';
 import { OrderModule } from './order/order.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { OrderModule } from './order/order.module';
     AuthModule,
     ProductsModule,
     OrderModule,
+    CartModule,
   ],
 })
 export class AppModule {}

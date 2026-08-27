@@ -1,5 +1,3 @@
-// src/modules/products/upload/upload.controller.ts
-
 import { RolesDecorator } from '@common/decorators/roles.decorator';
 import { Roles } from '@common/enums/role-app.enum';
 import {
@@ -35,7 +33,7 @@ export class UploadController {
   })
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(
-    FilesInterceptor('images', 10, {
+    FilesInterceptor('images', 5, {
       storage: diskStorage({
         destination: './uploads/products',
         filename: (req, file, callback) => {

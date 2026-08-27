@@ -6,4 +6,7 @@ export class CreateCategoryDto {
 
   @IsString()
   slug: string;
+
+  @IsString()
+  image: string;
 }

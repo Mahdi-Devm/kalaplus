@@ -17,19 +17,31 @@ export class ProductsService {
     @InjectRepository(Product) private productRepository: Repository<Product>,
   ) {}
   async create(createProductDto: CreateProductDto) {
-    const { slug } = createProductDto;
+    const { slug, price, discountPercent } = createProductDto;
     const isProduct = await this.productRepository.findOne({
       where: { slug },
     });
     if (isProduct) {
       throw new BadRequestException('محصول تکراری هست.');
     }
-    const Createproduct = await this.productRepository.create(createProductDto);
-    this.productRepository.save(Createproduct);
+    let discountPrice: number | undefined = undefined;
+    if (discountPercent && discountPercent > 0) {
+      discountPrice = Number(
+        (price - (price * discountPercent) / 100).toFixed(0),
+      );
+    }
+
+    const productData = {
+      ...createProductDto,
+      discountPrice,
+    };
+
+    const product = await this.productRepository.create(productData);
+    await this.productRepository.save(product);
 
     return {
       message: 'محصول با موفقیت ایجاد شد.',
-      id: Createproduct.id,
+      id: product.id,
     };
   }
 
@@ -93,11 +105,11 @@ export class ProductsService {
     if (!isProduct) {
       throw new BadRequestException('محصول یافت نشد');
     }
-    return { isProduct };
+    return isProduct;
   }
 
   async updateProduct(id: string, updateProductDto: UpdateProductDto) {
-    const { isProduct } = await this.findOne(id);
+    const isProduct = await this.findOne(id);
 
     Object.assign(isProduct, updateProductDto);
 
@@ -109,7 +121,7 @@ export class ProductsService {
     };
   }
   async updateDetail(id: string, updateProductDto: UpdateProductDto) {
-    const { isProduct } = await this.findOne(id);
+    const isProduct = await this.findOne(id);
 
     Object.assign(isProduct, updateProductDto);
 
@@ -121,7 +133,7 @@ export class ProductsService {
     };
   }
   async remove(id: string) {
-    const { isProduct } = await this.findOne(id);
+    const isProduct = await this.findOne(id);
 
     await this.productRepository.remove(isProduct);
 

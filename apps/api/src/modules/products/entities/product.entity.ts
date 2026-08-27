@@ -1,5 +1,6 @@
 import { BaseEntity } from '@common/abstracts/base.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Cart } from 'src/modules/cart/entities/cart.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from './category.entity';
 
 @Entity()
@@ -28,8 +29,16 @@ export class Product extends BaseEntity {
   @Column({ type: 'float', nullable: true })
   discountPercent?: number;
 
-  @Column({ default: null })
+  @Column({ default: null, nullable: true })
   discountPrice?: number;
+
+  //موجودی انبار
+  @Column({ default: 0 })
+  stock: number;
+
+  // تعداد فروخته شده
+  @Column({ default: 0 })
+  sold: number;
 
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: 'SET NULL',
@@ -38,4 +47,7 @@ export class Product extends BaseEntity {
   category: Category;
   @Column({ type: 'uuid', nullable: true })
   categoryId: string;
+
+  @OneToMany(() => Cart, (cart) => cart.productId)
+  carts: Cart[];
 }

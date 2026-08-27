@@ -1,9 +1,12 @@
 import {
   IsArray,
+  IsInt,
   IsNumber,
   IsOptional,
   IsString,
+  Max,
   MaxLength,
+  Min,
   MinLength,
 } from 'class-validator';
 
@@ -30,13 +33,17 @@ export class CreateProductDto {
   images: string[];
 
   @IsNumber()
+  @Min(0, { message: 'قیمت نمی‌تواند منفی باشد' })
   price: number;
 
   @IsNumber()
   @IsOptional()
+  @Min(0, { message: 'درصد تخفیف نمی‌ تواند منفی باشد' })
+  @Max(100, { message: 'درصد تخفیف حداکثر ۱۰۰ است' })
   discountPercent: number;
 
-  @IsNumber()
   @IsOptional()
-  discountPrice: number;
+  @IsInt()
+  @Min(0, { message: 'موجودی نمی‌تواند منفی باشد' })
+  stock?: number = 0;
 }

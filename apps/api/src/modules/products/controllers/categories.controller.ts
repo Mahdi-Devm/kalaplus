@@ -21,25 +21,25 @@ export class CategoriesController {
 
   @Post()
   @RolesDecorator(Roles.ADMIN, Roles.OWNER)
-  @ApiOperation({ summary: 'ایجاد دسته‌بندی جدید' })
+  @ApiOperation({ summary: 'ایجاد دسته‌ بندی جدید' })
   create(@Body() createCategoryDto: CreateCategoryDto) {
     return this.categoriesService.create(createCategoryDto);
   }
 
   @Get()
-  @ApiOperation({ summary: 'دریافت همه دسته‌بندی‌ ها' })
+  @ApiOperation({ summary: 'دریافت همه دسته‌ بندی‌ ها' })
   findAll() {
     return this.categoriesService.findAll();
   }
 
   @Get(':id')
-  @ApiOperation({ summary: 'دریافت یک دسته‌بندی' })
+  @ApiOperation({ summary: 'دریافت یک دسته‌ بندی' })
   findOne(@Param('id') id: string) {
     return this.categoriesService.findOne(id);
   }
 
   @Get('slug/:slug')
-  @ApiOperation({ summary: 'دریافت دسته‌بندی با اسلاگ' })
+  @ApiOperation({ summary: 'دریافت دسته‌ بندی با اسلاگ' })
   findBySlug(@Param('slug') slug: string) {
     return this.categoriesService.findBySlug(slug);
   }

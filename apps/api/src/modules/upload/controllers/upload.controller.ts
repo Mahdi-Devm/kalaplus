@@ -1,5 +1,6 @@
 import { RolesDecorator } from '@common/decorators/roles.decorator';
 import { Roles } from '@common/enums/role-app.enum';
+import { InjectQueue } from '@nestjs/bullmq';
 import {
   BadRequestException,
   Controller,
@@ -10,28 +11,32 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
-import {
-  ApiBearerAuth,
-  ApiConsumes,
-  ApiOperation,
-  ApiTags,
-} from '@nestjs/swagger';
+import { ApiBody, ApiConsumes, ApiOperation } from '@nestjs/swagger';
+import { Queue } from 'bullmq';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import { UploadService } from '../services/upload.service';
-
-@ApiTags('Upload Product Images')
-@ApiBearerAuth()
-@Controller('upload/products')
+@Controller('images')
 export class UploadController {
-  constructor(private readonly uploadService: UploadService) {}
+  constructor(
+    private readonly uploadService: UploadService,
+    @InjectQueue('image-processing') private imageQueue: Queue,
+  ) {}
 
-  @Post('images')
-  @RolesDecorator(Roles.ADMIN, Roles.OWNER)
-  @ApiOperation({
-    summary: 'آپلود عکس محصول',
-  })
+  @Post('upload')
   @ApiConsumes('multipart/form-data')
+  @ApiOperation({ summary: 'آپلود چند عکس محصول (حداکثر ۵ عدد)' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        images: {
+          type: 'array',
+          items: { type: 'string', format: 'binary' },
+        },
+      },
+    },
+  })
   @UseInterceptors(
     FilesInterceptor('images', 5, {
       storage: diskStorage({
@@ -48,7 +53,7 @@ export class UploadController {
         if (!allowedTypes.test(file.originalname)) {
           return callback(
             new BadRequestException(
-              'فقط فایل‌های تصویر مجاز هستند! (jpg, jpeg, png, gif, webp)',
+              'فقط فایل‌ های تصویر مجاز هستند! (jpg, jpeg, png, gif, webp)',
             ),
             false,
           );
@@ -57,7 +62,7 @@ export class UploadController {
       },
       limits: {
         fileSize: 5 * 1024 * 1024, // 5MB
-        files: 10,
+        files: 5,
       },
     }),
   )
@@ -66,12 +71,35 @@ export class UploadController {
       throw new BadRequestException('هیچ عکسی آپلود نشده است');
     }
 
-    const imageUrls = await this.uploadService.processProductImages(files);
+    const jobs = await Promise.all(
+      files.map((file) =>
+        this.imageQueue.add(
+          'process-image',
+          {
+            path: file.path,
+            filename: file.filename,
+            originalName: file.originalname,
+            mimetype: file.mimetype,
+            size: file.size,
+          },
+          {
+            attempts: 3,
+            backoff: { type: 'exponential', delay: 2000 },
+            removeOnComplete: true,
+            removeOnFail: false,
+          },
+        ),
+      ),
+    );
 
     return {
-      message: 'Images uploaded successfully',
-      images: imageUrls,
-      count: imageUrls.length,
+      message: 'عکس‌ ها دریافت شدند و در حال پردازش هستند',
+      count: files.length,
+      jobs: jobs.map((job) => ({
+        jobId: job.id,
+        filename: job.data.filename,
+        status: 'queued',
+      })),
     };
   }
 

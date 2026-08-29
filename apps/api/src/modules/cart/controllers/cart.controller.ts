@@ -12,7 +12,7 @@ export class CartController {
   @ApiOperation({
     summary: 'افزودن محصول به سبد خرید',
     description:
-      'محصول به سبد خرید کاربر اضافه می‌شود. موجودی انبار بررسی می‌شود.',
+      'محصول به سبد خرید کاربر اضافه می‌شود. موجودی انبار بررسی می‌ شود.',
   })
   create(
     @Body() createCartDto: CreateCartDto,
@@ -24,7 +24,7 @@ export class CartController {
   @Get('find-all')
   @ApiOperation({
     summary: 'دریافت سبد خرید',
-    description: 'همه آیتم‌های سبد خرید کاربر به همراه قیمت کل',
+    description: 'همه آیتم‌ های سبد خرید کاربر به همراه قیمت کل',
   })
   findAll(@UserInfo('userId') userId: string) {
     return this.cartService.findAll(userId);
@@ -33,7 +33,7 @@ export class CartController {
   @Delete(':id')
   @ApiOperation({
     summary: 'حذف محصول از سبد خرید',
-    description: 'یک محصول خاص از سبد خرید کاربر حذف می‌شود.',
+    description: 'یک محصول خاص از سبد خرید کاربر حذف می‌ شود.',
   })
   remove(@Param('id') id: string, @UserInfo('userId') userId: string) {
     return this.cartService.remove(id, userId);

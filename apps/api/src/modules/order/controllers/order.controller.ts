@@ -1,4 +1,5 @@
 import { RolesDecorator } from '@common/decorators/roles.decorator';
+import { UserInfo } from '@common/decorators/user.decorator';
 import { Roles } from '@common/enums/role-app.enum';
 import {
   Body,
@@ -9,7 +10,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiOperation } from '@nestjs/swagger';
 import { CreateOrderDto } from '../dto/create-order.dto';
 import { UpdateOrderDto } from '../dto/update-order.dto';
 import { OrderService } from '../services/order.service';
@@ -23,18 +24,21 @@ export class OrderController {
     summary: 'ثبت سفارش جدید',
     description: 'سفارش جدید توسط کاربر ثبت می‌ شود.',
   })
-  create(@Body() createOrderDto: CreateOrderDto) {
-    return this.orderService.create(createOrderDto);
+  create(
+    @Body() createOrderDto: CreateOrderDto,
+    @UserInfo('userId') id: string,
+  ) {
+    return this.orderService.create(createOrderDto, id);
   }
 
   @Get('my')
   @RolesDecorator(Roles.USER)
   @ApiOperation({
-    summary: 'لیست سفارش‌های من',
+    summary: 'لیست سفارش‌ های من',
     description: 'لیست تمام سفارش‌ های کاربر لاگین‌ شده را برمی‌ گرداند.',
   })
-  findMyOrders() {
-    return this.orderService.findMyOrders();
+  findMyOrders(@UserInfo('userId') id: string) {
+    return this.orderService.findMyOrders(id);
   }
 
   @Get('my/:id')
@@ -43,24 +47,14 @@ export class OrderController {
     summary: 'جزئیات سفارش من',
     description: 'جزئیات یک سفارش متعلق به کاربر را برمی‌ گرداند.',
   })
-  findMyOne(@Param('id') id: string) {
-    return this.orderService.findMyOne(id);
-  }
-
-  @Patch('my/:id/cancel')
-  @RolesDecorator(Roles.USER)
-  @ApiOperation({
-    summary: 'لغو سفارش',
-    description: 'کاربر می‌تواند سفارش خود را در وضعیت pending لغو کند.',
-  })
-  cancelMyOrder(@Param('id') id: string) {
-    return this.orderService.cancelMyOrder(id);
+  findMyOne(@Param('id') id: string, @UserInfo('userId') userId: string) {
+    return this.orderService.findMyOne(id, userId);
   }
 
   @Get()
   @RolesDecorator(Roles.OWNER, Roles.ADMIN)
   @ApiOperation({
-    summary: 'لیست همه سفارش‌ها',
+    summary: 'لیست همه سفارش‌ ها',
     description: 'لیست تمام سفارش‌ های سیستم را برای ادمین برمی‌ گرداند.',
   })
   findAll() {

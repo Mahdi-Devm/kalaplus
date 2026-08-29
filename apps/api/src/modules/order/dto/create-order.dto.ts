@@ -24,8 +24,11 @@ export class CreateOrderDto {
   items: CreateOrderItemDto[];
 
   @IsString()
-  address?: string;
+  address: string;
 
-  @IsString()
-  phone?: string;
+  @IsString({ message: 'شماره تلفن الزامی هست' })
+  phone: string;
+
+  @IsString({ message: 'کد پستی الزامی هست' })
+  trackingCode: string;
 }

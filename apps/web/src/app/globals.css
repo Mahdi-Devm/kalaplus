@@ -134,7 +134,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-secondary text-foreground font-sans;
+    @apply text-foreground font-sans;
   }
 }
 .pages-container {

@@ -1,5 +1,7 @@
 import { rubik } from "@/core/assets/style/fonts/font";
 import type { Metadata } from "next";
+import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "sonner";
 import "./globals.css";
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -13,8 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${rubik.variable} ${rubik.variable}`}>
-        <div>{children}</div>
+      <body className={`${rubik.variable} ${rubik.variable} antialiased`}>
+        <NextTopLoader color="#dd5c34" />
+        <Toaster />
+        {children}
       </body>
     </html>
   );

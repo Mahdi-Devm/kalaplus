@@ -1,6 +1,5 @@
 import { BaseEntity } from '@common/abstracts/base.entity';
-import { Cart } from 'src/modules/cart/entities/cart.entity';
-import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { Category } from './category.entity';
 
 @Entity()
@@ -47,7 +46,4 @@ export class Product extends BaseEntity {
   category: Category;
   @Column({ type: 'uuid', nullable: true })
   categoryId: string;
-
-  @OneToMany(() => Cart, (cart) => cart.productId)
-  carts: Cart[];
 }

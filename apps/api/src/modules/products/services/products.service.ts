@@ -1,4 +1,8 @@
-import { BadRequestException, Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import {
   FilterOperator,
@@ -103,7 +107,7 @@ export class ProductsService {
       where: { id },
     });
     if (!isProduct) {
-      throw new BadRequestException('محصول یافت نشد');
+      throw new NotFoundException('محصول یافت نشد');
     }
     return isProduct;
   }

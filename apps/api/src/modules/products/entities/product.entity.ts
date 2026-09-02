@@ -1,5 +1,6 @@
 import { BaseEntity } from '@common/abstracts/base.entity';
-import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
+import { Like } from 'src/modules/like/entities/like.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
 import { Category } from './category.entity';
 
 @Entity()
@@ -38,6 +39,9 @@ export class Product extends BaseEntity {
   // تعداد فروخته شده
   @Column({ default: 0 })
   sold: number;
+
+  @OneToMany(() => Like, (like) => like.product)
+  likes: Like[];
 
   @ManyToOne(() => Category, (category) => category.products, {
     onDelete: 'SET NULL',

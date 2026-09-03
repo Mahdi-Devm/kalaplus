@@ -1,5 +1,5 @@
 import { ListItemTypograph, TypographyTs } from "@/assets/@types/Typography";
-import { cn } from "@/lib/utils";
+import { cn } from "@/core/utils/shadcn/utils";
 import { HTMLAttributes } from "react";
 
 function Big({ children, className: className }: TypographyTs) {

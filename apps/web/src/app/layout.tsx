@@ -14,7 +14,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="fa" suppressHydrationWarning dir="rtl">
       <body className={`${rubik.variable} ${rubik.variable} antialiased`}>
         <NextTopLoader color="#dd5c34" />
         <Toaster />

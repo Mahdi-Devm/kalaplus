@@ -21,7 +21,8 @@
     "baseUrl": "src",
     "paths": {
       "@/*": ["./*"],
-      "@/core/*": ["core/*"]
+      "@/core/*": ["core/*"],
+      "@/components/*": ["core/components/*"]
     }
   },
   "include": [

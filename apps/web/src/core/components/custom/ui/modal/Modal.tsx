@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/shadcn/ui/dialog/dialog";
-import { cn } from "@/lib/utils";
+import { cn } from "@/core/utils/shadcn/utils";
 function Modal({
   children,
   title,

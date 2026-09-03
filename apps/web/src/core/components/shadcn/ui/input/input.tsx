@@ -1,4 +1,4 @@
-import { cn } from "@/lib/utils";
+import { cn } from "@/core/utils/shadcn/utils";
 import * as React from "react";
 
 type InputProps = React.ComponentProps<"input"> & {

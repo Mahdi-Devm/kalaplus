@@ -13,7 +13,7 @@ export class Like extends BaseEntity {
 
   @ManyToOne(() => User, (user) => user.likes)
   @JoinColumn({ name: 'userId' })
-  user: Product;
+  user: User;
 
   @Column()
   userId: string;

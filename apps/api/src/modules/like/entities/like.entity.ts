@@ -1,3 +1,4 @@
+import { User } from '@auth/entities/user.entity';
 import { BaseEntity } from '@common/abstracts/base.entity';
 import { Product } from 'src/modules/products/entities/product.entity';
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
@@ -9,4 +10,11 @@ export class Like extends BaseEntity {
 
   @Column()
   productId: string;
+
+  @ManyToOne(() => User, (user) => user.likes)
+  @JoinColumn({ name: 'userId' })
+  user: Product;
+
+  @Column()
+  userId: string;
 }

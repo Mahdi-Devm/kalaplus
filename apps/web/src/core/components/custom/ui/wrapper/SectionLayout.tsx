@@ -3,13 +3,13 @@ import type { ReactNode } from "react";
 
 function SectionLayout({
   children,
-  classname,
+  className,
 }: {
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }) {
   return (
-    <section className={`section-layout ${classname ? classname : ""}`}>
+    <section className={`section-layout ${className ? className : ""}`}>
       <PagesContainer>{children}</PagesContainer>
     </section>
   );

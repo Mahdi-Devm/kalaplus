@@ -1,60 +1,68 @@
 "use client";
+
 import Modal from "@/core/components/custom/ui/modal/Modal";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Button } from "@/core/components/shadcn/ui/button/button";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/core/components/shadcn/ui/input-otp/input-otp";
-import { Input } from "@/core/components/shadcn/ui/input/input";
-import Form from "next/form";
+
 import { Activity, useState } from "react";
-import { useFormStatus } from "react-dom";
+import { toast } from "sonner";
+
 import { UserIconHeader } from "../../../../../../public/common/img/header/userIconHeader";
-import { SubmitOTPButton } from "../../utils/SubmitOTPButton";
-import { SubmitPhoneButton } from "../../utils/SubmitPhoneButton";
+import { useAuth } from "../../hook/useAuth";
+import { OtpForm } from "../ui/OtpForm";
+import { PhoneForm } from "../ui/PhoneForm";
 
 function AuthComponents() {
-  const [open, setopen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [phone, setPhone] = useState("");
   const [otp, setOtp] = useState("");
-  const [isOtpSent, setIsOtpSent] = useState(false);
 
-  function handleSendOTP(formData: FormData) {
+  const {
+    phone,
+    isOtpSent,
+    requestLoading,
+    verifyLoading,
+    sendOtp,
+    verifyOtp,
+    resetAuth,
+    setPhone,
+  } = useAuth();
+
+  async function handleSendOTP(formData: FormData) {
     const phoneValue = formData.get("phone") as string;
-    if (phoneValue?.trim()) {
-      console.log("Sending OTP to:", phoneValue);
-      setPhone(phoneValue);
-      setIsOtpSent(true);
-    }
+
+    await sendOtp(phoneValue);
   }
 
-  function handleVerifyOTP(formData: FormData) {
+  async function handleVerifyOTP(formData: FormData) {
     const otpValue = formData.get("otp") as string;
-    if (otpValue?.length === 6) {
-      setopen(false);
-      setTimeout(() => {
-        setIsOtpSent(false);
-        setOtp("");
-        setPhone("");
-      }, 300);
+
+    if (otpValue.length !== 5) {
+      toast.error("کد تایید باید ۵ رقم باشد");
+      return;
     }
+
+    const success = await verifyOtp(otpValue);
+
+    if (!success) return;
+
+    setOpen(false);
+    setOtp("");
+    resetAuth();
   }
 
   function handleBack() {
-    setIsOtpSent(false);
     setOtp("");
+    resetAuth();
   }
 
   function handleOpenChange(isOpen: boolean) {
-    setopen(isOpen);
+    setOpen(isOpen);
+
     if (!isOpen) {
       setTimeout(() => {
-        setIsOtpSent(false);
         setOtp("");
-        setPhone("");
+        resetAuth();
       }, 300);
     }
   }
@@ -63,7 +71,7 @@ function AuthComponents() {
     <Modal
       open={open}
       onOpenChange={handleOpenChange}
-      hideDefaultFooter={true}
+      hideDefaultFooter
       size="md"
       title={isOtpSent ? "تایید کد" : "ثبت نام"}
       description={
@@ -74,73 +82,30 @@ function AuthComponents() {
       trigger={
         <Button variant="secondary" className="bg-gray-200 hover:text-white">
           <UserIconHeader />
+
           <Span className="font-medium">حساب کاربری</Span>
         </Button>
       }
     >
       <Activity mode={isOtpSent ? "hidden" : "visible"}>
-        <Form action={handleSendOTP}>
-          <Input
-            placeholder="09924164032"
-            label="شماره تلفن"
-            name="phone"
-            value={phone}
-            onChange={(e) => setPhone(e.target.value)}
-            dir="ltr"
-          />
-          <div className="mt-4">
-            <label
-              htmlFor="remember-me"
-              className="flex items-center gap-3 cursor-pointer select-none"
-            >
-              <input
-                id="remember-me"
-                type="checkbox"
-                checked={rememberMe}
-                onChange={(e) => setRememberMe(e.target.checked)}
-                style={{ accentColor: "var(--primary)" }}
-                className="w-4 h-4 text-primary focus:ring-primary focus:ring-1 cursor-pointer"
-              />
-              <Span className="text-sm">مرا به خاطر بسپار</Span>
-            </label>
-          </div>
-          <SubmitPhoneButton />
-        </Form>
+        <PhoneForm
+          phone={phone}
+          loading={requestLoading}
+          rememberMe={rememberMe}
+          onPhoneChange={setPhone}
+          onRememberMeChange={setRememberMe}
+          onSubmit={handleSendOTP}
+        />
       </Activity>
 
       <Activity mode={isOtpSent ? "visible" : "hidden"}>
-        <Form action={handleVerifyOTP}>
-          <div className="space-y-4">
-            <div className="flex justify-center">
-              <InputOTP
-                maxLength={6}
-                value={otp}
-                onChange={(value) => setOtp(value)}
-              >
-                <InputOTPGroup>
-                  <InputOTPSlot index={0} />
-                  <InputOTPSlot index={1} />
-                  <InputOTPSlot index={2} />
-                  <InputOTPSlot index={3} />
-                  <InputOTPSlot index={4} />
-                  <InputOTPSlot index={5} />
-                </InputOTPGroup>
-              </InputOTP>
-            </div>
-            <div className="flex gap-3">
-              <Button
-                type="button"
-                variant="outline"
-                className="flex-1"
-                onClick={handleBack}
-                disabled={useFormStatus().pending}
-              >
-                ویرایش شماره
-              </Button>
-              <SubmitOTPButton />
-            </div>
-          </div>
-        </Form>
+        <OtpForm
+          otp={otp}
+          loading={verifyLoading}
+          onOtpChange={setOtp}
+          onBack={handleBack}
+          onSubmit={handleVerifyOTP}
+        />
       </Activity>
     </Modal>
   );

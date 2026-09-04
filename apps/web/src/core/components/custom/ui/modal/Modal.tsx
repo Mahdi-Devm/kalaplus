@@ -10,6 +10,16 @@ import {
   DialogTrigger,
 } from "@/components/shadcn/ui/dialog/dialog";
 import { cn } from "@/core/utils/shadcn/utils";
+import { X } from "lucide-react";
+type ModalSize = "sm" | "md" | "lg" | "xl" | "full";
+const sizeClasses: Record<ModalSize, string> = {
+  sm: "sm:max-w-sm",
+  md: "sm:max-w-md",
+  lg: "sm:max-w-lg",
+  xl: "sm:max-w-2xl",
+  full: "sm:max-w-[95vw] md:max-w-[90vw] lg:max-w-[85vw]",
+};
+
 function Modal({
   children,
   title,
@@ -21,6 +31,7 @@ function Modal({
   footer,
   className,
   hideDefaultFooter = false,
+  size = "xl",
 }: Readonly<{
   trigger?: React.ReactNode;
   description?: string;
@@ -32,18 +43,22 @@ function Modal({
   footer?: React.ReactNode;
   className?: string;
   hideDefaultFooter?: boolean;
+  size?: ModalSize;
 }>) {
+  const getSizeClass = () => {
+    return sizeClasses[size] || sizeClasses.xl;
+  };
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
         {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
-        <DialogContent className={cn("sm:max-w-2xl", className)}>
+        <DialogContent className={cn(getSizeClass(), className)}>
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             <DialogDescription>{description}</DialogDescription>
           </DialogHeader>
 
-          <div className="mt-4">{children}</div>
+          {children}
           {!hideDefaultFooter && (
             <DialogFooter className="mt-6">
               {footer ? (
@@ -61,8 +76,9 @@ function Modal({
             </DialogFooter>
           )}
           {showCloseButton && (
-            <DialogClose className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none">
-              <span className="sr-only">لغو کردن</span>×
+            <DialogClose className="absolute left-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none">
+              <span className="sr-only">لغو کردن</span>
+              <X size={"15"} />
             </DialogClose>
           )}
         </DialogContent>

@@ -1,6 +1,6 @@
+import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { H2, P } from "@/core/components/custom/ui/typography/Typography";
 import { Button } from "@/core/components/shadcn/ui/button/button";
-import Image from "next/image";
 import Link from "next/link";
 import { CiChat2, CiShoppingBasket } from "react-icons/ci";
 function AboutHero() {
@@ -46,7 +46,7 @@ function AboutHero() {
         <div className="relative aspect-square w-full max-w-md mx-auto">
           <div className="absolute inset-0 bg-linear-to-br from-primary/10 to-secondary/20 rounded-3xl" />
           <div className="absolute inset-2 bg-background rounded-2xl shadow-xl flex items-center justify-center overflow-hidden">
-            <Image
+            <ImgNormalCustom
               src="/common/img/about/images.jfif"
               alt="فروشگاه کالا پلاس"
               width={500}

@@ -12,23 +12,8 @@ import Form from "next/form";
 import { Activity, useState } from "react";
 import { useFormStatus } from "react-dom";
 import { UserIconHeader } from "../../../../../../public/common/img/header/userIconHeader";
-function SubmitPhoneButton() {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" className="w-full mt-6" disabled={pending}>
-      {pending ? "در حال ارسال..." : "ارسال کد تایید"}
-    </Button>
-  );
-}
-
-function SubmitOTPButton() {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" className="flex-1" disabled={pending}>
-      {pending ? "در حال تایید..." : "تایید کد"}
-    </Button>
-  );
-}
+import { SubmitOTPButton } from "../../utils/SubmitOTPButton";
+import { SubmitPhoneButton } from "../../utils/SubmitPhoneButton";
 
 function AuthComponents() {
   const [open, setopen] = useState(false);

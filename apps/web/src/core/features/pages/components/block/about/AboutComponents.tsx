@@ -5,11 +5,11 @@ import AboutValues from "../../ui/about/AboutValues";
 
 function AboutComponents() {
   return (
-    <SectionLayout>
+    <>
       <AboutHero />
       <AboutValues />
       <AboutBrands />
-    </SectionLayout>
+    </>
   );
 }
 

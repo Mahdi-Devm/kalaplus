@@ -1,0 +1,309 @@
+schema @transport(subgraph: "NestJS", kind: "rest", location: "http://localhost:3001") {
+  query: Query
+  mutation: Mutation
+}
+
+directive @enum(subgraph: String, value: String) on ENUM_VALUE
+
+directive @length(subgraph: String, min: Int, max: Int) on SCALAR
+
+directive @httpOperation(subgraph: String, path: String, operationSpecificHeaders: [[String]], httpMethod: HTTPMethod, isBinary: Boolean, requestBaseBody: ObjMap, queryParamArgMap: ObjMap, queryStringOptionsByParam: ObjMap, jsonApiFields: Boolean, queryStringOptions: ObjMap) on FIELD_DEFINITION
+
+directive @transport(subgraph: String, kind: String, location: String, headers: [[String]], queryStringOptions: ObjMap, queryParams: [[String]]) repeatable on SCHEMA
+
+type Query {
+  """همه محصولات را با اطلاعات کامل شامل موجودی و قیمت دقیق نمایش می‌دهد."""
+  ProductsController_listForAdmin(
+    page: Float
+    limit: Float
+    search: String
+    """Filter by categoryId using operators like $eq, $gte, etc."""
+    filter_categoryId: String
+    """Filter by price using operators like $eq, $gte, etc."""
+    filter_price: String
+    """Filter by discountPercent using operators like $eq, $gte, etc."""
+    filter_discountPercent: String
+    sortBy: [String]
+  ): PaginateProductResponse @httpOperation(subgraph: "NestJS", path: "/products/admin/list", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET, queryParamArgMap: "{\"page\":\"page\",\"limit\":\"limit\",\"search\":\"search\",\"filter.categoryId\":\"filter_categoryId\",\"filter.price\":\"filter_price\",\"filter.discountPercent\":\"filter_discountPercent\",\"sortBy\":\"sortBy\"}", queryStringOptionsByParam: "{\"sortBy\":{\"arrayFormat\":\"repeat\",\"destructObject\":true}}")
+  """محصولات با قیمت‌های تخفیف‌ خورده (اگر تخفیف داشته باشند)."""
+  ProductsController_listForUser(
+    page: Float
+    limit: Float
+    search: String
+    """Filter by categoryId using operators like $eq, $gte, etc."""
+    filter_categoryId: String
+    """Filter by price using operators like $eq, $gte, etc."""
+    filter_price: String
+    sortBy: [String]
+  ): PaginateProductResponse @httpOperation(subgraph: "NestJS", path: "/products/user/list", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET, queryParamArgMap: "{\"page\":\"page\",\"limit\":\"limit\",\"search\":\"search\",\"filter.categoryId\":\"filter_categoryId\",\"filter.price\":\"filter_price\",\"sortBy\":\"sortBy\"}", queryStringOptionsByParam: "{\"sortBy\":{\"arrayFormat\":\"repeat\",\"destructObject\":true}}")
+  """اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف."""
+  ProductsController_findOne(id: String!): Product @httpOperation(subgraph: "NestJS", path: "/products/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+  """دریافت همه دسته‌ بندی‌ ها"""
+  CategoriesController_findAll: [Category] @httpOperation(subgraph: "NestJS", path: "/categories", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+  """دریافت یک دسته‌ بندی"""
+  CategoriesController_findOne(id: String!): Category @httpOperation(subgraph: "NestJS", path: "/categories/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+  """دریافت دسته‌ بندی با اسلاگ"""
+  CategoriesController_findBySlug(slug: String!): Category @httpOperation(subgraph: "NestJS", path: "/categories/slug/{args.slug}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+  """لیست تمام سفارش‌ های سیستم را برای ادمین برمی‌ گرداند."""
+  OrderController_findAll: [Order] @httpOperation(subgraph: "NestJS", path: "/order", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+  """لیست تمام سفارش‌ های کاربر لاگین‌ شده را برمی‌ گرداند."""
+  OrderController_findMyOrders: [Order] @httpOperation(subgraph: "NestJS", path: "/order/my", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+  """جزئیات یک سفارش متعلق به کاربر را برمی‌ گرداند."""
+  OrderController_findMyOne(id: String!): Order @httpOperation(subgraph: "NestJS", path: "/order/my/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+  """جزئیات یک سفارش خاص را برای ادمین برمی‌ گرداند."""
+  OrderController_findOne(id: String!): Order @httpOperation(subgraph: "NestJS", path: "/order/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+  LikeController_findAll: [Like] @httpOperation(subgraph: "NestJS", path: "/like", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+  LikeController_findOne(id: String!): Like @httpOperation(subgraph: "NestJS", path: "/like/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
+}
+
+type PaginateProductResponse {
+  meta: PaginationMetaDto!
+  links: PaginationLinkDto!
+  data: [Product]!
+}
+
+type PaginationMetaDto {
+  itemsPerPage: Float!
+  totalItems: Float
+  currentPage: Float
+  totalPages: Float
+  sortBy: [String]
+  search: String
+  filter: JSON
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON @specifiedBy(url: "http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf")
+
+type PaginationLinkDto {
+  first: String
+  previous: String
+  current: String!
+  next: String
+  last: String
+}
+
+type Product {
+  title: String!
+  shortDescription: String!
+  description: String!
+  price: Float!
+  slug: String!
+  mainImage: String!
+  images: [String]!
+  discountPercent: Float
+  discountPrice: Float
+  stock: Float!
+  sold: Float!
+  likes: [Like]!
+  category: Category!
+  categoryId: String!
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Like {
+  product: Product!
+  productId: String!
+  user: User!
+  userId: String!
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type User {
+  name: String!
+  role: mutation_CategoriesController_create_products_items_likes_items_user_role!
+  phone: String!
+  refreshToken: String!
+  orders: [Order]!
+  likes: [Like]!
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+enum mutation_CategoriesController_create_products_items_likes_items_user_role {
+  user
+  owner
+  admin
+}
+
+type Order {
+  user: User!
+  userId: String!
+  totalPrice: Float!
+  address: String
+  phone: String
+  trackingCode: String
+  items: [OrderItem]!
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type OrderItem {
+  order: Order!
+  orderId: String!
+  product: Product!
+  productId: String!
+  quantity: Float!
+  price: Float!
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+"""
+scalar DateTime
+
+type Category {
+  title: String!
+  slug: String!
+  image: String!
+  products: [Product]!
+  id: String!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Mutation {
+  AuthController_ReqOtp(input: RequestOtpDto_Input): JSON @httpOperation(subgraph: "NestJS", path: "/auth/request-otp", operationSpecificHeaders: [["Content-Type", "application/json"]], httpMethod: POST)
+  AuthController_VrifyOtp(input: VrifyOtpDto_Input): JSON @httpOperation(subgraph: "NestJS", path: "/auth/vrify-otp", operationSpecificHeaders: [["Content-Type", "application/json"]], httpMethod: POST)
+  AuthController_Refresh: JSON @httpOperation(subgraph: "NestJS", path: "/auth/refresh", httpMethod: POST)
+  AuthController_SummaryUser(input: SummaryUserDataDto_Input): JSON @httpOperation(subgraph: "NestJS", path: "/auth/summary-user", operationSpecificHeaders: [["Content-Type", "application/json"]], httpMethod: PATCH)
+  """فقط ادمین و مالک می‌توانند محصول جدید ایجاد کنند. تخفیف اختیاری است."""
+  ProductsController_create(input: CreateProductDto_Input): JSON @httpOperation(subgraph: "NestJS", path: "/products/creat", operationSpecificHeaders: [["Content-Type", "application/json"]], httpMethod: POST)
+  """همه فیلدهای محصول را بروزرسانی می‌کند. فیلدهای ارسال نشده حذف می‌شوند."""
+  ProductsController_updateProduct(id: String!, input: UpdateProductDto_Input): JSON @httpOperation(subgraph: "NestJS", path: "/products/{args.id}", operationSpecificHeaders: [["Content-Type", "application/json"]], httpMethod: PUT)
+  """
+  فقط فیلدهای ارسال شده را بروزرسانی می‌کند. بقیه فیلدها تغییری نمی‌کنند.
+  """
+  ProductsController_updateDetail(id: String!, input: UpdateProductDto_Input): JSON @httpOperation(subgraph: "NestJS", path: "/products/{args.id}", operationSpecificHeaders: [["Content-Type", "application/json"]], httpMethod: PATCH)
+  """
+  محصول را به‌طور کامل از دیتابیس حذف می‌کند. این عملیات غیرقابل بازگشت است!
+  """
+  ProductsController_remove(id: String!): JSON @httpOperation(subgraph: "NestJS", path: "/products/{args.id}", httpMethod: DELETE)
+  """ایجاد دسته‌ بندی جدید"""
+  CategoriesController_create(input: CreateCategoryDto_Input): Category @httpOperation(subgraph: "NestJS", path: "/categories", operationSpecificHeaders: [["Content-Type", "application/json"], ["accept", "application/json"]], httpMethod: POST)
+  """بروزرسانی دسته‌ بندی"""
+  CategoriesController_update(id: String!): Category @httpOperation(subgraph: "NestJS", path: "/categories/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: PUT)
+  """حذف دسته‌ بندی"""
+  CategoriesController_remove(id: String!): JSON @httpOperation(subgraph: "NestJS", path: "/categories/{args.id}", httpMethod: DELETE)
+  """آپلود چند عکس محصول (حداکثر ۵ عدد)"""
+  UploadController_uploadImages(input: UploadController_uploadImages_request_Input): JSON @httpOperation(subgraph: "NestJS", path: "/images/upload", operationSpecificHeaders: [["Content-Type", "multipart/form-data"]], httpMethod: POST)
+  """یک عکس را از سرور حذف می‌کند."""
+  UploadController_deleteImage(url: String!): JSON @httpOperation(subgraph: "NestJS", path: "/images/image", httpMethod: DELETE, queryParamArgMap: "{\"url\":\"url\"}")
+  """سفارش جدید توسط کاربر ثبت می‌ شود."""
+  OrderController_create(input: CreateOrderDto_Input): JSON @httpOperation(subgraph: "NestJS", path: "/order", operationSpecificHeaders: [["Content-Type", "application/json"]], httpMethod: POST)
+  """وضعیت، کد پیگیری و اطلاعات سفارش توسط ادمین بروزرسانی می‌شود."""
+  OrderController_update(id: String!, input: UpdateOrderDto_Input): JSON @httpOperation(subgraph: "NestJS", path: "/order/{args.id}", operationSpecificHeaders: [["Content-Type", "application/json"]], httpMethod: PATCH)
+  """یک سفارش توسط ادمین حذف می‌شود."""
+  OrderController_remove(id: String!): String @httpOperation(subgraph: "NestJS", path: "/order/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: DELETE)
+  LikeController_create(input: CreateLikeDto_Input): String @httpOperation(subgraph: "NestJS", path: "/like", operationSpecificHeaders: [["Content-Type", "application/json"], ["accept", "application/json"]], httpMethod: POST)
+  LikeController_remove(id: String!): String @httpOperation(subgraph: "NestJS", path: "/like/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: DELETE)
+}
+
+input RequestOtpDto_Input {
+  phone: String
+}
+
+input VrifyOtpDto_Input {
+  otp: mutationInput_AuthController_VrifyOtp_input_otp!
+  phone: String
+}
+
+scalar mutationInput_AuthController_VrifyOtp_input_otp @length(subgraph: "NestJS", min: 5, max: 5)
+
+input SummaryUserDataDto_Input {
+  fullName: String!
+}
+
+input CreateProductDto_Input {
+  title: mutationInput_ProductsController_create_input_title!
+  categoryId: String!
+  description: String!
+  slug: String!
+  mainImage: String!
+  images: [String]!
+  price: NonNegativeFloat!
+  discountPercent: NonNegativeFloat!
+  stock: NonNegativeFloat
+}
+
+scalar mutationInput_ProductsController_create_input_title @length(subgraph: "NestJS", min: 2, max: 30)
+
+"""Floats that will have a value of 0 or more."""
+scalar NonNegativeFloat
+
+input UpdateProductDto_Input {
+  title: mutationInput_ProductsController_updateProduct_input_title
+  categoryId: String
+  description: String
+  slug: String
+  mainImage: String
+  images: [String]
+  price: NonNegativeFloat
+  discountPercent: NonNegativeFloat
+  stock: NonNegativeFloat
+}
+
+scalar mutationInput_ProductsController_updateProduct_input_title @length(subgraph: "NestJS", min: 2, max: 30)
+
+input CreateCategoryDto_Input {
+  name: String!
+  slug: String!
+  image: String!
+}
+
+input UploadController_uploadImages_request_Input {
+  images: [File]
+}
+
+"""The `File` scalar type represents a file upload."""
+scalar File
+
+input CreateOrderDto_Input {
+  items: [CreateOrderItemDto_Input]!
+  address: String!
+  phone: String!
+  trackingCode: String!
+}
+
+input CreateOrderItemDto_Input {
+  productId: String!
+  quantity: PositiveFloat!
+}
+
+"""Floats that will have a value greater than 0."""
+scalar PositiveFloat
+
+input UpdateOrderDto_Input {
+  address: String!
+  phone: String!
+  trackingCode: String!
+}
+
+input CreateLikeDto_Input {
+  productId: String!
+}
+
+enum HTTPMethod {
+  GET
+  HEAD
+  POST
+  PUT
+  DELETE
+  CONNECT
+  OPTIONS
+  TRACE
+  PATCH
+}
+
+scalar ObjMap

@@ -15,7 +15,7 @@ export async function proxy(request: NextRequest) {
     if (refreshed) {
       return refreshed;
     }
-    return redirectToLogin(request);
+    return redirectToLogin();
   }
   return NextResponse.next();
 }

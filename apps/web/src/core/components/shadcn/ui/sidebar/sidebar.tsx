@@ -22,7 +22,7 @@ import {
 } from "@/components/shadcn/ui/tooltip/tooltip";
 import { PanelLeftIcon } from "lucide-react";
 import { useIsMobile } from "@/core/hooks/useIsMobile";
-import { cn } from ""@/core/utils/shadcn/utils";
+import { cn } from "@/core/utils/shadcn/utils";
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;

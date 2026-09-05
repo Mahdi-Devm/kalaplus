@@ -2,19 +2,12 @@ export const defaultNavItems = [
   { href: "/panel/admin", label: "داشبورد", icon: "🏠" },
   {
     href: "/panel/admin/order",
-    label: "فروشگاه",
+    label: "ساخت محصول",
     icon: "🛍️",
-    children: [
-      {
-        href: "/panel/admin/order/create",
-        label: "ساخت محصول",
-        icon: "👟",
-      },
-      {
-        href: "/panel/admin/order/list",
-        label: "لیست محصولات",
-        icon: "📋",
-      },
-    ],
+  },
+  {
+    href: "/panel/admin/order/list",
+    label: "لیست محصولات",
+    icon: "📋",
   },
 ];

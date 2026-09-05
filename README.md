@@ -9,7 +9,7 @@
 ### Frontend (`apps/web`)
 - **Next.js 16** + **React 19**
 - **GraphQL** با Apollo Client و GraphQL Mesh
-- **UI**: Radix UI + Tailwind CSS + Lucide Icons
+- **UI**: Radix UI + Tailwind CSS + Shadcn 
 - **Storybook** برای توسعه و تست کامپوننت‌ها
 - Feature-based Architecture
 

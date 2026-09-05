@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
-import { ProductType } from "../../../assets/@types/product/ProductTYpe";
+import { ProductType } from "../../../assets/@types/product/ProductType";
 import ModalCategory from "../order/modal/ModalCategory";
 import CardCategoryOrder from "./CardCategoryOrder";
 function CategoryAction({

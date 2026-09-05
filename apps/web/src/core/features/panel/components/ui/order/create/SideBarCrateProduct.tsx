@@ -1,4 +1,4 @@
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductTYpe";
+import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import { Dispatch, SetStateAction } from "react";
 import CategoryAction from "../../category/CategoryAction";
 import BtnSubmitProduct from "./BtnSubmitProduct";
@@ -21,7 +21,7 @@ function SideBarCrateProduct({
 
       <CategoryAction setForm={setForm} form={form} />
 
-      <BtnSubmitProduct />
+      <BtnSubmitProduct form={form} />
     </div>
   );
 }

@@ -23,6 +23,9 @@ export class CreateProductDto {
   description: string;
 
   @IsString()
+  shortDescription: string;
+
+  @IsString()
   slug: string;
 
   @IsString()

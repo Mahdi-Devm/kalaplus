@@ -1,5 +1,3 @@
-"use client";
-
 import FormCreateProduct from "../../../ui/order/create/FormCreateProduct";
 
 function OrderCreateComponents() {

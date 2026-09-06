@@ -11,10 +11,16 @@ import {
 import { Input } from "@/core/components/shadcn/ui/input/input";
 import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import { BASE_URL } from "@/core/lib/basic-link/BackendBasicLink";
+import { getErrorMessage } from "@/core/utils/getErrorMessage";
 import { Loader2, Plus, X } from "lucide-react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { toast } from "sonner";
-
+interface UploadJob {
+  jobId: string;
+  filename: string;
+  status: string;
+  url?: string;
+}
 function UploadProductImg({
   form,
   handleChange,
@@ -29,7 +35,7 @@ function UploadProductImg({
   const [uploadingMain, setUploadingMain] = useState(false);
   const [uploadingGallery, setUploadingGallery] = useState(false);
 
-  const uploadSingleImage = async (file: File): Promise<string> => {
+  const uploadSingleImage = async (file: File) => {
     const formData = new FormData();
     formData.append("images", file);
 
@@ -40,8 +46,6 @@ function UploadProductImg({
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error response:", errorText);
         throw new Error(`خطا در ارتباط با سرور: ${response.status}`);
       }
 
@@ -55,13 +59,12 @@ function UploadProductImg({
       }
 
       throw new Error("آدرس تصویر دریافت نشد");
-    } catch (error: any) {
-      console.error("خطا:", error);
-      throw new Error(error.message || "خطا در آپلود");
+    } catch (error) {
+      return toast.error(getErrorMessage(error));
     }
   };
 
-  const uploadMultipleImages = async (files: File[]): Promise<string[]> => {
+  const uploadMultipleImages = async (files: File[]) => {
     const formData = new FormData();
     files.forEach((file) => {
       formData.append("images", file);
@@ -82,7 +85,7 @@ function UploadProductImg({
       const result = await response.json();
 
       if (result.jobs && result.jobs.length > 0) {
-        return result.jobs.map((job: any) => {
+        return result.jobs.map((job: UploadJob) => {
           if (job.url) {
             return job.url;
           }
@@ -91,13 +94,12 @@ function UploadProductImg({
       }
 
       throw new Error("آدرس تصاویر دریافت نشد");
-    } catch (error: any) {
-      console.error("خطا:", error);
-      throw new Error(error.message || "خطا در آپلود");
+    } catch (error) {
+      return toast.error(getErrorMessage(error));
     }
   };
 
-  const handleDeleteImage = async (url: string): Promise<boolean> => {
+  const handleDeleteImage = async (url: string) => {
     try {
       const response = await fetch(`${BASE_URL}/images/delete`, {
         method: "DELETE",
@@ -110,9 +112,8 @@ function UploadProductImg({
 
       const result = await response.json();
       return result.success === true;
-    } catch (error: any) {
-      console.error("خطا:", error);
-      toast.error("خطا در حذف تصویر");
+    } catch (error) {
+      toast.error(getErrorMessage(error));
       return false;
     }
   };
@@ -131,9 +132,9 @@ function UploadProductImg({
       const realUrl = await uploadSingleImage(file);
       setForm((prev) => ({ ...prev, mainImage: realUrl }));
       toast.success("تصویر اصلی با موفقیت آپلود شد");
-    } catch (error: any) {
+    } catch (error) {
+      toast.error(getErrorMessage(error));
       setForm((prev) => ({ ...prev, mainImage: "" }));
-      toast.error(error.message || "خطا در آپلود تصویر اصلی");
     } finally {
       setUploadingMain(false);
     }
@@ -169,7 +170,7 @@ function UploadProductImg({
         const newImages = [...prev.images];
         const startIndex = newImages.length - tempUrls.length;
 
-        realUrls.forEach((url, index) => {
+        realUrls.forEach((url: string, index: number) => {
           newImages[startIndex + index] = url;
         });
 
@@ -177,12 +178,12 @@ function UploadProductImg({
       });
 
       toast.success(`${realUrls.length} تصویر با موفقیت آپلود شد`);
-    } catch (error: any) {
+    } catch (error) {
       setForm((prev) => ({
         ...prev,
         images: prev.images.slice(0, -tempUrls.length),
       }));
-      toast.error(error.message || "خطا در آپلود تصاویر گالری");
+      toast.error(getErrorMessage(error));
     } finally {
       setUploadingGallery(false);
     }

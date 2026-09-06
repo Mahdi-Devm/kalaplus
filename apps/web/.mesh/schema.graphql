@@ -229,6 +229,7 @@ input CreateProductDto_Input {
   title: mutationInput_ProductsController_create_input_title!
   categoryId: String!
   description: String!
+  shortDescription: String!
   slug: String!
   mainImage: String!
   images: [String]!
@@ -246,6 +247,7 @@ input UpdateProductDto_Input {
   title: mutationInput_ProductsController_updateProduct_input_title
   categoryId: String
   description: String
+  shortDescription: String
   slug: String
   mainImage: String
   images: [String]

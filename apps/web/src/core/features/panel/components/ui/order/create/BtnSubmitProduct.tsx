@@ -1,6 +1,6 @@
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
-import { CREATE_PRODUCT } from "@/core/features/panel/gql-shcema/createProductSchema";
+import { CREATE_PRODUCT } from "@/core/features/panel/gql-shcema/createProductSchema.gql";
 import {
   ProductZodFormData,
   productZodSchema,

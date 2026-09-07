@@ -8,7 +8,7 @@ function SearchInput({
   dely = 300,
 }: {
   title?: string;
-  dely: number;
+  dely?: number;
 }) {
   const searchParams = useSearchParams();
   const pathname = usePathname();

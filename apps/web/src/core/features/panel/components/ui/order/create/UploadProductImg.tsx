@@ -10,17 +10,12 @@ import {
 } from "@/core/components/shadcn/ui/card/card";
 import { Input } from "@/core/components/shadcn/ui/input/input";
 import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
-import { BASE_URL } from "@/core/lib/basic-link/BackendBasicLink";
-import { getErrorMessage } from "@/core/utils/getErrorMessage";
+import { useImageUpload } from "@/core/hooks/useImageUpload";
+import { getImageUrl } from "@/core/utils/getImageUrl";
 import { Loader2, Plus, X } from "lucide-react";
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
-interface UploadJob {
-  jobId: string;
-  filename: string;
-  status: string;
-  url?: string;
-}
+
 function UploadProductImg({
   form,
   handleChange,
@@ -32,117 +27,32 @@ function UploadProductImg({
   ) => void;
   setForm: Dispatch<SetStateAction<ProductType>>;
 }) {
-  const [uploadingMain, setUploadingMain] = useState(false);
-  const [uploadingGallery, setUploadingGallery] = useState(false);
+  const {
+    uploading,
+    uploadingMultiple,
+    uploadSingleImage,
+    uploadMultipleImages,
+    deleteImage,
+  } = useImageUpload();
 
-  const uploadSingleImage = async (file: File) => {
-    const formData = new FormData();
-    formData.append("images", file);
-
-    try {
-      const response = await fetch(`${BASE_URL}/images/upload`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        throw new Error(`خطا در ارتباط با سرور: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      if (result.jobs && result.jobs.length > 0) {
-        if (result.jobs[0].url) {
-          return result.jobs[0].url;
-        }
-        return `/uploads/products/${result.jobs[0].filename}`;
-      }
-
-      throw new Error("آدرس تصویر دریافت نشد");
-    } catch (error) {
-      return toast.error(getErrorMessage(error));
-    }
-  };
-
-  const uploadMultipleImages = async (files: File[]) => {
-    const formData = new FormData();
-    files.forEach((file) => {
-      formData.append("images", file);
-    });
-
-    try {
-      const response = await fetch(`${BASE_URL}/images/upload`, {
-        method: "POST",
-        body: formData,
-      });
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error("Error response:", errorText);
-        throw new Error(`خطا در ارتباط با سرور: ${response.status}`);
-      }
-
-      const result = await response.json();
-
-      if (result.jobs && result.jobs.length > 0) {
-        return result.jobs.map((job: UploadJob) => {
-          if (job.url) {
-            return job.url;
-          }
-          return `/uploads/products/${job.filename}`;
-        });
-      }
-
-      throw new Error("آدرس تصاویر دریافت نشد");
-    } catch (error) {
-      return toast.error(getErrorMessage(error));
-    }
-  };
-
-  const handleDeleteImage = async (url: string) => {
-    try {
-      const response = await fetch(`${BASE_URL}/images/delete`, {
-        method: "DELETE",
-        body: JSON.stringify({ url }),
-      });
-
-      if (!response.ok) {
-        throw new Error(`خطا در حذف: ${response.status}`);
-      }
-
-      const result = await response.json();
-      return result.success === true;
-    } catch (error) {
-      toast.error(getErrorMessage(error));
-      return false;
-    }
-  };
-
-  const handleMainImageUpload = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  async function handleMainImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
 
     const tempUrl = URL.createObjectURL(file);
     setForm((prev) => ({ ...prev, mainImage: tempUrl }));
 
-    setUploadingMain(true);
-    try {
-      const realUrl = await uploadSingleImage(file);
+    const realUrl = await uploadSingleImage(file);
+
+    if (realUrl) {
       setForm((prev) => ({ ...prev, mainImage: realUrl }));
       toast.success("تصویر اصلی با موفقیت آپلود شد");
-    } catch (error) {
-      toast.error(getErrorMessage(error));
+    } else {
       setForm((prev) => ({ ...prev, mainImage: "" }));
-    } finally {
-      setUploadingMain(false);
     }
-  };
+  }
 
-  const handleGalleryUpload = async (
-    e: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  async function handleGalleryUpload(e: React.ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
     if (!files || files.length === 0) return;
 
@@ -150,27 +60,26 @@ function UploadProductImg({
     const remainingSlots = MAX_IMAGES - form.images.length;
 
     if (files.length > remainingSlots) {
-      toast.error(
-        `حداکثر ${MAX_IMAGES} تصویر می‌توانید آپلود کنید (${remainingSlots} جای خالی)`,
-      );
+      toast.error(`حداکثر ${MAX_IMAGES} تصویر می‌توانید آپلود کنید`);
       return;
     }
 
-    const tempUrls = Array.from(files).map((file) => URL.createObjectURL(file));
+    const fileArray = Array.from(files);
+    const tempUrls = fileArray.map((file) => URL.createObjectURL(file));
+
     setForm((prev) => ({
       ...prev,
       images: [...prev.images, ...tempUrls],
     }));
 
-    setUploadingGallery(true);
-    try {
-      const realUrls = await uploadMultipleImages(Array.from(files));
+    const realUrls = await uploadMultipleImages(fileArray);
 
+    if (realUrls) {
       setForm((prev) => {
         const newImages = [...prev.images];
         const startIndex = newImages.length - tempUrls.length;
 
-        realUrls.forEach((url: string, index: number) => {
+        realUrls.forEach((url, index) => {
           newImages[startIndex + index] = url;
         });
 
@@ -178,21 +87,18 @@ function UploadProductImg({
       });
 
       toast.success(`${realUrls.length} تصویر با موفقیت آپلود شد`);
-    } catch (error) {
+    } else {
       setForm((prev) => ({
         ...prev,
         images: prev.images.slice(0, -tempUrls.length),
       }));
-      toast.error(getErrorMessage(error));
-    } finally {
-      setUploadingGallery(false);
     }
-  };
+  }
 
-  const removeGalleryImage = async (index: number) => {
+  async function removeGalleryImage(index: number) {
     const imageUrl = form.images[index];
 
-    const deleted = await handleDeleteImage(imageUrl);
+    const deleted = await deleteImage(imageUrl);
 
     if (deleted) {
       setForm((prev) => ({
@@ -201,17 +107,18 @@ function UploadProductImg({
       }));
       toast.success("تصویر حذف شد");
     }
-  };
+  }
 
-  const removeMainImage = async () => {
-    if (form.mainImage) {
-      const deleted = await handleDeleteImage(form.mainImage);
-      if (deleted) {
-        setForm((prev) => ({ ...prev, mainImage: "" }));
-        toast.success("تصویر اصلی حذف شد");
-      }
+  async function removeMainImage() {
+    if (!form.mainImage) return;
+
+    const deleted = await deleteImage(form.mainImage);
+
+    if (deleted) {
+      setForm((prev) => ({ ...prev, mainImage: "" }));
+      toast.success("تصویر اصلی حذف شد");
     }
-  };
+  }
 
   return (
     <Card>
@@ -221,6 +128,7 @@ function UploadProductImg({
           تصویر اصلی و گالری تصاویر (حداکثر ۵ عدد)
         </CardDescription>
       </CardHeader>
+
       <CardContent className="space-y-6">
         <div className="space-y-3">
           <div className="flex gap-2">
@@ -228,7 +136,7 @@ function UploadProductImg({
               name="mainImage"
               value={form.mainImage}
               onChange={handleChange}
-              label=" تصویر اصلی *"
+              label="تصویر اصلی "
               placeholder="https://..."
               className="text-left text-sm flex-1"
               dir="ltr"
@@ -240,15 +148,15 @@ function UploadProductImg({
                 accept="image/*"
                 className="absolute inset-0 opacity-0 cursor-pointer"
                 onChange={handleMainImageUpload}
-                disabled={uploadingMain}
+                disabled={uploading}
               />
               <Button
                 type="button"
                 variant="outline"
                 className="h-full px-4"
-                disabled={uploadingMain}
+                disabled={uploading}
               >
-                {uploadingMain ? (
+                {uploading ? (
                   <Loader2 className="size-4 animate-spin" />
                 ) : (
                   "آپلود"
@@ -260,10 +168,10 @@ function UploadProductImg({
           {form.mainImage && (
             <div className="relative w-28 h-28 rounded-xl overflow-hidden border group">
               <ImgNormalCustom
-                src={form.mainImage}
+                src={getImageUrl(form.mainImage)}
                 alt="main preview"
-                width={100}
-                height={100}
+                width={112}
+                height={112}
                 className="w-full h-full object-cover"
               />
               <button
@@ -294,10 +202,10 @@ function UploadProductImg({
                 className="relative aspect-square rounded-xl overflow-hidden border group"
               >
                 <ImgNormalCustom
-                  src={img}
+                  src={getImageUrl(img)}
                   alt={`gallery-${index}`}
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
                   className="w-full h-full object-cover"
                 />
                 <button
@@ -318,9 +226,9 @@ function UploadProductImg({
                   multiple
                   className="absolute inset-0 opacity-0 cursor-pointer"
                   onChange={handleGalleryUpload}
-                  disabled={uploadingGallery}
+                  disabled={uploadingMultiple}
                 />
-                {uploadingGallery ? (
+                {uploadingMultiple ? (
                   <Loader2 className="size-6 animate-spin text-muted-foreground" />
                 ) : (
                   <>

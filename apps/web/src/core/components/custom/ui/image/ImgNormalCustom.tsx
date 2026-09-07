@@ -23,6 +23,8 @@ function ImgNormalCustom({
   }
   const finalLoading = loading ?? (preload ? "eager" : "lazy");
   const placeholder = rest.blurDataURL ? "blur" : "empty";
+  const isLocalOrBlob =
+    src.startsWith("blob:") || src.includes("localhost") || src.startsWith("/");
   return (
     <Image
       src={src}
@@ -31,6 +33,7 @@ function ImgNormalCustom({
       placeholder={placeholder}
       width={width}
       height={height}
+      unoptimized={isLocalOrBlob}
       {...rest}
       loading={finalLoading}
     />

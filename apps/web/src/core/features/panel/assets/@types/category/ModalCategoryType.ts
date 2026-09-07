@@ -5,13 +5,20 @@ export type CategoryForm = {
   slug: string;
   image: string;
 };
-export type ModalCategoryProps = {
+export type ModalCategoryTs = {
   categories: CategoryProductType[];
   categoryForm: CategoryForm;
   setCategoryForm: Dispatch<SetStateAction<CategoryForm>>;
   editingCategory: CategoryProductType | null;
   setEditingCategory: Dispatch<SetStateAction<CategoryProductType | null>>;
   openCategoryModal: boolean;
+  setOpenCategoryModal: Dispatch<SetStateAction<boolean>>;
+  resetCategoryForm: () => void;
+};
+export type ModalFormCategoryTs = {
+  setCategoryForm: Dispatch<SetStateAction<CategoryForm>>;
+  categoryForm: CategoryForm;
+  editingCategory: CategoryProductType | null;
   setOpenCategoryModal: Dispatch<SetStateAction<boolean>>;
   resetCategoryForm: () => void;
 };

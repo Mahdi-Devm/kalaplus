@@ -21,7 +21,7 @@ function SideBarCrateProduct({
 
       <CategoryAction setForm={setForm} form={form} />
 
-      <BtnSubmitProduct form={form} />
+      <BtnSubmitProduct form={form} setForm={setForm} />
     </div>
   );
 }

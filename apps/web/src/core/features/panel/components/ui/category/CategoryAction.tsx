@@ -1,8 +1,12 @@
+import { useQuery } from "@apollo/client/react";
 import { Dispatch, SetStateAction, useState } from "react";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
+import { GetAllCategories } from "../../../assets/@types/category/GetAllCategories";
 import { ProductType } from "../../../assets/@types/product/ProductType";
+import { GET_ALL_CATEGORY } from "../../../gql-shcema/actionCategoryShema";
 import ModalCategory from "../order/modal/ModalCategory";
 import CardCategoryOrder from "./CardCategoryOrder";
+
 function CategoryAction({
   setForm,
   form,
@@ -13,23 +17,19 @@ function CategoryAction({
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [editingCategory, setEditingCategory] =
     useState<CategoryProductType | null>(null);
-  const [categories] = useState<CategoryProductType[]>([
-    { id: "1", name: "موبایل و تبلت", slug: "mobile-tablet", image: "" },
-    { id: "2", name: "لپ‌تاپ و کامپیوتر", slug: "laptop-pc", image: "" },
-    { id: "3", name: "لوازم جانبی", slug: "accessories", image: "" },
-  ]);
-
+  const { loading, error, data } = useQuery<GetAllCategories>(GET_ALL_CATEGORY);
+  const categories = data?.categories || [];
   const [categoryForm, setCategoryForm] = useState({
-    name: "",
+    title: "",
     slug: "",
     image: "",
   });
-
   function resetCategoryForm() {
-    setCategoryForm({ name: "", slug: "", image: "" });
+    setCategoryForm({ title: "", slug: "", image: "" });
     setEditingCategory(null);
   }
-
+  if (loading) return <div>در حال بارگذاری...</div>;
+  if (error) return <div>خطا: {error.message}</div>;
   return (
     <>
       <CardCategoryOrder

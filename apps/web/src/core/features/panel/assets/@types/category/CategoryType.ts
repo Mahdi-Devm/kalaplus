@@ -1,6 +1,6 @@
 export type CategoryProductType = {
   id?: string;
-  name: string;
+  title: string;
   slug: string;
   image?: string;
 };

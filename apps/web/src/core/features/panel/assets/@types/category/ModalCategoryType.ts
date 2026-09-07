@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 import { CategoryProductType } from "./CategoryType";
 export type CategoryForm = {
-  name: string;
+  title: string;
   slug: string;
   image: string;
 };

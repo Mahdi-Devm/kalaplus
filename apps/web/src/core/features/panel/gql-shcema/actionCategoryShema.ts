@@ -21,3 +21,16 @@ export const UPDATE_CATEGORY = gql`
     }
   }
 `;
+
+export const GET_ALL_CATEGORY = gql`
+  query GetAllCategories {
+    categories: CategoriesController_findAll {
+      id
+      title
+      slug
+      image
+      createdAt
+      updatedAt
+    }
+  }
+`;

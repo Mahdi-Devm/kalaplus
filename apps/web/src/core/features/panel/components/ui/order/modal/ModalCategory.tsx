@@ -20,7 +20,7 @@ function ModalCategory({
   function handleEditCategory(cat: CategoryProductType) {
     setEditingCategory(cat);
     setCategoryForm({
-      name: cat.name,
+      title: cat.name,
       slug: cat.slug,
       image: cat.image || "",
     });

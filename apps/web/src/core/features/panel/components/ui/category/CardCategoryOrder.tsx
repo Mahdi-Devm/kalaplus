@@ -29,6 +29,7 @@ function CardCategoryOrder({
   resetCategoryForm: () => void;
   setOpenCategoryModal: (v: boolean) => void;
 }) {
+  console.log(categories, "categories");
   return (
     <Card>
       <CardHeader>
@@ -51,7 +52,7 @@ function CardCategoryOrder({
             <SelectContent>
               {categories.map((cat) => (
                 <SelectItem key={cat.id} value={cat.id}>
-                  {cat.name}
+                  {cat.title}
                 </SelectItem>
               ))}
             </SelectContent>

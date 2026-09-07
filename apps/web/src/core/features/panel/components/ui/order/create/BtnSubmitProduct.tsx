@@ -32,6 +32,7 @@ function BtnSubmitProduct({ form }: { form: ProductType }) {
             slug: form.slug,
             categoryId: form.categoryId,
             description: form.description,
+            shortDescription: form.shortDescription,
             price: Number(form.price),
             discountPercent: Number(form.discountPercent) || 0,
             stock: Number(form.stock),

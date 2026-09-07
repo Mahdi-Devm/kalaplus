@@ -11,6 +11,7 @@ function FormCreateProduct() {
     slug: "",
     categoryId: "",
     description: "",
+    shortDescription: "",
     price: "",
     discountPercent: "",
     stock: "",

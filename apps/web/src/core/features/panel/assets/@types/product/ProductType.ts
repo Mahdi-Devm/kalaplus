@@ -3,6 +3,7 @@ export interface ProductType {
   slug: string;
   categoryId: string;
   description: string;
+  shortDescription: string;
   price: string;
   discountPercent: string;
   stock: string;

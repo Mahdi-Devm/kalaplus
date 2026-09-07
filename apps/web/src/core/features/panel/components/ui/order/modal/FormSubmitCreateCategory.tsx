@@ -59,7 +59,7 @@ function FormSubmitCreateCategory({
     const { name, value } = e.target;
     setCategoryForm((prev) => ({ ...prev, [name]: value }));
 
-    if (name === "name") {
+    if (name === "title") {
       const slug = value
         .trim()
         .toLowerCase()
@@ -69,7 +69,7 @@ function FormSubmitCreateCategory({
     }
   }
   async function handelSubmit() {
-    if (!categoryForm.name?.trim()) {
+    if (!categoryForm.title?.trim()) {
       toast.error("نام دسته‌بندی الزامی است");
       return;
     }
@@ -91,8 +91,8 @@ function FormSubmitCreateCategory({
           variables: {
             id: editingCategory.id,
             input: {
-              title: categoryForm,
-              slug: categoryForm,
+              title: categoryForm.title,
+              slug: categoryForm.slug,
               image: categoryForm.image,
             },
           },
@@ -102,8 +102,8 @@ function FormSubmitCreateCategory({
         await submitCategory({
           variables: {
             input: {
-              title: categoryForm,
-              slug: categoryForm,
+              title: categoryForm.title,
+              slug: categoryForm.slug,
               image: categoryForm.image,
             },
           },
@@ -120,8 +120,8 @@ function FormSubmitCreateCategory({
   return (
     <Form action={handelSubmit} className="space-y-3">
       <Input
-        name="name"
-        value={categoryForm.name}
+        name="title"
+        value={categoryForm.title}
         label="نام دسته‌بندی"
         onChange={handleCategoryFormChange}
         placeholder="مثلاً: موبایل"

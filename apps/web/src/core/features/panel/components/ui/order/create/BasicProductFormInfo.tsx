@@ -8,7 +8,7 @@ import {
 } from "@/core/components/shadcn/ui/card/card";
 import { Input } from "@/core/components/shadcn/ui/input/input";
 import { Textarea } from "@/core/components/shadcn/ui/Textarea/textarea";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductTYpe";
+import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 function BasicProductFormInfo({
   form,
   handleChange,
@@ -30,7 +30,7 @@ function BasicProductFormInfo({
         <Input
           id="title"
           name="title"
-          label="عنوان محصول *"
+          label="عنوان محصول "
           value={form.title}
           onChange={handleChange}
           placeholder="مثلاً: گوشی سامسونگ گلکسی S24"
@@ -54,6 +54,21 @@ function BasicProductFormInfo({
           </Small>
         </div>
 
+        <div className="space-y-2">
+          <label className="text-right block text-sm font-medium">
+            توضیحات کوتاه
+          </label>
+          <Textarea
+            id="shortDescription"
+            name="shortDescription"
+            value={form.shortDescription}
+            onChange={handleChange}
+            placeholder="    توضیحات کوتاه محصول را اینجا بنویسید..."
+            rows={5}
+            className="text-right resize-none"
+            dir="rtl"
+          />
+        </div>
         <div className="space-y-2">
           <label className="text-right block text-sm font-medium">
             توضیحات

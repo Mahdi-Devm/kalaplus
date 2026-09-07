@@ -20,7 +20,7 @@ function ModalCategory({
   function handleEditCategory(cat: CategoryProductType) {
     setEditingCategory(cat);
     setCategoryForm({
-      title: cat.name,
+      title: cat.title,
       slug: cat.slug,
       image: cat.image || "",
     });
@@ -55,7 +55,7 @@ function ModalCategory({
                 {cat.image ? (
                   <ImgNormalCustom
                     src={cat.image}
-                    alt={cat.name}
+                    alt={cat.title}
                     width={100}
                     height={100}
                     className="w-full h-full object-cover"
@@ -68,7 +68,7 @@ function ModalCategory({
               </div>
 
               <div className="text-right flex-1 min-w-0">
-                <P className="font-medium truncate text-sm">{cat.name}</P>
+                <P className="font-medium truncate text-sm">{cat.title}</P>
                 <P className="text-xs text-muted-foreground font-mono truncate">
                   {cat.slug}
                 </P>

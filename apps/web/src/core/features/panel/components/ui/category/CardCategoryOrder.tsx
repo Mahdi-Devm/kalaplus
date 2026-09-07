@@ -38,7 +38,7 @@ function CardCategoryOrder({
       <CardContent className="space-y-3">
         <div className="space-y-2">
           <label className="text-right block text-sm font-medium">
-            انتخاب دسته‌بندی *
+            انتخاب دسته‌بندی
           </label>
           <Select
             value={form.categoryId}

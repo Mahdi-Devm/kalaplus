@@ -3,10 +3,10 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import cookieParser from 'cookie-parser';
+import { join } from 'path';
 import dataSource from 'src/config/data-source';
 import { initSwagger } from 'src/config/swagger.config';
 import { AppModule } from './app.module';
-
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useGlobalPipes(
@@ -23,6 +23,10 @@ async function bootstrap() {
   });
 
   app.use(cookieParser());
+
+  app.useStaticAssets(join(process.cwd(), 'uploads'), {
+    prefix: '/uploads',
+  });
 
   await dataSource.initialize();
 

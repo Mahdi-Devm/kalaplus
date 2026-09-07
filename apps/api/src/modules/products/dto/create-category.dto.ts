@@ -2,7 +2,7 @@ import { IsString } from 'class-validator';
 
 export class CreateCategoryDto {
   @IsString()
-  name: string;
+  title: string;
 
   @IsString()
   slug: string;

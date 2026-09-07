@@ -298,6 +298,7 @@ export type MutationCategoriesController_createArgs = {
 
 export type MutationCategoriesController_updateArgs = {
   id: Scalars['String']['input'];
+  input?: InputMaybe<UpdateCategoryDto_Input>;
 };
 
 
@@ -381,7 +382,13 @@ export type UpdateProductDto_Input = {
 };
 
 export type CreateCategoryDto_Input = {
-  name: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+  image: Scalars['String']['input'];
+};
+
+export type UpdateCategoryDto_Input = {
+  title: Scalars['String']['input'];
   slug: Scalars['String']['input'];
   image: Scalars['String']['input'];
 };
@@ -536,6 +543,7 @@ export type ResolversTypes = ResolversObject<{
   UpdateProductDto_Input: UpdateProductDto_Input;
   mutationInput_ProductsController_updateProduct_input_title: ResolverTypeWrapper<Scalars['mutationInput_ProductsController_updateProduct_input_title']['output']>;
   CreateCategoryDto_Input: CreateCategoryDto_Input;
+  UpdateCategoryDto_Input: UpdateCategoryDto_Input;
   UploadController_uploadImages_request_Input: UploadController_uploadImages_request_Input;
   File: ResolverTypeWrapper<Scalars['File']['output']>;
   CreateOrderDto_Input: CreateOrderDto_Input;
@@ -576,6 +584,7 @@ export type ResolversParentTypes = ResolversObject<{
   UpdateProductDto_Input: UpdateProductDto_Input;
   mutationInput_ProductsController_updateProduct_input_title: Scalars['mutationInput_ProductsController_updateProduct_input_title']['output'];
   CreateCategoryDto_Input: CreateCategoryDto_Input;
+  UpdateCategoryDto_Input: UpdateCategoryDto_Input;
   UploadController_uploadImages_request_Input: UploadController_uploadImages_request_Input;
   File: Scalars['File']['output'];
   CreateOrderDto_Input: CreateOrderDto_Input;

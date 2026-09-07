@@ -17,7 +17,7 @@ function CategoryAction({
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [editingCategory, setEditingCategory] =
     useState<CategoryProductType | null>(null);
-  const { loading, error, data } = useQuery<GetAllCategories>(GET_ALL_CATEGORY);
+  const { loading, data } = useQuery<GetAllCategories>(GET_ALL_CATEGORY);
   const categories = data?.categories || [];
   const [categoryForm, setCategoryForm] = useState({
     title: "",
@@ -28,11 +28,11 @@ function CategoryAction({
     setCategoryForm({ title: "", slug: "", image: "" });
     setEditingCategory(null);
   }
-  if (loading) return <div>در حال بارگذاری...</div>;
-  if (error) return <div>خطا: {error.message}</div>;
+
   return (
     <>
       <CardCategoryOrder
+        loading={loading}
         categories={categories}
         resetCategoryForm={resetCategoryForm}
         form={form}

@@ -6,12 +6,13 @@ import {
   CREATE_CATEGORY,
   UPDATE_CATEGORY,
 } from "@/core/features/panel/gql-shcema/actionCategoryShema";
+import { categoryZodSchema } from "@/core/features/panel/zod/productSchema.zod";
 import { useImageUpload } from "@/core/hooks/useImageUpload";
+import { formatZodErrors } from "@/core/utils/formatZodErrors";
 import { getErrorMessage } from "@/core/utils/getErrorMessage";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import { useMutation } from "@apollo/client/react";
 import { Loader2, X } from "lucide-react";
-import Form from "next/form";
 import { toast } from "sonner";
 function FormSubmitCreateCategory({
   setCategoryForm,
@@ -68,32 +69,27 @@ function FormSubmitCreateCategory({
       setCategoryForm((prev) => ({ ...prev, slug }));
     }
   }
-  async function handelSubmit() {
-    if (!categoryForm.title?.trim()) {
-      toast.error("نام دسته‌بندی الزامی است");
-      return;
+  async function handelSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const result = categoryZodSchema.safeParse(categoryForm);
+    if (!result.success) {
+      return toast.error(formatZodErrors(result.error));
     }
-    if (!categoryForm.slug?.trim()) {
-      toast.error("اسلاگ الزامی است");
-      return;
-    }
-    if (!categoryForm.image?.trim()) {
-      toast.error("تصویر دسته‌بندی الزامی است");
-      return;
-    }
+
     if (categoryForm.image.startsWith("blob:")) {
       toast.error("لطفاً صبر کنید تا آپلود تصویر تمام شود");
       return;
     }
+    const zodV = result.data;
     try {
       if (editingCategory) {
         await updateCategory({
           variables: {
             id: editingCategory.id,
             input: {
-              title: categoryForm.title,
-              slug: categoryForm.slug,
-              image: categoryForm.image,
+              title: zodV.title,
+              slug: zodV.slug,
+              image: zodV.image,
             },
           },
         });
@@ -102,9 +98,9 @@ function FormSubmitCreateCategory({
         await submitCategory({
           variables: {
             input: {
-              title: categoryForm.title,
-              slug: categoryForm.slug,
-              image: categoryForm.image,
+              title: zodV.title,
+              slug: zodV.slug,
+              image: zodV.image,
             },
           },
         });
@@ -118,7 +114,7 @@ function FormSubmitCreateCategory({
     }
   }
   return (
-    <Form action={handelSubmit} className="space-y-3">
+    <form onSubmit={(e) => handelSubmit(e)} className="space-y-3">
       <Input
         name="title"
         value={categoryForm.title}
@@ -215,7 +211,7 @@ function FormSubmitCreateCategory({
           </Button>
         )}
       </div>
-    </Form>
+    </form>
   );
 }
 

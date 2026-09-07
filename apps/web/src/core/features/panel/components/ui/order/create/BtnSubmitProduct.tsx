@@ -2,9 +2,10 @@ import { Button } from "@/core/components/shadcn/ui/button/button";
 import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import { CREATE_PRODUCT } from "@/core/features/panel/gql-shcema/createProductSchema";
 import {
-  ProductFormData,
-  productSchema,
-} from "@/core/features/panel/zod/productSchema";
+  ProductZodFormData,
+  productZodSchema,
+} from "@/core/features/panel/zod/categorySchema.zod";
+
 import { formatZodErrors } from "@/core/utils/formatZodErrors";
 import { getErrorMessage } from "@/core/utils/getErrorMessage";
 import { useMutation } from "@apollo/client/react";
@@ -22,7 +23,7 @@ function BtnSubmitProduct({
   async function handelSubmit(e: React.FormEvent<HTMLButtonElement>) {
     e.preventDefault();
     try {
-      const formData: ProductFormData = {
+      const formData: ProductZodFormData = {
         title: form.title,
         slug: form.slug,
         categoryId: form.categoryId,
@@ -34,7 +35,7 @@ function BtnSubmitProduct({
         mainImage: form.mainImage,
         images: form.images || [],
       };
-      const result = productSchema.safeParse(formData);
+      const result = productZodSchema.safeParse(formData);
       if (!result.success) {
         return toast.error(formatZodErrors(result.error));
       }

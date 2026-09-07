@@ -22,14 +22,15 @@ function CardCategoryOrder({
   setForm,
   setOpenCategoryModal,
   form,
+  loading,
 }: {
   form: ProductType;
   setForm: Dispatch<SetStateAction<ProductType>>;
   categories: CategoryProductType[];
   resetCategoryForm: () => void;
   setOpenCategoryModal: (v: boolean) => void;
+  loading: boolean;
 }) {
-  console.log(categories, "categories");
   return (
     <Card>
       <CardHeader>
@@ -52,7 +53,7 @@ function CardCategoryOrder({
             <SelectContent>
               {categories.map((cat) => (
                 <SelectItem key={cat.id} value={cat.id}>
-                  {cat.title}
+                  {loading ? "درحال لود لیست" : cat.title}
                 </SelectItem>
               ))}
             </SelectContent>

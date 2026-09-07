@@ -1,7 +1,7 @@
 import { ZodNumber, ZodString } from "@/core/lib/zod/zod";
 import { z } from "zod/mini";
 
-export const productSchema = z.object({
+export const productZodSchema = z.object({
   title: ZodString({
     min: 3,
     max: 100,
@@ -49,4 +49,4 @@ export const productSchema = z.object({
   }),
   images: z.array(z.string()),
 });
-export type ProductFormData = z.infer<typeof productSchema>;
+export type ProductZodFormData = z.infer<typeof productZodSchema>;

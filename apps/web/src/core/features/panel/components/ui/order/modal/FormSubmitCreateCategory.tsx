@@ -5,7 +5,7 @@ import { ModalFormCategoryTs } from "@/core/features/panel/assets/@types/categor
 import {
   CREATE_CATEGORY,
   UPDATE_CATEGORY,
-} from "@/core/features/panel/gql-shcema/actionCategoryShema";
+} from "@/core/features/panel/gql-shcema/actionCategoryShema.gql";
 import { categoryZodSchema } from "@/core/features/panel/zod/productSchema.zod";
 import { useImageUpload } from "@/core/hooks/useImageUpload";
 import { formatZodErrors } from "@/core/utils/formatZodErrors";

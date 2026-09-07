@@ -1,12 +1,20 @@
-export function getErrorMessage(error: unknown): string {
-  if (error && typeof error === "object" && "errors" in error) {
-    return (error as { errors: string }).errors;
+export function getErrorMessage(error: any): string {
+  if (!error) return "خطای ناشناخته";
+  if (error.graphQLErrors && error.graphQLErrors.length > 0) {
+    return error.graphQLErrors[0].message || "خطای GraphQL";
   }
-  if (error instanceof Error) {
+
+  if (error.networkError) {
+    return error.networkError.message || "خطای شبکه";
+  }
+
+  if (typeof error === "object" && error.message) {
     return error.message;
   }
+
   if (typeof error === "string") {
     return error;
   }
-  return "خطا در ارتباط با سرور";
+
+  return "خطایی رخ داد";
 }

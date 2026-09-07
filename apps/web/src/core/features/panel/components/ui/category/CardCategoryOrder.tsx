@@ -15,7 +15,7 @@ import {
 import { Plus } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
-import { ProductType } from "../../../assets/@types/product/ProductTYpe";
+import { ProductType } from "../../../assets/@types/product/ProductType";
 function CardCategoryOrder({
   categories,
   resetCategoryForm,

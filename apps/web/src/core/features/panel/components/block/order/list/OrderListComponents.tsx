@@ -9,7 +9,7 @@ import {
 } from "@/core/features/panel/gql-shcema/ProductSchema.gql";
 import { getErrorMessage } from "@/core/utils/getErrorMessage";
 import { useMutation, useQuery } from "@apollo/client/react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import PaginationListFooter from "../../../ui/order/list/PaginationListFooter";
 import ProdctListHeader from "../../../ui/order/list/ProdctListHeader";
@@ -28,7 +28,7 @@ export default function OrderListComponents({
   limit: string;
   search: string;
 }) {
-  const { loading, data } = useQuery<GetProductsForAdminQuery>(
+  const { loading, data, refetch } = useQuery<GetProductsForAdminQuery>(
     GET_PRODUCTS_FOR_ADMIN,
     {
       variables: {
@@ -38,19 +38,14 @@ export default function OrderListComponents({
       },
     },
   );
-  const [updateProduct, { loading: updating }] = useMutation(UPDATE_PRODUCT);
+  const [updateProduct] = useMutation(UPDATE_PRODUCT);
   const [deleteProduct, { loading: deleting }] = useMutation(DELETE_PRODUCT);
-  const [products, setProducts] = useState<ProductType[]>([]);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
   const [selectedProduct, setSelectedProduct] = useState<ProductType | null>(
     null,
   );
-  useEffect(() => {
-    if (data?.products?.data) {
-      setProducts(data.products.data);
-    }
-  }, [data]);
+  const products = data?.products?.data ?? [];
   if (loading) return <OrderListSkeleton />;
 
   function handleEdit(product: ProductType) {
@@ -85,9 +80,10 @@ export default function OrderListComponents({
         },
       });
 
-      toast.success(`✅ "${updatedProduct.title}" با موفقیت ویرایش شد`);
+      toast.success(`با موفقیت ویرایش شد`);
       setEditModalOpen(false);
       setSelectedProduct(null);
+      await refetch();
     } catch (err) {
       toast.error(getErrorMessage(err));
     }
@@ -103,9 +99,10 @@ export default function OrderListComponents({
         },
       });
 
-      toast.success(`✅ "${selectedProduct.title}" با موفقیت حذف شد`);
+      toast.success(` با موفقیت حذف شد`);
       setDeleteModalOpen(false);
       setSelectedProduct(null);
+      await refetch();
     } catch (err) {
       toast.error(getErrorMessage(err));
     }

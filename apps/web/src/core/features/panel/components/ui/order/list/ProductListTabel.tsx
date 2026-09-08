@@ -13,19 +13,17 @@ import {
 import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import { formatDate } from "@/core/utils/formatDate";
 import { getImageUrl } from "@/core/utils/getImageUrl";
-import { Edit, Eye, Trash2 } from "lucide-react";
-
-interface ProductTableProps {
-  products: ProductType[];
-  onEdit: (product: ProductType) => void;
-  onDelete: (product: ProductType) => void;
-}
+import { Edit, Eye, PackageOpen, Trash2 } from "lucide-react";
 
 export default function ProductListTable({
   products,
   onEdit,
   onDelete,
-}: ProductTableProps) {
+}: {
+  products: ProductType[];
+  onEdit: (product: ProductType) => void;
+  onDelete: (product: ProductType) => void;
+}) {
   return (
     <div className="hidden md:block bg-white rounded-lg border overflow-hidden">
       <Table>
@@ -42,92 +40,104 @@ export default function ProductListTable({
             <TableHead className="text-left">عملیات</TableHead>
           </TableRow>
         </TableHeader>
+
         <TableBody>
-          {products.map((product, index) => {
-            const hasDiscount = Number(product.discountPercent) > 0;
-            const isInStock = Number(product.stock) > 0;
-
-            return (
-              <TableRow key={product.slug}>
-                <TableCell>{index + 1}</TableCell>
-
-                <TableCell>
-                  <div className="relative w-12 h-12 rounded overflow-hidden bg-gray-100">
-                    <ImgNormalCustom
-                      src={getImageUrl(product.mainImage)}
-                      alt={product.title}
-                      fill
-                      className="object-cover"
-                    />
+          {products.length === 0 ? (
+            <TableRow>
+              <TableCell colSpan={9} className="h-48">
+                <div className="flex flex-col items-center justify-center gap-3 text-center">
+                  <div className="flex items-center justify-center w-14 h-14 rounded-full bg-muted">
+                    <PackageOpen className="size-7 text-muted-foreground" />
                   </div>
-                </TableCell>
+                  <div>
+                    <p className="font-medium">محصولی یافت نشد</p>
+                    <p className="text-sm text-muted-foreground mt-1">
+                      هنوز محصولی ثبت نشده است.
+                    </p>
+                  </div>
+                </div>
+              </TableCell>
+            </TableRow>
+          ) : (
+            products.map((product, index) => {
+              const hasDiscount = Number(product.discountPercent) > 0;
+              const isInStock = Number(product.stock) > 0;
 
-                {/* عنوان */}
-                <TableCell className="font-medium max-w-40 truncate">
-                  {product.title}
-                </TableCell>
+              return (
+                <TableRow key={product.id || product.slug}>
+                  <TableCell>{index + 1}</TableCell>
 
-                {/* دسته‌بندی */}
-                <TableCell className="text-sm text-gray-600 max-w-32 truncate">
-                  {product.category?.title || (
-                    <Span className="text-gray-400">-</Span>
-                  )}
-                </TableCell>
+                  <TableCell>
+                    <div className="relative w-12 h-12 rounded overflow-hidden bg-gray-100">
+                      <ImgNormalCustom
+                        src={getImageUrl(product.mainImage)}
+                        alt={product.title}
+                        fill
+                        className="object-cover"
+                      />
+                    </div>
+                  </TableCell>
 
-                {/* قیمت */}
-                <TableCell className="font-semibold">
-                  {product.price} تومان
-                </TableCell>
+                  <TableCell className="font-medium max-w-40 truncate">
+                    {product.title}
+                  </TableCell>
 
-                {/* تخفیف */}
-                <TableCell>
-                  {hasDiscount ? (
-                    <Badge variant="destructive">
-                      {product.discountPercent}%
+                  <TableCell className="text-sm text-gray-600 max-w-32 truncate">
+                    {product.category?.title || (
+                      <Span className="text-gray-400">-</Span>
+                    )}
+                  </TableCell>
+
+                  <TableCell className="font-semibold">
+                    {Number(product.price)} تومان
+                  </TableCell>
+
+                  <TableCell>
+                    {hasDiscount ? (
+                      <Badge variant="destructive">
+                        {product.discountPercent}%
+                      </Badge>
+                    ) : (
+                      <Span className="text-gray-400">-</Span>
+                    )}
+                  </TableCell>
+
+                  <TableCell>
+                    <Badge variant={isInStock ? "default" : "destructive"}>
+                      {isInStock ? product.stock : "ناموجود"}
                     </Badge>
-                  ) : (
-                    <Span className="text-gray-400">-</Span>
-                  )}
-                </TableCell>
+                  </TableCell>
 
-                {/* موجودی */}
-                <TableCell>
-                  <Badge variant={isInStock ? "default" : "destructive"}>
-                    {isInStock ? product.stock : "ناموجود"}
-                  </Badge>
-                </TableCell>
+                  <TableCell className="text-sm text-gray-500">
+                    {formatDate(product.createdAt)}
+                  </TableCell>
 
-                {/* تاریخ ساخت */}
-                <TableCell className="text-sm text-gray-500">
-                  {formatDate(product.createdAt)}
-                </TableCell>
-
-                {/* عملیات */}
-                <TableCell>
-                  <div className="flex items-center gap-1">
-                    <Button size="sm" variant="ghost">
-                      <Eye className="size-4" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      onClick={() => onEdit(product)}
-                    >
-                      <Edit className="size-4" />
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="ghost"
-                      className="text-red-500 hover:text-red-700"
-                      onClick={() => onDelete(product)}
-                    >
-                      <Trash2 className="size-4" />
-                    </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            );
-          })}
+                  <TableCell>
+                    <div className="flex items-center gap-1">
+                      <Button size="sm" variant="ghost">
+                        <Eye className="size-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        onClick={() => onEdit(product)}
+                      >
+                        <Edit className="size-4" />
+                      </Button>
+                      <Button
+                        size="sm"
+                        variant="ghost"
+                        className="text-red-500 hover:text-red-700"
+                        onClick={() => onDelete(product)}
+                      >
+                        <Trash2 className="size-4" />
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              );
+            })
+          )}
         </TableBody>
       </Table>
     </div>

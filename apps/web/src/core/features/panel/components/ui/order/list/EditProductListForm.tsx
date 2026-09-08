@@ -12,7 +12,7 @@ interface EditProductFormProps {
   onCancel: () => void;
 }
 
-export default function EditProductForm({
+export default function EditProductListForm({
   product,
   onSubmit,
   onCancel,

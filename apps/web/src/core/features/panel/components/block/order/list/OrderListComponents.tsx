@@ -2,8 +2,13 @@
 
 import { GetProductsForAdminQuery } from "@/core/features/panel/assets/@types/product/GetProductsForAdminQuery";
 import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
-import { GET_PRODUCTS_FOR_ADMIN } from "@/core/features/panel/gql-shcema/ProductSchema.gql";
-import { useQuery } from "@apollo/client/react";
+import {
+  DELETE_PRODUCT,
+  GET_PRODUCTS_FOR_ADMIN,
+  UPDATE_PRODUCT,
+} from "@/core/features/panel/gql-shcema/ProductSchema.gql";
+import { getErrorMessage } from "@/core/utils/getErrorMessage";
+import { useMutation, useQuery } from "@apollo/client/react";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import PaginationListFooter from "../../../ui/order/list/PaginationListFooter";
@@ -33,6 +38,8 @@ export default function OrderListComponents({
       },
     },
   );
+  const [updateProduct, { loading: updating }] = useMutation(UPDATE_PRODUCT);
+  const [deleteProduct, { loading: deleting }] = useMutation(DELETE_PRODUCT);
   const [products, setProducts] = useState<ProductType[]>([]);
   const [editModalOpen, setEditModalOpen] = useState<boolean>(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState<boolean>(false);
@@ -56,21 +63,52 @@ export default function OrderListComponents({
     setDeleteModalOpen(true);
   }
 
-  function confirmDelete() {
+  async function confirmEdit(updatedProduct: ProductType) {
     if (!selectedProduct) return;
-    setProducts((prev) => prev.filter((p) => p.slug !== selectedProduct.slug));
-    toast.success(`✅ "${selectedProduct.title}" با موفقیت حذف شد`);
-    setDeleteModalOpen(false);
-    setSelectedProduct(null);
+
+    try {
+      await updateProduct({
+        variables: {
+          id: selectedProduct.id,
+          input: {
+            title: updatedProduct.title,
+            slug: updatedProduct.slug,
+            categoryId: updatedProduct.categoryId,
+            description: updatedProduct.description,
+            shortDescription: updatedProduct.shortDescription,
+            price: Number(updatedProduct.price),
+            discountPercent: Number(updatedProduct.discountPercent) || 0,
+            stock: Number(updatedProduct.stock),
+            mainImage: updatedProduct.mainImage,
+            images: updatedProduct.images,
+          },
+        },
+      });
+
+      toast.success(`✅ "${updatedProduct.title}" با موفقیت ویرایش شد`);
+      setEditModalOpen(false);
+      setSelectedProduct(null);
+    } catch (err) {
+      toast.error(getErrorMessage(err));
+    }
   }
 
-  function confirmEdit(updatedProduct: ProductType) {
-    setProducts((prev) =>
-      prev.map((p) => (p.slug === updatedProduct.slug ? updatedProduct : p)),
-    );
-    toast.success(`✅ "${updatedProduct.title}" با موفقیت ویرایش شد`);
-    setEditModalOpen(false);
-    setSelectedProduct(null);
+  async function confirmDelete() {
+    if (!selectedProduct) return;
+
+    try {
+      await deleteProduct({
+        variables: {
+          id: selectedProduct.id,
+        },
+      });
+
+      toast.success(`✅ "${selectedProduct.title}" با موفقیت حذف شد`);
+      setDeleteModalOpen(false);
+      setSelectedProduct(null);
+    } catch (err) {
+      toast.error(getErrorMessage(err));
+    }
   }
 
   return (
@@ -103,6 +141,7 @@ export default function OrderListComponents({
         onOpenChange={setDeleteModalOpen}
         selectedProduct={selectedProduct}
         onConfirm={confirmDelete}
+        loading={deleting}
       />
     </div>
   );

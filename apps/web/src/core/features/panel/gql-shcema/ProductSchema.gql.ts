@@ -5,6 +5,17 @@ export const CREATE_PRODUCT = gql`
     ProductsController_create(input: $input)
   }
 `;
+export const UPDATE_PRODUCT = gql`
+  mutation UpdateProduct($id: String!, $input: UpdateProductDto_Input!) {
+    ProductsController_updateDetail(id: $id, input: $input)
+  }
+`;
+
+export const DELETE_PRODUCT = gql`
+  mutation DeleteProduct($id: String!) {
+    ProductsController_remove(id: $id)
+  }
+`;
 export const GET_PRODUCTS_FOR_ADMIN = gql`
   query GetProductsForAdmin(
     $page: Float

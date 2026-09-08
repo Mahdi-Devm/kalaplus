@@ -11,6 +11,7 @@ interface DeleteConfirmationModalProps {
   onOpenChange: (open: boolean) => void;
   selectedProduct: ProductType | null;
   onConfirm: () => void;
+  loading?: boolean;
 }
 
 export default function DeletePListInfoModal({
@@ -18,6 +19,7 @@ export default function DeletePListInfoModal({
   onOpenChange,
   selectedProduct,
   onConfirm,
+  loading,
 }: DeleteConfirmationModalProps) {
   return (
     <Modal
@@ -33,18 +35,21 @@ export default function DeletePListInfoModal({
           این عملیات غیرقابل بازگشت است. پس از حذف، محصول قابل بازیابی نخواهد
           بود.
         </P>
-        {selectedProduct && (
-          <div className="mt-4 p-3 bg-gray-50 rounded-lg border">
-            <H4>{selectedProduct.title}</H4>
-            <Muted>{selectedProduct.slug}</Muted>
-          </div>
-        )}
+
         <div className="flex gap-2 w-full justify-end mt-4">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button
+            variant="outline"
+            onClick={() => onOpenChange(false)}
+            className="w-1/2"
+          >
             انصراف
           </Button>
-          <Button variant="destructive" onClick={onConfirm}>
-            حذف محصول
+          <Button
+            variant="destructive"
+            onClick={onConfirm}
+            className="text-white w-1/2"
+          >
+            {loading ? "در حال حذف..." : "حذف محصول"}
           </Button>
         </div>
       </div>

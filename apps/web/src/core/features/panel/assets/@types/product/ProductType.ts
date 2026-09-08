@@ -1,6 +1,7 @@
 import { CategoryProductType } from "../category/CategoryType";
 
 export interface ProductType {
+  id: string;
   title: string;
   slug: string;
   categoryId: string;

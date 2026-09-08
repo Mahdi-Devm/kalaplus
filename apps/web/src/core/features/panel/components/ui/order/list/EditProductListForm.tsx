@@ -5,6 +5,7 @@ import { Button } from "@/core/components/shadcn/ui/button/button";
 import { Input } from "@/core/components/shadcn/ui/input/input";
 import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import { getImageUrl } from "@/core/utils/getImageUrl";
+import Form from "next/form";
 import { useState } from "react";
 
 interface EditProductFormProps {
@@ -25,20 +26,19 @@ export default function EditProductListForm({
     stock: String(product.stock ?? ""),
   });
 
-  const handleChange = (
+  function handleChange(
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) => {
+  ) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
+  }
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  function handleSubmit() {
     onSubmit(formData);
-  };
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    <Form action={handleSubmit} className="space-y-4">
       <Input
         label="عنوان"
         name="title"
@@ -139,6 +139,6 @@ export default function EditProductListForm({
         </Button>
         <Button type="submit">ذخیره تغییرات</Button>
       </div>
-    </form>
+    </Form>
   );
 }

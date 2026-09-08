@@ -8,7 +8,7 @@ export default function PaginationListFooter({ total }: PaginationFooterProps) {
   return (
     <div className="flex items-center justify-between gap-4">
       <Muted>
-        نمایش ۱ تا {total} از {total} محصول
+        {total} از {total} محصول
       </Muted>
       <div>
         <Paginations />

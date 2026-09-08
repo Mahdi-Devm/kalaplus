@@ -11,7 +11,7 @@ export default function ProdctListHeader() {
       </div>
 
       <div className="flex items-center gap-3">
-        <SearchInput title="جستجوی محصول..." />
+        <SearchInput title="جستجوی محصول..." dely={500} />
         <Button className="whitespace-nowrap">
           <Plus className="size-4 ml-1" />
           محصول جدید

@@ -1,3 +1,4 @@
+import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import { Button } from "@/core/components/shadcn/ui/button/button";
@@ -10,8 +11,10 @@ import {
   TableRow,
 } from "@/core/components/shadcn/ui/table/table";
 import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
+import { formatDate } from "@/core/utils/formatDate";
+import { getImageUrl } from "@/core/utils/getImageUrl";
 import { Edit, Eye, Trash2 } from "lucide-react";
-import Image from "next/image";
+
 interface ProductTableProps {
   products: ProductType[];
   onEdit: (product: ProductType) => void;
@@ -31,10 +34,11 @@ export default function ProductListTable({
             <TableHead className="w-12">#</TableHead>
             <TableHead>تصویر</TableHead>
             <TableHead>عنوان</TableHead>
-            <TableHead>اسلاگ</TableHead>
+            <TableHead>دسته‌بندی</TableHead>
             <TableHead>قیمت</TableHead>
             <TableHead>تخفیف</TableHead>
             <TableHead>موجودی</TableHead>
+            <TableHead>تاریخ ساخت</TableHead>
             <TableHead className="text-left">عملیات</TableHead>
           </TableRow>
         </TableHeader>
@@ -46,25 +50,36 @@ export default function ProductListTable({
             return (
               <TableRow key={product.slug}>
                 <TableCell>{index + 1}</TableCell>
+
                 <TableCell>
                   <div className="relative w-12 h-12 rounded overflow-hidden bg-gray-100">
-                    <Image
-                      src={product.mainImage || "/placeholder.png"}
+                    <ImgNormalCustom
+                      src={getImageUrl(product.mainImage)}
                       alt={product.title}
                       fill
                       className="object-cover"
                     />
                   </div>
                 </TableCell>
-                <TableCell className="font-medium max-w-37 truncate">
+
+                {/* عنوان */}
+                <TableCell className="font-medium max-w-40 truncate">
                   {product.title}
                 </TableCell>
-                <TableCell className="text-sm text-gray-500 max-w-25 truncate">
-                  {product.slug}
+
+                {/* دسته‌بندی */}
+                <TableCell className="text-sm text-gray-600 max-w-32 truncate">
+                  {product.category?.title || (
+                    <Span className="text-gray-400">-</Span>
+                  )}
                 </TableCell>
+
+                {/* قیمت */}
                 <TableCell className="font-semibold">
                   {product.price} تومان
                 </TableCell>
+
+                {/* تخفیف */}
                 <TableCell>
                   {hasDiscount ? (
                     <Badge variant="destructive">
@@ -74,11 +89,20 @@ export default function ProductListTable({
                     <Span className="text-gray-400">-</Span>
                   )}
                 </TableCell>
+
+                {/* موجودی */}
                 <TableCell>
                   <Badge variant={isInStock ? "default" : "destructive"}>
                     {isInStock ? product.stock : "ناموجود"}
                   </Badge>
                 </TableCell>
+
+                {/* تاریخ ساخت */}
+                <TableCell className="text-sm text-gray-500">
+                  {formatDate(product.createdAt)}
+                </TableCell>
+
+                {/* عملیات */}
                 <TableCell>
                   <div className="flex items-center gap-1">
                     <Button size="sm" variant="ghost">

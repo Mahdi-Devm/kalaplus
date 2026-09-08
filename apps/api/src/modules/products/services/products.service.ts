@@ -53,7 +53,7 @@ export class ProductsService {
     return paginate(query, this.productRepository, {
       sortableColumns: ['createdAt', 'price', 'title', 'discountPercent'],
       defaultSortBy: [['createdAt', 'DESC']],
-
+      relations: { category: true },
       searchableColumns: ['title', 'shortDescription', 'slug'],
 
       filterableColumns: {

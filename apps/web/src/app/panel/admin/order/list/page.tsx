@@ -1,12 +1,13 @@
 import OrderList from "@/core/features/panel/components/block/order/list/OrderListComponents";
-import OrderListSkeleton from "@/core/features/panel/components/ui/skeleton/OrderListSkeleton";
-import { Suspense } from "react";
 
-function page() {
+async function page({
+  searchParams,
+}: {
+  searchParams: Promise<{ page: string; limit: string; search: string }>;
+}) {
+  const params = await searchParams;
   return (
-    <Suspense fallback={<OrderListSkeleton />}>
-      <OrderList />
-    </Suspense>
+    <OrderList page={params.page} limit={params.limit} search={params.search} />
   );
 }
 

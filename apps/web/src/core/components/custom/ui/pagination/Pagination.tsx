@@ -31,19 +31,33 @@ export function Paginations({
   };
   return (
     <Pagination>
-      <PaginationContent>
+      <PaginationContent className="gap-1">
         <PaginationItem>
           <PaginationPrevious
             size="sm"
             href={page > 1 ? createPageURL(page - 1) : undefined}
-            className={page <= 1 ? "pointer-events-none opacity-50" : ""}
+            className={`
+          ${page <= 1 ? "pointer-events-none opacity-40" : "hover:bg-blue-50 hover:text-prborder-primary-foreground"}
+          border border-gray-200 rounded-lg px-3 py-2
+          transition-all duration-200
+          text-gray-600
+        `}
             aria-label="صفحه قبلی"
           />
         </PaginationItem>
 
         <>
           <PaginationItem>
-            <PaginationLink size="sm" href={createPageURL(total)}>
+            <PaginationLink
+              size="sm"
+              href={createPageURL(total)}
+              className="
+            bg-primary text-white hover:bg-accent
+            border border-primary-foreground rounded-lg px-4 py-2
+            font-medium shadow-sm
+            transition-all duration-200
+          "
+            >
               {page}
             </PaginationLink>
           </PaginationItem>
@@ -53,7 +67,12 @@ export function Paginations({
           <PaginationNext
             size="sm"
             href={page < total ? createPageURL(page + 1) : undefined}
-            className={page >= total ? "pointer-events-none opacity-50" : ""}
+            className={`
+          ${page >= total ? "pointer-events-none opacity-40" : "hover:bg-blue-50 hover:text-prborder-primary-foreground"}
+          border border-gray-200 rounded-lg px-3 py-2
+          transition-all duration-200
+          text-gray-600
+        `}
             aria-label="صفحه بعدی"
           />
         </PaginationItem>

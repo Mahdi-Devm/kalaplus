@@ -193,7 +193,7 @@ type Mutation {
   """ایجاد دسته‌ بندی جدید"""
   CategoriesController_create(input: CreateCategoryDto_Input): Category @httpOperation(subgraph: "NestJS", path: "/categories", operationSpecificHeaders: [["Content-Type", "application/json"], ["accept", "application/json"]], httpMethod: POST)
   """بروزرسانی دسته‌ بندی"""
-  CategoriesController_update(id: String!): Category @httpOperation(subgraph: "NestJS", path: "/categories/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: PUT)
+  CategoriesController_update(id: String!, input: UpdateCategoryDto_Input): Category @httpOperation(subgraph: "NestJS", path: "/categories/{args.id}", operationSpecificHeaders: [["Content-Type", "application/json"], ["accept", "application/json"]], httpMethod: PUT)
   """حذف دسته‌ بندی"""
   CategoriesController_remove(id: String!): JSON @httpOperation(subgraph: "NestJS", path: "/categories/{args.id}", httpMethod: DELETE)
   """آپلود چند عکس محصول (حداکثر ۵ عدد)"""
@@ -229,6 +229,7 @@ input CreateProductDto_Input {
   title: mutationInput_ProductsController_create_input_title!
   categoryId: String!
   description: String!
+  shortDescription: String!
   slug: String!
   mainImage: String!
   images: [String]!
@@ -246,6 +247,7 @@ input UpdateProductDto_Input {
   title: mutationInput_ProductsController_updateProduct_input_title
   categoryId: String
   description: String
+  shortDescription: String
   slug: String
   mainImage: String
   images: [String]
@@ -257,7 +259,13 @@ input UpdateProductDto_Input {
 scalar mutationInput_ProductsController_updateProduct_input_title @length(subgraph: "NestJS", min: 2, max: 30)
 
 input CreateCategoryDto_Input {
-  name: String!
+  title: String!
+  slug: String!
+  image: String!
+}
+
+input UpdateCategoryDto_Input {
+  title: String!
   slug: String!
   image: String!
 }

@@ -1,3 +1,5 @@
+import { RolesDecorator } from '@common/decorators/roles.decorator';
+import { Roles } from '@common/enums/role-app.enum';
 import {
   Body,
   Controller,
@@ -7,11 +9,10 @@ import {
   Post,
   Put,
 } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiBearerAuth } from '@nestjs/swagger';
-import { RolesDecorator } from '@common/decorators/roles.decorator';
-import { Roles } from '@common/enums/role-app.enum';
-import { CategoriesService } from '../services/categories.service';
+import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateCategoryDto } from '../dto/create-category.dto';
+import { UpdateCategoryDto } from '../dto/update-category.dto';
+import { CategoriesService } from '../services/categories.service';
 
 @ApiTags('Categories')
 @ApiBearerAuth()
@@ -47,10 +48,7 @@ export class CategoriesController {
   @Put(':id')
   @RolesDecorator(Roles.ADMIN, Roles.OWNER)
   @ApiOperation({ summary: 'بروزرسانی دسته‌ بندی' })
-  update(
-    @Param('id') id: string,
-    @Body() updateData: Partial<CreateCategoryDto>,
-  ) {
+  update(@Param('id') id: string, @Body() updateData: UpdateCategoryDto) {
     return this.categoriesService.update(id, updateData);
   }
 

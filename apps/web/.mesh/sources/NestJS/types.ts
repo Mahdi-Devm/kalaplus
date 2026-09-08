@@ -290,6 +290,7 @@ export type MutationCategoriesController_createArgs = {
 
 export type MutationCategoriesController_updateArgs = {
   id: Scalars['String']['input'];
+  input?: InputMaybe<UpdateCategoryDto_Input>;
 };
 
 
@@ -350,6 +351,7 @@ export type CreateProductDto_Input = {
   title: Scalars['mutationInput_ProductsController_create_input_title']['input'];
   categoryId: Scalars['String']['input'];
   description: Scalars['String']['input'];
+  shortDescription: Scalars['String']['input'];
   slug: Scalars['String']['input'];
   mainImage: Scalars['String']['input'];
   images: Array<InputMaybe<Scalars['String']['input']>>;
@@ -362,6 +364,7 @@ export type UpdateProductDto_Input = {
   title?: InputMaybe<Scalars['mutationInput_ProductsController_updateProduct_input_title']['input']>;
   categoryId?: InputMaybe<Scalars['String']['input']>;
   description?: InputMaybe<Scalars['String']['input']>;
+  shortDescription?: InputMaybe<Scalars['String']['input']>;
   slug?: InputMaybe<Scalars['String']['input']>;
   mainImage?: InputMaybe<Scalars['String']['input']>;
   images?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
@@ -371,7 +374,13 @@ export type UpdateProductDto_Input = {
 };
 
 export type CreateCategoryDto_Input = {
-  name: Scalars['String']['input'];
+  title: Scalars['String']['input'];
+  slug: Scalars['String']['input'];
+  image: Scalars['String']['input'];
+};
+
+export type UpdateCategoryDto_Input = {
+  title: Scalars['String']['input'];
   slug: Scalars['String']['input'];
   image: Scalars['String']['input'];
 };

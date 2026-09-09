@@ -24,7 +24,7 @@ function StoriesSection() {
         return null;
       }
     });
-  }, [storyUsers.length]);
+  }, [storyUsers]);
 
   return (
     <div className="flex justify-center">

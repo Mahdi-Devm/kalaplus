@@ -4,6 +4,7 @@ import CategorySlider from "@/core/features/pages/components/block/category/Cate
 import StoriesSection from "@/core/features/pages/components/block/home/StoriesSection";
 import HeroSectionImg from "@/core/features/pages/components/block/section-img/HeroSectionImg";
 import ThumbnailCategory from "@/core/features/pages/components/ui/category/ThumbnailCategory";
+import AboutThumbnail from "@/core/features/pages/components/ui/poster/AboutThumbnail";
 
 function page() {
   return (
@@ -13,6 +14,7 @@ function page() {
       <HeroSectionImg />
       <CategorySlider />
       <ThumbnailCategory />
+      <AboutThumbnail />
     </SectionLayout>
   );
 }

@@ -9,6 +9,7 @@
     "mesh": "mesh dev",
     "mesh b": "mesh build",
     "lint": "eslint",
+    "test": "vitest",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
@@ -51,6 +52,7 @@
     "@storybook/addon-vitest": "^10.4.0",
     "@storybook/nextjs-vite": "^10.4.0",
     "@tailwindcss/postcss": "^4",
+    "@testing-library/react": "^16.3.3",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -62,7 +64,8 @@
     "storybook": "^10.4.0",
     "tailwindcss": "^4",
     "tailwindcss-animate": "^1.0.7",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^5.0.0"
   },
   "ignoreScripts": [
     "sharp",

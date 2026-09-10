@@ -14,6 +14,7 @@ export type ModalCategoryTs = {
   openCategoryModal: boolean;
   setOpenCategoryModal: Dispatch<SetStateAction<boolean>>;
   resetCategoryForm: () => void;
+  refetch: () => Promise<any>;
 };
 export type ModalFormCategoryTs = {
   setCategoryForm: Dispatch<SetStateAction<CategoryForm>>;

@@ -73,7 +73,7 @@
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
-  --border: #d5e6f6;
+  --border: #e0e4e7a2;
   --input: #d5e6f6;
   --ring: #dd5c34;
 
@@ -141,7 +141,7 @@
   }
 }
 .pages-container {
-  @apply w-full mx-auto max-w-340 px-5 sm:px-15;
+  @apply w-full space-y-5 mx-auto max-w-340 px-5 sm:px-15;
 }
 .section-layout {
   @apply py-8;

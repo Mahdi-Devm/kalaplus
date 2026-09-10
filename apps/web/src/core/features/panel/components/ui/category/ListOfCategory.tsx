@@ -8,9 +8,11 @@ import { CategoryProductType } from "../../../assets/@types/category/CategoryTyp
 function ListOfCategory({
   categories,
   handleEditCategory,
+  handleDeleteCategory,
 }: {
   categories: CategoryProductType[];
   handleEditCategory: (v: CategoryProductType) => void;
+  handleDeleteCategory: (v: string) => void;
 }) {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-64 overflow-y-auto">
@@ -57,6 +59,7 @@ function ListOfCategory({
               variant="ghost"
               size="icon"
               className="size-8 text-destructive hover:text-destructive"
+              onClick={() => handleDeleteCategory(cat.id)}
             >
               <Trash2 className="size-3.5" />
             </Button>

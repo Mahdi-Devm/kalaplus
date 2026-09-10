@@ -16,7 +16,7 @@ function StoriesSection() {
     setCurrentUserIndex(null);
   }, []);
 
-  const nextUser = useCallback(() => {
+  function nextUser() {
     setCurrentUserIndex((prevIndex) => {
       if (prevIndex !== null && prevIndex < storyUsers.length - 1) {
         return prevIndex + 1;
@@ -24,7 +24,7 @@ function StoriesSection() {
         return null;
       }
     });
-  }, [storyUsers]);
+  }
 
   return (
     <div className="flex justify-center">

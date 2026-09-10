@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client/react";
 import { Dispatch, SetStateAction, useState } from "react";
+import { GET_ALL_CATEGORY } from "../../../../../gql-shcema/actionCategoryShema.gql";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
 import { GetAllCategories } from "../../../assets/@types/category/GetAllCategories";
 import { ProductType } from "../../../assets/@types/product/ProductType";
-import { GET_ALL_CATEGORY } from "../../../gql-shcema/actionCategoryShema.gql";
 import ModalCategory from "../order/modal/ModalCategory";
 import CardCategoryOrder from "./CardCategoryOrder";
 
@@ -17,7 +17,8 @@ function CategoryAction({
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [editingCategory, setEditingCategory] =
     useState<CategoryProductType | null>(null);
-  const { loading, data } = useQuery<GetAllCategories>(GET_ALL_CATEGORY);
+  const { loading, data, refetch } =
+    useQuery<GetAllCategories>(GET_ALL_CATEGORY);
   const categories = data?.categories || [];
   const [categoryForm, setCategoryForm] = useState({
     title: "",
@@ -49,6 +50,7 @@ function CategoryAction({
         resetCategoryForm={resetCategoryForm}
         setEditingCategory={setEditingCategory}
         setOpenCategoryModal={setOpenCategoryModal}
+        refetch={refetch}
       />
     </>
   );

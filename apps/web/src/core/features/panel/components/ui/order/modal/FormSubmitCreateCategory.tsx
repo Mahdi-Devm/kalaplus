@@ -2,11 +2,11 @@ import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCust
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import { Input } from "@/core/components/shadcn/ui/input/input";
 import { ModalFormCategoryTs } from "@/core/features/panel/assets/@types/category/ModalCategoryType";
+import { categoryZodSchema } from "@/core/features/panel/zod/productSchema.zod";
 import {
   CREATE_CATEGORY,
   UPDATE_CATEGORY,
-} from "@/core/features/panel/gql-shcema/actionCategoryShema.gql";
-import { categoryZodSchema } from "@/core/features/panel/zod/productSchema.zod";
+} from "@/core/gql-shcema/actionCategoryShema.gql";
 import { useImageUpload } from "@/core/hooks/useImageUpload";
 import { formatZodErrors } from "@/core/utils/formatZodErrors";
 import { getErrorMessage } from "@/core/utils/getErrorMessage";

@@ -29,7 +29,7 @@
     "clsx": "^2.1.1",
     "graphql": "^17.0.2",
     "input-otp": "^1.4.2",
-    "lucide-react": "^1.23.0",
+    "lucide-react": "^1.39.0",
     "next": "16.2.1",
     "nextjs-toploader": "^3.9.17",
     "radix-ui": "^1.6.7",

@@ -141,7 +141,7 @@
   }
 }
 .pages-container {
-  @apply w-full space-y-5 mx-auto max-w-340 px-5 sm:px-15;
+  @apply w-full space-y-10 mx-auto max-w-340 px-5 sm:px-15;
 }
 .section-layout {
   @apply py-8;

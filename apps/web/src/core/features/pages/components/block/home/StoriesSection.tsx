@@ -44,9 +44,9 @@ function StoriesSection() {
                 className="w-full h-full rounded-full object-cover border-2 border-white"
               />
             </div>
-            <span className="text-xs text-gray-700 truncate max-w-18 font-medium">
+            <Span className="text-xs text-gray-700 truncate max-w-18 font-medium">
               {user.name}
-            </span>
+            </Span>
           </button>
         ))}
       </div>

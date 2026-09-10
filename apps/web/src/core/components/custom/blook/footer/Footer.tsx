@@ -37,10 +37,10 @@ function Footer() {
           <ul className="space-y-3 text-sm text-muted-foreground">
             <li>
               <a
-                href="/rules"
+                href="/blog"
                 className="inline-block transition-colors duration-200 hover:text-primary"
               >
-                قوانین و مقررات
+               وبلاگ
               </a>
             </li>
 

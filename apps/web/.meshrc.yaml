@@ -1,0 +1,7 @@
+sources:
+  - name: NestJS
+    handler:
+      openapi:
+        source: http://localhost:3001/docs-json
+        endpoint: http://localhost:3001
+        ignoreErrorResponses: true

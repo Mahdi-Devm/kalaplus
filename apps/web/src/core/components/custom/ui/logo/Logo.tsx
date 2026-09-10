@@ -3,7 +3,7 @@ import { ImgNormalCustom } from "../image/ImgNormalCustom";
 function Logo({ classname, width }: { classname?: string; width?: number }) {
   return (
     <ImgNormalCustom
-      src={"/img/logo/logo-mobile.png"}
+      src={"/common/img/logo/kplogo.png"}
       alt=""
       height={100}
       width={width ? width : 100}

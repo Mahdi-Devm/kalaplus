@@ -1,4 +1,5 @@
 import { rubik } from "@/core/assets/style/fonts/font";
+import ApolloWrapper from "@/core/lib/apollo/ApolloWrapper";
 import type { Metadata } from "next";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "sonner";
@@ -18,7 +19,7 @@ export default function RootLayout({
       <body className={`${rubik.variable} ${rubik.variable} antialiased`}>
         <NextTopLoader color="#dd5c34" />
         <Toaster />
-        {children}
+        <ApolloWrapper>{children}</ApolloWrapper>
       </body>
     </html>
   );

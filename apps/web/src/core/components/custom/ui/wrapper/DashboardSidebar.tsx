@@ -1,21 +1,16 @@
 "use client";
 
-import {
-  adminNavItems,
-  defaultNavItems,
-  driverNavItems,
-  traineeNavItems,
-} from "@/core/assets/mock/navItems";
+import { defaultNavItems } from "@/core/assets/mock/navItems";
 import { Button } from "@/core/components/shadcn/ui/button/button";
-import Logo from "@/core/features/main/components/ui/logo/Logo";
 import { useIsMobile } from "@/core/hooks/useIsMobile";
 import { BASE_URL } from "@/core/lib/basic-link/BackendBasicLink";
 import { X } from "lucide-react";
 import { Route } from "next";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useMemo } from "react";
 import { toast } from "sonner";
+import Logo from "../logo/Logo";
 
 export function DashboardSidebar({
   sidebarOpen,
@@ -29,21 +24,8 @@ export function DashboardSidebar({
   const router = useRouter();
 
   const navItems = useMemo(() => {
-    if (pathname.includes("/driver")) return driverNavItems;
-    if (pathname.includes("/trainee")) return traineeNavItems;
-    if (pathname.includes("/admin")) return adminNavItems;
     return defaultNavItems;
-  }, [pathname]);
-
-  useEffect(() => {
-    if (isMobile) {
-      document.body.style.overflow = sidebarOpen ? "hidden" : "";
-    }
-
-    return () => {
-      document.body.style.overflow = "";
-    };
-  }, [isMobile, sidebarOpen]);
+  }, []);
 
   async function logOut() {
     try {
@@ -67,12 +49,14 @@ export function DashboardSidebar({
       toast.error("خطا در ارتباط با سرور");
     }
   }
-
+  if (pathname.includes("/auth")) {
+    return "";
+  }
   return (
     <>
       {isMobile && sidebarOpen && (
         <div
-          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40"
+          className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 "
           onClick={() => setSidebarOpen(false)}
         />
       )}
@@ -81,7 +65,7 @@ export function DashboardSidebar({
         className={`
           ${
             isMobile
-              ? "fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out"
+              ? "fixed inset-0 z-50 transform transition-transform duration-300 ease-in-out mt-10"
               : "relative w-64 shrink-0"
           }
           ${
@@ -135,7 +119,7 @@ export function DashboardSidebar({
           </div>
           <Button
             size="sm"
-            className="w-full mt-3"
+            className="w-full mt-3 rounded"
             onClick={() => router.push("/")}
           >
             صفحه اصلی
@@ -144,7 +128,7 @@ export function DashboardSidebar({
           <Button
             variant="destructive"
             size="sm"
-            className="w-full mt-1"
+            className="w-full mt-1 text-white rounded"
             onClick={logOut}
           >
             خروج از حساب

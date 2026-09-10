@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "swiper/css";
+@import "swiper/css/free-mode";
+@import "swiper/css/pagination";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -70,7 +73,7 @@
   --destructive: #ef4444;
   --destructive-foreground: #ffffff;
 
-  --border: #d5e6f6;
+  --border: #e0e4e7a2;
   --input: #d5e6f6;
   --ring: #dd5c34;
 
@@ -138,8 +141,32 @@
   }
 }
 .pages-container {
-  @apply w-full mx-auto max-w-340 px-5 sm:px-15;
+  @apply w-full space-y-10 mx-auto max-w-340 px-5 sm:px-15;
 }
 .section-layout {
   @apply py-8;
+}
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) transparent;
+}
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in srgb, var(--primary) 85%, black);
+}
+button {
+  cursor: pointer;
 }

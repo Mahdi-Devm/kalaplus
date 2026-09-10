@@ -49,7 +49,6 @@ export class AuthController {
         },
       },
     ]);
-
     response.json({ success: true });
   }
 

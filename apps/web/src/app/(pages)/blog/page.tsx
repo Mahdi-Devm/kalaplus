@@ -1,11 +1,7 @@
-import BlogPage from "@/core/features/pages/components/ui/blog/Blogs";
+import BlogComponents from "@/core/features/pages/components/block/blog/BlogComponents";
 
 const Blog = () => {
-  return (
-    <div className="w-full">
-      <BlogPage />
-    </div>
-  );
+  return <BlogComponents />;
 };
 
 export default Blog;

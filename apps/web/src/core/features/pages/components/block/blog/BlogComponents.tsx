@@ -1,7 +1,7 @@
 import BlogHeroSlider from "../../ui/blog/BlogHeroSlider";
 import BlogPage from "../../ui/blog/Blogs";
 
-const BlogComponent = () => {
+const BlogComponents = () => {
   return (
     <>
       <BlogHeroSlider />
@@ -10,4 +10,4 @@ const BlogComponent = () => {
   );
 };
 
-export default BlogComponent;
+export default BlogComponents;

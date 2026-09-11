@@ -12,7 +12,7 @@ const BlogDetailPage = () => {
   console.log(blog);
 
   return (
-    <div className="pages-container mb-6">
+    <div className=" mb-6">
       {blog && (
         <BlogDetailComponent
           img={blog.img}

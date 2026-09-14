@@ -1,188 +1,190 @@
 import Image from "next/image";
-import footer1 from "../../../../../../public/common/img/footer/footer1img.png";
-import footer2 from "../../../../../../public/common/img/footer/footer2img.png";
+import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 
-function Footer() {
+import { Separator } from "@/core/components/shadcn/ui/separator/separator";
+import footer1 from "../../../../../../public/common/img/footer/footer1img.png";
+import footer2 from "../../../../../../public/common/img/footer/footer2img.png";
+import { H3, Muted, P, Span } from "../../ui/typography/Typography";
+
+function FooterSection({
+  title,
+  children,
+}: {
+  title: string;
+  children: React.ReactNode;
+}) {
   return (
-    <footer className="bg-foreground text-primary-foreground">
-      <div className="pages-container grid grid-cols-1 gap-10 py-12 md:grid-cols-2 lg:grid-cols-4 lg:gap-8">
-        <section className="space-y-4">
-          <h2 className="text-lg font-bold">درباره‌ی کالاپلاس</h2>
+    <section>
+      <H3 className="mb-6 text-lg font-bold">{title}</H3>
+      {children}
+    </section>
+  );
+}
 
-          <p className="text-sm leading-7 text-muted-foreground">
-            کالاپلاس یک قالب فروشگاهی سریع، منعطف و سازگار با نیاز کاربران
-            ایرانی است. هدف ما ساخت تجربه‌ای حرفه‌ای، امن و ساده برای فروش
-            محصولات فیزیکی و دیجیتال است.
-          </p>
+function FooterLink({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <li>
+      <Link
+        href={href}
+        className="group flex items-center gap-2 transition-colors duration-200 hover:text-primary"
+      >
+        <span className="h-1 w-1 rounded-full bg-muted-foreground transition-all duration-200 group-hover:w-2 group-hover:bg-primary" />
 
-          <div className="flex items-center justify-start gap-3 pt-2">
-            <Image
-              src={footer1}
-              alt="نماد اعتماد کالاپلاس"
-              className="h-[120px] w-[110px] rounded-lg bg-background object-contain p-2"
-            />
+        <Span className="text-sm text-muted-foreground group-hover:text-primary">
+          {children}
+        </Span>
+      </Link>
+    </li>
+  );
+}
 
-            <Image
-              src={footer2}
-              alt="نماد کالاپلاس"
-              className="h-[120px] w-[110px] rounded-lg bg-background object-contain p-2 "
-            />
-          </div>
-        </section>
+function Footer() {
+  const usefulLinks = [
+    { title: "وبلاگ", href: "/blog" },
+    { title: "پیگیری سفارش", href: "/order-tracking" },
+    { title: "درباره ما", href: "/about" },
+    { title: "تماس با ما", href: "/contact" },
+  ];
 
-        <nav aria-label="لینک‌های مفید">
-          <h2 className="mb-5 text-lg font-bold">لینک‌های مفید</h2>
+  const serviceLinks = [
+    { title: "خدمات کالاپلاس", href: "/services" },
+    { title: "فروشگاه محصولات", href: "/products" },
+    { title: "حساب کاربری", href: "/account" },
+    { title: "سبد خرید", href: "/cart" },
+  ];
 
-          <ul className="space-y-3 text-sm text-muted-foreground">
-            <li>
-              <a
-                href="/blog"
-                className="inline-block transition-colors duration-200 hover:text-primary"
-              >
-               وبلاگ
-              </a>
-            </li>
+  return (
+    <footer className="mx-4 mt-10 mb-4 overflow-hidden rounded-2xl border bg-foreground text-primary-foreground md:mx-6">
+      <div className="mx-auto max-w-7xl px-6 py-10 md:px-10 md:py-14">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4 lg:gap-12">
+          <FooterSection title="درباره‌ی کالاپلاس">
+            <P className="text-sm leading-7 text-muted-foreground">
+              کالاپلاس یک قالب فروشگاهی سریع، منعطف و سازگار با نیاز کاربران
+              ایرانی است. هدف ما ساخت تجربه‌ای حرفه‌ای، امن و ساده برای فروش
+              محصولات فیزیکی و دیجیتال است.
+            </P>
 
-            <li>
-              <a
-                href="/order-tracking"
-                className="inline-block transition-colors duration-200 hover:text-primary"
-              >
-                پیگیری سفارش
-              </a>
-            </li>
+            <div className="mt-6 flex items-center gap-3">
+              <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-background p-2 transition-transform duration-200 hover:-translate-y-1">
+                <Image
+                  src={footer1}
+                  alt="نماد اعتماد کالاپلاس"
+                  width={100}
+                  height={100}
+                  className="h-full w-full object-contain"
+                />
+              </div>
 
-            <li>
-              <a
-                href="/about"
-                className="inline-block transition-colors duration-200 hover:text-primary"
-              >
-                درباره ما
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="/contact"
-                className="inline-block transition-colors duration-200 hover:text-primary"
-              >
-                تماس با ما
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <nav aria-label="خدمات کالاپلاس">
-          <h2 className="mb-5 text-lg font-bold">خدمات کالاپلاس</h2>
-
-          <ul className="space-y-3 text-sm text-muted-foreground">
-            <li>
-              <a
-                href="/services"
-                className="inline-block transition-colors duration-200 hover:text-primary"
-              >
-                خدمات کالاپلاس
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="/products"
-                className="inline-block transition-colors duration-200 hover:text-primary"
-              >
-                فروشگاه محصولات
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="/account"
-                className="inline-block transition-colors duration-200 hover:text-primary"
-              >
-                حساب کاربری
-              </a>
-            </li>
-
-            <li>
-              <a
-                href="/cart"
-                className="inline-block transition-colors duration-200 hover:text-primary"
-              >
-                سبد خرید
-              </a>
-            </li>
-          </ul>
-        </nav>
-
-        <section>
-          <h2 className="mb-5 text-lg font-bold">ارتباط با ما</h2>
-
-          <div className="space-y-5 text-sm">
-            <div className="space-y-1">
-              <h3 className="font-medium text-primary-foreground">پشتیبانی</h3>
-
-              <a
-                href="tel:+989000000000"
-                className="text-muted-foreground transition-colors duration-200 hover:text-primary"
-              >
-                989000000000
-              </a>
+              <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-background p-2 transition-transform duration-200 hover:-translate-y-1">
+                <Image
+                  src={footer2}
+                  alt="نماد کالاپلاس"
+                  width={100}
+                  height={100}
+                  className="h-full w-full object-contain"
+                />
+              </div>
             </div>
+          </FooterSection>
 
-            <div className="space-y-1">
-              <h3 className="font-medium text-primary-foreground">ایمیل</h3>
+          <FooterSection title="لینک‌های مفید">
+            <nav aria-label="لینک‌های مفید">
+              <ul className="space-y-4">
+                {usefulLinks.map((link) => (
+                  <FooterLink key={link.href} href={link.href}>
+                    {link.title}
+                  </FooterLink>
+                ))}
+              </ul>
+            </nav>
+          </FooterSection>
 
-              <a
-                href="mailto:test@gmail.com"
-                className="text-muted-foreground transition-colors duration-200 hover:text-primary"
-              >
-                test@gmail.com
-              </a>
-            </div>
+          <FooterSection title="خدمات کالاپلاس">
+            <nav aria-label="خدمات کالاپلاس">
+              <ul className="space-y-4">
+                {serviceLinks.map((link) => (
+                  <FooterLink key={link.href} href={link.href}>
+                    {link.title}
+                  </FooterLink>
+                ))}
+              </ul>
+            </nav>
+          </FooterSection>
 
-            <div>
-              <h3 className="mb-3 font-medium text-primary-foreground">
-                شبکه‌های اجتماعی
-              </h3>
+          <FooterSection title="ارتباط با ما">
+            <div className="space-y-6">
+              <div>
+                <Muted className="mb-1 font-medium text-primary-foreground">
+                  پشتیبانی
+                </Muted>
 
-              <ul className="space-y-3">
-                <li>
-                  <a
+                <Link
+                  href="tel:+989000000000"
+                  className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+                >
+                  989000000000
+                </Link>
+              </div>
+
+              <div>
+                <Muted className="mb-1 font-medium text-primary-foreground">
+                  ایمیل
+                </Muted>
+
+                <Link
+                  href="mailto:test@gmail.com"
+                  className="text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+                >
+                  test@gmail.com
+                </Link>
+              </div>
+
+              <div>
+                <Muted className="mb-3 font-medium text-primary-foreground">
+                  شبکه‌های اجتماعی
+                </Muted>
+
+                <div className="flex items-center gap-2">
+                  <Link
                     href="https://github.com/mardi-niyayesh/"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="گیت‌هاب نیایش مردی"
-                    className="group flex w-fit items-center gap-2 text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-muted-foreground transition-all duration-200 hover:-translate-y-1 hover:border-primary hover:bg-primary hover:text-primary-foreground"
                   >
-                    <FaGithub className="text-lg transition-transform duration-200 group-hover:scale-110" />
-                    <span>نیایش مردی</span>
-                  </a>
-                </li>
+                    <FaGithub className="text-lg" />
+                  </Link>
 
-                <li>
-                  <a
+                  <Link
                     href="https://github.com/Mahdi-Devm"
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label="گیت‌هاب مهدی باقری"
-                    className="group flex w-fit items-center gap-2 text-sm text-muted-foreground transition-colors duration-200 hover:text-primary"
+                    className="flex h-10 w-10 items-center justify-center rounded-lg border border-white/10 text-muted-foreground transition-all duration-200 hover:-translate-y-1 hover:border-primary hover:bg-primary hover:text-primary-foreground"
                   >
-                    <FaGithub className="text-lg transition-transform duration-200 group-hover:scale-110" />
-                    <span>مهدی باقری</span>
-                  </a>
-                </li>
-              </ul>
+                    <FaGithub className="text-lg" />
+                  </Link>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
-      </div>
+          </FooterSection>
+        </div>
 
-      <div className="border-t border-white/10">
-        <div className="pages-container flex min-h-16 items-center justify-center">
-          <p className="text-center text-xs text-muted-foreground">
+        <Separator className="my-8 bg-white/10" />
+
+        <div className="flex flex-col items-center justify-center gap-2 text-center sm:flex-row sm:justify-between">
+          <Muted className="text-xs">
             تمامی حقوق این وب‌سایت متعلق به کالاپلاس است.
-          </p>
+          </Muted>
+
+          <Muted className="text-xs">طراحی و توسعه با ❤️</Muted>
         </div>
       </div>
     </footer>

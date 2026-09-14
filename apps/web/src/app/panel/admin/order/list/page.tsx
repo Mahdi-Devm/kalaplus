@@ -1,5 +1,9 @@
 import OrderList from "@/core/features/panel/components/block/order/list/OrderListComponents";
-
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  title: "لیست محصولات | پنل مدیریت",
+  description: "مشاهده و حذف و ادیت محصولات در پنل مدیریت",
+};
 async function page({
   searchParams,
 }: {

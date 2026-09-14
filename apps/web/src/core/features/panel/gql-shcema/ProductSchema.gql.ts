@@ -47,6 +47,9 @@ export const GET_PRODUCTS_FOR_ADMIN = gql`
         stock
         mainImage
         images
+        colors
+        sizes
+        materials
         category {
           id
           title

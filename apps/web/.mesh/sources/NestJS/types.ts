@@ -142,6 +142,9 @@ export type Product = {
   discountPrice?: Maybe<Scalars['Float']['output']>;
   stock: Scalars['Float']['output'];
   sold: Scalars['Float']['output'];
+  colors?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  sizes?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
+  materials?: Maybe<Array<Maybe<Scalars['String']['output']>>>;
   likes: Array<Maybe<Like>>;
   category: Category;
   categoryId: Scalars['String']['output'];
@@ -358,6 +361,9 @@ export type CreateProductDto_Input = {
   price: Scalars['NonNegativeFloat']['input'];
   discountPercent: Scalars['NonNegativeFloat']['input'];
   stock?: InputMaybe<Scalars['NonNegativeFloat']['input']>;
+  colors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sizes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  materials?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type UpdateProductDto_Input = {
@@ -371,6 +377,9 @@ export type UpdateProductDto_Input = {
   price?: InputMaybe<Scalars['NonNegativeFloat']['input']>;
   discountPercent?: InputMaybe<Scalars['NonNegativeFloat']['input']>;
   stock?: InputMaybe<Scalars['NonNegativeFloat']['input']>;
+  colors?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  sizes?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
+  materials?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 
 export type CreateCategoryDto_Input = {

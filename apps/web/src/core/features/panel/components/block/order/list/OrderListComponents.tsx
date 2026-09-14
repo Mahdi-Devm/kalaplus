@@ -46,6 +46,7 @@ export default function OrderListComponents({
     null,
   );
   const products = data?.products?.data ?? [];
+  console.log(products);
   if (loading) return <OrderListSkeleton />;
 
   function handleEdit(product: ProductType) {
@@ -76,6 +77,15 @@ export default function OrderListComponents({
             stock: Number(updatedProduct.stock),
             mainImage: updatedProduct.mainImage,
             images: updatedProduct.images,
+            colors: updatedProduct.colors?.length
+              ? updatedProduct.colors
+              : undefined,
+            sizes: updatedProduct.sizes?.length
+              ? updatedProduct.sizes
+              : undefined,
+            materials: updatedProduct.materials?.length
+              ? updatedProduct.materials
+              : undefined,
           },
         },
       });

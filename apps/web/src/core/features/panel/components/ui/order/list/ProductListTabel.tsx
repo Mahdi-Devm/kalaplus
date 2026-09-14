@@ -14,6 +14,7 @@ import { ProductType } from "@/core/features/panel/assets/@types/product/Product
 import { formatDate } from "@/core/utils/formatDate";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import { Edit, Eye, PackageOpen, Trash2 } from "lucide-react";
+import { ProductAttributesCell } from "./ProductAttributesCell";
 
 export default function ProductListTable({
   products,
@@ -33,6 +34,9 @@ export default function ProductListTable({
             <TableHead>تصویر</TableHead>
             <TableHead>عنوان</TableHead>
             <TableHead>دسته‌بندی</TableHead>
+            <TableHead>رنگ‌ها</TableHead>
+            <TableHead>سایزها</TableHead>
+            <TableHead>جنس‌ها</TableHead>
             <TableHead>قیمت</TableHead>
             <TableHead>تخفیف</TableHead>
             <TableHead>موجودی</TableHead>
@@ -66,7 +70,6 @@ export default function ProductListTable({
               return (
                 <TableRow key={product.id || product.slug}>
                   <TableCell>{index + 1}</TableCell>
-
                   <TableCell>
                     <div className="relative w-12 h-12 rounded overflow-hidden bg-gray-100">
                       <ImgNormalCustom
@@ -77,21 +80,26 @@ export default function ProductListTable({
                       />
                     </div>
                   </TableCell>
-
                   <TableCell className="font-medium max-w-40 truncate">
                     {product.title}
                   </TableCell>
-
                   <TableCell className="text-sm text-gray-600 max-w-32 truncate">
                     {product.category?.title || (
                       <Span className="text-gray-400">-</Span>
                     )}
                   </TableCell>
-
+                  <TableCell>
+                    <ProductAttributesCell items={product.colors} />
+                  </TableCell>
+                  <TableCell>
+                    <ProductAttributesCell items={product.sizes} />
+                  </TableCell>
+                  <TableCell>
+                    <ProductAttributesCell items={product.materials} />
+                  </TableCell>
                   <TableCell className="font-semibold">
                     {Number(product.price)} تومان
                   </TableCell>
-
                   <TableCell>
                     {hasDiscount ? (
                       <Badge variant="destructive">
@@ -101,17 +109,14 @@ export default function ProductListTable({
                       <Span className="text-gray-400">-</Span>
                     )}
                   </TableCell>
-
                   <TableCell>
                     <Badge variant={isInStock ? "default" : "destructive"}>
                       {isInStock ? product.stock : "ناموجود"}
                     </Badge>
                   </TableCell>
-
                   <TableCell className="text-sm text-gray-500">
                     {formatDate(product.createdAt)}
                   </TableCell>
-
                   <TableCell>
                     <div className="flex items-center gap-1">
                       <Button size="sm" variant="ghost">

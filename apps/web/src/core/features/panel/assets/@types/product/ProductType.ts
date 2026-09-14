@@ -14,4 +14,11 @@ export interface ProductType {
   stock: string;
   mainImage: string;
   images: string[];
+  colors?: string[];
+  sizes?: string[];
+  materials?: string[];
 }
+export type ProductFormType = Omit<
+  ProductType,
+  "id" | "category" | "createdAt"
+>;

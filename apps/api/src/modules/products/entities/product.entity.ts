@@ -40,6 +40,15 @@ export class Product extends BaseEntity {
   @Column({ default: 0 })
   sold: number;
 
+  @Column('text', { array: true, nullable: true })
+  colors?: string[];
+
+  @Column('text', { array: true, nullable: true })
+  sizes?: string[];
+
+  @Column('text', { array: true, nullable: true })
+  materials?: string[];
+
   @OneToMany(() => Like, (like) => like.product)
   likes: Like[];
 

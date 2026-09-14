@@ -7,6 +7,7 @@ import { ProductType } from "@/core/features/panel/assets/@types/product/Product
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import Form from "next/form";
 import { useState } from "react";
+import { ProductAttributesForm } from "../create/ProductAttributesForm";
 
 interface EditProductFormProps {
   product: ProductType;
@@ -24,6 +25,9 @@ export default function EditProductListForm({
     price: String(product.price ?? ""),
     discountPercent: String(product.discountPercent ?? 0),
     stock: String(product.stock ?? ""),
+    colors: product.colors ?? [],
+    sizes: product.sizes ?? [],
+    materials: product.materials ?? [],
   });
 
   function handleChange(
@@ -98,6 +102,7 @@ export default function EditProductListForm({
         onChange={handleChange}
         placeholder="توضیحات کوتاه محصول"
       />
+      <ProductAttributesForm form={formData} setForm={setFormData} />
 
       <div className="space-y-1">
         <span className="text-sm font-medium">توضیحات کامل</span>

@@ -25,7 +25,7 @@ export const productZodSchema = z.object({
     message: "دسته‌بندی را انتخاب کنید",
   }),
   description: ZodString({ min: 10, max: 2000, required: false }),
-  shortDescription: ZodString({ min: 5, max: 200, required: false }),
+  shortDescription: ZodString({ min: 5, max: 250, required: false }),
 
   price: ZodNumber({
     min: 0,

@@ -17,6 +17,7 @@ import { ProductType } from "@/core/features/panel/assets/@types/product/Product
 import { formatDate } from "@/core/utils/formatDate";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import { Edit, Eye, Trash2 } from "lucide-react";
+import { ProductAttributesCell } from "./ProductAttributesCell";
 
 export default function ProductListCard({
   product,
@@ -73,6 +74,20 @@ export default function ProductListCard({
 
         <div className="text-xs text-muted-foreground">
           تاریخ ساخت: {formatDate(product.createdAt)}
+        </div>
+        <div className="space-y-2 pt-2 border-t">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground w-12">رنگ:</span>
+            <ProductAttributesCell items={product.colors} max={3} />
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground w-12">سایز:</span>
+            <ProductAttributesCell items={product.sizes} max={3} />
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-muted-foreground w-12">جنس:</span>
+            <ProductAttributesCell items={product.materials} max={3} />
+          </div>
         </div>
       </CardContent>
 

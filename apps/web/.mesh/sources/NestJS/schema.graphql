@@ -97,6 +97,9 @@ type Product {
   discountPrice: Float
   stock: Float!
   sold: Float!
+  colors: [String]
+  sizes: [String]
+  materials: [String]
   likes: [Like]!
   category: Category!
   categoryId: String!
@@ -236,6 +239,9 @@ input CreateProductDto_Input {
   price: NonNegativeFloat!
   discountPercent: NonNegativeFloat!
   stock: NonNegativeFloat
+  colors: [String]
+  sizes: [String]
+  materials: [String]
 }
 
 scalar mutationInput_ProductsController_create_input_title @length(subgraph: "NestJS", min: 2, max: 30)
@@ -254,6 +260,9 @@ input UpdateProductDto_Input {
   price: NonNegativeFloat
   discountPercent: NonNegativeFloat
   stock: NonNegativeFloat
+  colors: [String]
+  sizes: [String]
+  materials: [String]
 }
 
 scalar mutationInput_ProductsController_updateProduct_input_title @length(subgraph: "NestJS", min: 2, max: 30)

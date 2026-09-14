@@ -49,4 +49,19 @@ export class CreateProductDto {
   @IsInt()
   @Min(0, { message: 'موجودی نمی‌تواند منفی باشد' })
   stock?: number = 0;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  colors?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  sizes?: string[];
+
+  @IsOptional()
+  @IsArray()
+  @IsString({ each: true })
+  materials?: string[];
 }

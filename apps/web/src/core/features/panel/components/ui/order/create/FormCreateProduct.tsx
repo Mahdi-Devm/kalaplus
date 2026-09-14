@@ -16,7 +16,10 @@ function FormCreateProduct() {
     discountPercent: "",
     stock: "",
     mainImage: "",
-    images: [] as string[],
+    images: [],
+    colors: [],
+    sizes: [],
+    materials: [],
   });
 
   function handleChange(

@@ -9,6 +9,8 @@ import PopularProductsSection from "@/core/features/pages/components/block/produ
 import HeroSectionImg from "@/core/features/pages/components/block/section-img/HeroSectionImg";
 import ThumbnailCategory from "@/core/features/pages/components/ui/category/ThumbnailCategory";
 import AboutThumbnail from "@/core/features/pages/components/ui/poster/AboutThumbnail";
+import Essay from "@/core/features/pages/components/ui/essay/Essay";
+import Brands from "@/core/features/pages/components/ui/brand/Brands";
 
 function page() {
   return (
@@ -23,6 +25,8 @@ function page() {
       <FrequentProductsSection />
       <LatestProductsSection />
       <AboutThumbnail />
+      <Essay />
+      <Brands />
     </SectionLayout>
   );
 }

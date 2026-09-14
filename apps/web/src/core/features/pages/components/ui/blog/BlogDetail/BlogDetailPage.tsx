@@ -1,15 +1,13 @@
 "use client";
 
-import BlogDetailData from "./BlogDetailData";
-import BlogDetailComponent from "./BlogDetailComponent";
+import BlogDetailData from "@/core/features/pages/assets/mock/blog/BlogDetailData";
 import { useParams } from "next/navigation";
+import BlogDetailComponent from "./BlogDetailComponent";
 
 const BlogDetailPage = () => {
   const { id } = useParams();
 
   const blog = BlogDetailData.find((item) => item.id === Number(id));
-
-  console.log(blog);
 
   return (
     <div className=" mb-6">

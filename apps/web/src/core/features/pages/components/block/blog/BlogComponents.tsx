@@ -1,13 +1,15 @@
 import BlogHeroSlider from "../../ui/blog/BlogHeroSlider";
 import BlogPage from "../../ui/blog/Blogs";
 
-const BlogComponents = () => {
+function BlogComponents() {
   return (
     <>
       <BlogHeroSlider />
       <BlogPage />
+      <BlogHeroSlider />
+      <BlogPage />
     </>
   );
-};
+}
 
 export default BlogComponents;

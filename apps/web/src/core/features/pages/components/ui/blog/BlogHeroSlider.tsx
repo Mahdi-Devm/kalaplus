@@ -1,205 +1,98 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-
+import Link from "next/link";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import type { Swiper as SwiperType } from "swiper";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import { bannerBlog } from "../../../assets/mock/blog/bannerBlog";
 
-import baner1 from "../../../../../../../public/common/img/story/adidas.jpg";
-import baner2 from "../../../../../../../public/common/img/story/reebok.webp";
-import baner3 from "../../../../../../../public/common/img/story/yoga.jpeg";
-
-
-const banners = [
-  {
-    id: 1,
-    image: baner1,
-    title: "استایل خودت رو بساز",
-    description: "جدیدترین کالکشن لباس‌ها را کشف کن",
-  },
-  {
-    id: 2,
-    image: baner2,
-    title: "جدیدترین ترندها",
-    description: "برای استایلی متفاوت و خاص",
-  },
-  {
-    id: 3,
-    image: baner3,
-    title: "انتخابی برای هر سلیقه",
-    description: "زیبایی را در جزئیات پیدا کن",
-  },
-  {
-    id: 4,
-    image: baner2,
-    title: "کالکشن جدید",
-    description: "استایل جدیدت از اینجا شروع میشه",
-  },
-];
-
-const BlogHeroSlider = () => {
-  const [activeSlide, setActiveSlide] = useState<number | null>(null);
-  const [swiper, setSwiper] = useState<SwiperType | null>(null);
-
+function BlogHeroSlider() {
   return (
-    <section className="w-full overflow-hidden mb-10">
+    <section className="mb-12 w-full">
       <Swiper
         modules={[Autoplay, Pagination]}
         slidesPerView={1}
-        spaceBetween={0}
+        spaceBetween={20}
         loop
-        speed={800}
         autoplay={{
-          delay: 4000,
+          delay: 5000,
           disableOnInteraction: false,
         }}
         pagination={{
           clickable: true,
         }}
-        onSwiper={setSwiper}
-        className="h-[420px] w-full sm:h-[480px] lg:h-[600px]"
+        className="blog-hero-swiper w-full"
       >
-        {banners.map((banner) => {
-          const isActive = activeSlide === banner.id;
+        {bannerBlog.map((banner) => (
+          <SwiperSlide key={banner.id}>
+            <article className="group relative min-h-[420px] overflow-hidden rounded-3xl border bg-card sm:min-h-[500px] lg:min-h-[560px]">
+              {/* Image */}
+              <Image
+                src={banner.image}
+                alt={banner.title}
+                fill
+                priority={banner.id === 1}
+                sizes="100vw"
+                className="object-cover transition-transform duration-700 group-hover:scale-105"
+              />
 
-          return (
-            <SwiperSlide key={banner.id}>
-              <div
-                className="group relative h-full w-full cursor-pointer"
-                onMouseEnter={() => {
-                  setActiveSlide(banner.id);
-                  swiper?.autoplay.stop();
-                }}
-                onMouseLeave={() => {
-                  setActiveSlide(null);
-                  swiper?.autoplay.start();
-                }}
-                onClick={() => {
-                  setActiveSlide((prev) =>
-                    prev === banner.id ? null : banner.id,
-                  );
+              {/* Gradient */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
-                  swiper?.autoplay.stop();
-                }}
-              >
-                <Image
-                  src={banner.image}
-                  alt={banner.title}
-                  fill
-                  priority={banner.id === 1}
-                  sizes="100vw"
-                  className="
-                    object-cover
-                    transition-transform
-                    duration-1000
-                    group-hover:scale-105
-                  "
-                />
-                <motion.div
-                  animate={{
-                    opacity: isActive ? 0.5 : 0.15,
-                  }}
-                  transition={{ duration: 0.4 }}
-                  className="absolute inset-0 bg-black"
-                />
-                <AnimatePresence>
-                  {isActive && (
-                    <motion.div
-                      initial={{
-                        opacity: 0,
-                        y: 30,
-                      }}
-                      animate={{
-                        opacity: 1,
-                        y: 0,
-                      }}
-                      exit={{
-                        opacity: 0,
-                        y: 20,
-                      }}
-                      transition={{
-                        duration: 0.45,
-                        ease: "easeOut",
-                      }}
-                      className="
-                        absolute
-                        inset-0
-                        flex
-                        items-center
-                      "
+              {/* Content */}
+              <div className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-10 lg:p-14">
+                <div className="max-w-3xl text-right text-white">
+                  {/* Category */}
+                  <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium backdrop-blur-md">
+                    {banner.category}
+                  </span>
+
+                  {/* Title */}
+                  <h2 className="mt-4 text-2xl font-black leading-[1.4] sm:text-3xl lg:text-5xl">
+                    {banner.title}
+                  </h2>
+
+                  {/* Description */}
+                  <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80 sm:text-base">
+                    {banner.description}
+                  </p>
+
+                  {/* Meta + CTA */}
+                  <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
+                    <div className="flex items-center gap-4 text-xs text-white/70 sm:text-sm">
+                      <span>{banner.date}</span>
+
+                      <span className="h-1 w-1 rounded-full bg-white/50" />
+
+                      <span>{banner.readTime}</span>
+                    </div>
+
+                    <Link
+                      href={`/blog/${banner.id}`}
+                      className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/90"
                     >
-                      <div
-                        className="
-                          mx-auto
-                          w-full
-                          max-w-7xl
-                          px-6
-                          sm:px-8
-                          lg:px-12
-                        "
-                      >
-                        <div
-                          className="
-                            max-w-xl
-                            text-right
-                            text-white
-                          "
-                        >
-                          <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                              delay: 0.1,
-                              duration: 0.4,
-                            }}
-                            className="
-                              text-3xl
-                              font-black
-                              leading-tight
-                              sm:text-4xl
-                              lg:text-6xl
-                            "
-                          >
-                            {banner.title}
-                          </motion.h2>
-
-                          <motion.p
-                            initial={{ opacity: 0, y: 15 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{
-                              delay: 0.2,
-                              duration: 0.4,
-                            }}
-                            className="
-                              mt-4
-                              text-base
-                              font-medium
-                              sm:text-lg
-                              lg:text-xl
-                            "
-                          >
-                            {banner.description}
-                          </motion.p>
-
-              
-                        </div>
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                      مطالعه مقاله
+                      <span aria-hidden>←</span>
+                    </Link>
+                  </div>
+                </div>
               </div>
-            </SwiperSlide>
-          );
-        })}
+            </article>
+          </SwiperSlide>
+        ))}
       </Swiper>
+
+      <Link
+        href="/blog"
+        className="mt-5 flex w-full items-center justify-center rounded-xl border px-4 py-3 text-sm font-medium transition-colors hover:bg-muted sm:hidden"
+      >
+        مشاهده همه مطالب
+      </Link>
     </section>
   );
-};
+}
 
 export default BlogHeroSlider;

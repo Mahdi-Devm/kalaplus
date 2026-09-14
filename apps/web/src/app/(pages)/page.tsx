@@ -3,14 +3,13 @@ import AuthComponents from "@/core/features/auth/components/block/AuthComponents
 import CategorySlider from "@/core/features/pages/components/block/category/CategorySlider";
 import StoriesSection from "@/core/features/pages/components/block/home/StoriesSection";
 import { FrequentProductsSection } from "@/core/features/pages/components/block/product/FrequentProductsSection";
-import { LatestProductsSection } from "@/core/features/pages/components/block/product/LatestProductsSection";
 import PercentSection from "@/core/features/pages/components/block/product/PercentSection";
 import PopularProductsSection from "@/core/features/pages/components/block/product/PopularProductsSection";
 import HeroSectionImg from "@/core/features/pages/components/block/section-img/HeroSectionImg";
-import ThumbnailCategory from "@/core/features/pages/components/ui/category/ThumbnailCategory";
-import AboutThumbnail from "@/core/features/pages/components/ui/poster/AboutThumbnail";
-import Essay from "@/core/features/pages/components/ui/essay/Essay";
 import Brands from "@/core/features/pages/components/ui/brand/Brands";
+import ThumbnailCategory from "@/core/features/pages/components/ui/category/ThumbnailCategory";
+import Essay from "@/core/features/pages/components/ui/essay/Essay";
+import AboutThumbnail from "@/core/features/pages/components/ui/poster/AboutThumbnail";
 
 function page() {
   return (
@@ -23,7 +22,6 @@ function page() {
       <ThumbnailCategory />
       <PopularProductsSection />
       <FrequentProductsSection />
-      <LatestProductsSection />
       <AboutThumbnail />
       <Essay />
       <Brands />

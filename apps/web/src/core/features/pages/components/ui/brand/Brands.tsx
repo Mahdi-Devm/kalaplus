@@ -1,29 +1,55 @@
-import brand1 from "../../../../../../../public/common/img/brand/bb1.png";
-import brand2 from "../../../../../../../public/common/img/brand/bb2.png";
-import brand3 from "../../../../../../../public/common/img/brand/bb3.png";
-import brand4 from "../../../../../../../public/common/img/brand/bb4.png";
-import brand5 from "../../../../../../../public/common/img/brand/bb5.png";
-import brand6 from "../../../../../../../public/common/img/brand/bb6.png";
-import brand7 from "../../../../../../../public/common/img/brand/bb8.png";
-import brand8 from "../../../../../../../public/common/img/brand/bb9.png";
+"use client";
 
 import Image from "next/image";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { brands } from "../../../assets/mock/brands/brands";
 
-const brands = [brand1, brand2, brand3, brand4, brand5, brand6, brand7, brand8];
-
-const Brands = () => {
+function Brands() {
   return (
-<div className="grid grid-cols-2 items-center gap-8 sm:grid-cols-4 lg:grid-cols-8 lg:gap-10">
-  {brands.map((brand, index) => (
-    <Image
-      key={index}
-      src={brand}
-      alt={`برند ${index + 1}`}
-      className="mx-auto h-auto max-h-36  object-contain"
-    />
-  ))}
-</div>
+    <div className="w-full ">
+      <Swiper
+        modules={[Autoplay]}
+        slidesPerView={2}
+        spaceBetween={24}
+        loop
+        speed={5000}
+        autoplay={{
+          delay: 0,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: true,
+        }}
+        breakpoints={{
+          640: {
+            slidesPerView: 4,
+            spaceBetween: 32,
+          },
+          1024: {
+            slidesPerView: 4,
+            spaceBetween: 40,
+          },
+          1280: {
+            slidesPerView: 6,
+            spaceBetween: 40,
+          },
+        }}
+      >
+        {brands.map((brand) => (
+          <SwiperSlide key={brand} className="flex items-center justify-center">
+            <div className="flex h-24 w-full items-center justify-center">
+              <Image
+                src={brand}
+                alt={brand}
+                width={160}
+                height={100}
+                className="h-auto max-h-20 w-auto object-contain grayscale opacity-70 transition-all duration-300 hover:grayscale-0 hover:opacity-100"
+              />
+            </div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
   );
-};
+}
 
 export default Brands;

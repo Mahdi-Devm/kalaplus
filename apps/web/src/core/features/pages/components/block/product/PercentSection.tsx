@@ -227,7 +227,7 @@ export default function PercentSection() {
     () => filterDiscounted(data?.products?.data ?? []),
     [data],
   );
-
+  console.log(products);
   if (error || (!loading && !products.length)) {
     return null;
   }

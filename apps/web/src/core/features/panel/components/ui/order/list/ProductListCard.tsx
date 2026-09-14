@@ -1,3 +1,4 @@
+import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import {
   H4,
@@ -13,7 +14,6 @@ import {
   CardFooter,
   CardHeader,
 } from "@/core/components/shadcn/ui/card/card";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import { formatDate } from "@/core/utils/formatDate";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import { Edit, Eye, Trash2 } from "lucide-react";
@@ -77,15 +77,15 @@ export default function ProductListCard({
         </div>
         <div className="space-y-2 pt-2 border-t">
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground w-12">رنگ:</span>
+            <Span className="text-xs text-muted-foreground w-12">رنگ:</Span>
             <ProductAttributesCell items={product.colors} max={3} />
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground w-12">سایز:</span>
+            <Span className="text-xs text-muted-foreground w-12">سایز:</Span>
             <ProductAttributesCell items={product.sizes} max={3} />
           </div>
           <div className="flex items-center gap-2">
-            <span className="text-xs text-muted-foreground w-12">جنس:</span>
+            <Span className="text-xs text-muted-foreground w-12">جنس:</Span>
             <ProductAttributesCell items={product.materials} max={3} />
           </div>
         </div>

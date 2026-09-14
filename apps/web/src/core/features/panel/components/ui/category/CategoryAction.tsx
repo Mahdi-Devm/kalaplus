@@ -1,9 +1,9 @@
 import { useQuery } from "@apollo/client/react";
 import { Dispatch, SetStateAction, useState } from "react";
+import { ProductType } from "../../../../../assets/types/product/ProductType";
 import { GET_ALL_CATEGORY } from "../../../../../gql-shcema/actionCategoryShema.gql";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
 import { GetAllCategories } from "../../../assets/@types/category/GetAllCategories";
-import { ProductType } from "../../../assets/@types/product/ProductType";
 import ModalCategory from "../order/modal/ModalCategory";
 import CardCategoryOrder from "./CardCategoryOrder";
 

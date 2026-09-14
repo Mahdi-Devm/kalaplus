@@ -1,3 +1,4 @@
+import { ProductType } from "@/core/assets/types/product/ProductType";
 import { Small } from "@/core/components/custom/ui/typography/Typography";
 import {
   Card,
@@ -8,7 +9,6 @@ import {
 } from "@/core/components/shadcn/ui/card/card";
 import { Input } from "@/core/components/shadcn/ui/input/input";
 import { Textarea } from "@/core/components/shadcn/ui/Textarea/textarea";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 function BasicProductFormInfo({
   form,
   handleChange,

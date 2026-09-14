@@ -25,7 +25,6 @@ type Query {
     filter_discountPercent: String
     sortBy: [String]
   ): PaginateProductResponse @httpOperation(subgraph: "NestJS", path: "/products/admin/list", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET, queryParamArgMap: "{\"page\":\"page\",\"limit\":\"limit\",\"search\":\"search\",\"filter.categoryId\":\"filter_categoryId\",\"filter.price\":\"filter_price\",\"filter.discountPercent\":\"filter_discountPercent\",\"sortBy\":\"sortBy\"}", queryStringOptionsByParam: "{\"sortBy\":{\"arrayFormat\":\"repeat\",\"destructObject\":true}}")
-  """محصولات با قیمت‌های تخفیف‌ خورده (اگر تخفیف داشته باشند)."""
   ProductsController_listForUser(
     page: Float
     limit: Float
@@ -34,8 +33,10 @@ type Query {
     filter_categoryId: String
     """Filter by price using operators like $eq, $gte, etc."""
     filter_price: String
+    """Filter by discountPercent using operators like $eq, $gte, etc."""
+    filter_discountPercent: String
     sortBy: [String]
-  ): PaginateProductResponse @httpOperation(subgraph: "NestJS", path: "/products/user/list", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET, queryParamArgMap: "{\"page\":\"page\",\"limit\":\"limit\",\"search\":\"search\",\"filter.categoryId\":\"filter_categoryId\",\"filter.price\":\"filter_price\",\"sortBy\":\"sortBy\"}", queryStringOptionsByParam: "{\"sortBy\":{\"arrayFormat\":\"repeat\",\"destructObject\":true}}")
+  ): PaginateProductResponse @httpOperation(subgraph: "NestJS", path: "/products/user/list", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET, queryParamArgMap: "{\"page\":\"page\",\"limit\":\"limit\",\"search\":\"search\",\"filter.categoryId\":\"filter_categoryId\",\"filter.price\":\"filter_price\",\"filter.discountPercent\":\"filter_discountPercent\",\"sortBy\":\"sortBy\"}", queryStringOptionsByParam: "{\"sortBy\":{\"arrayFormat\":\"repeat\",\"destructObject\":true}}")
   """اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف."""
   ProductsController_findOne(id: String!): Product @httpOperation(subgraph: "NestJS", path: "/products/{args.id}", operationSpecificHeaders: [["accept", "application/json"]], httpMethod: GET)
   """دریافت همه دسته‌ بندی‌ ها"""

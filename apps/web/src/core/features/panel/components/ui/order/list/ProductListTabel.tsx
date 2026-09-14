@@ -1,3 +1,4 @@
+import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
@@ -10,7 +11,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/core/components/shadcn/ui/table/table";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import { formatDate } from "@/core/utils/formatDate";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import { Edit, Eye, PackageOpen, Trash2 } from "lucide-react";

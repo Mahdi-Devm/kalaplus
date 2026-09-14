@@ -85,13 +85,19 @@ export class ProductsController {
     searchOptions: [
       {
         field: 'title',
-        example: 'سیمان',
+        example: 'کیف',
+      },
+      {
+        field: 'slug',
+        example: 'cement-type-2',
       },
     ],
     sortOptions: [
       { example: 'createdAt:DESC' },
-      { example: 'price:ASC' },
+      { example: 'createdAt:ASC' },
       { example: 'price:DESC' },
+      { example: 'price:ASC' },
+      { example: 'title:ASC' },
     ],
     filterOptions: [
       {
@@ -103,14 +109,10 @@ export class ProductsController {
         example: '$gte:100000',
       },
       {
-        field: 'price',
-        example: '$lte:500000',
+        field: 'discountPercent',
+        example: '$gt:0',
       },
     ],
-  })
-  @ApiOperation({
-    summary: 'لیست محصولات برای کاربران',
-    description: 'محصولات با قیمت‌های تخفیف‌ خورده (اگر تخفیف داشته باشند).',
   })
   listForUser(@Paginate() query: PaginateQuery) {
     return this.productsService.listForUser(query);

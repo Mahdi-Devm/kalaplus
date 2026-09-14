@@ -1,6 +1,6 @@
 import { PaginatedResponse } from "@/core/assets/types/PaginationType";
 import { ProductType } from "./ProductType";
 
-export interface GetProductsForAdminQuery {
+export interface GetProductsForQuery {
   products: PaginatedResponse<ProductType>;
 }

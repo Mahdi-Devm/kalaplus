@@ -1,4 +1,4 @@
-import { CategoryProductType } from "../category/CategoryType";
+import { CategoryProductType } from "../../../features/panel/assets/@types/category/CategoryType";
 
 export interface ProductType {
   id: string;

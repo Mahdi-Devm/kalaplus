@@ -14,8 +14,8 @@ import {
 } from "@/core/components/shadcn/ui/select/select";
 import { Plus } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
+import { ProductType } from "../../../../../assets/types/product/ProductType";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
-import { ProductType } from "../../../assets/@types/product/ProductType";
 function CardCategoryOrder({
   categories,
   resetCategoryForm,

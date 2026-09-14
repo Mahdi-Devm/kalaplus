@@ -41,7 +41,6 @@ export type Scalars = {
 export type Query = {
   /** همه محصولات را با اطلاعات کامل شامل موجودی و قیمت دقیق نمایش می‌دهد. */
   ProductsController_listForAdmin?: Maybe<PaginateProductResponse>;
-  /** محصولات با قیمت‌های تخفیف‌ خورده (اگر تخفیف داشته باشند). */
   ProductsController_listForUser?: Maybe<PaginateProductResponse>;
   /** اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف. */
   ProductsController_findOne?: Maybe<Product>;
@@ -81,6 +80,7 @@ export type QueryProductsController_listForUserArgs = {
   search?: InputMaybe<Scalars['String']['input']>;
   filter_categoryId?: InputMaybe<Scalars['String']['input']>;
   filter_price?: InputMaybe<Scalars['String']['input']>;
+  filter_discountPercent?: InputMaybe<Scalars['String']['input']>;
   sortBy?: InputMaybe<Array<InputMaybe<Scalars['String']['input']>>>;
 };
 

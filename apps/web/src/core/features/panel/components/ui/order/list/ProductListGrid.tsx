@@ -1,4 +1,4 @@
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
+import { ProductType } from "@/core/assets/types/product/ProductType";
 import EmptyState from "./EmptyState";
 import ProductListCard from "./ProductListCard";
 

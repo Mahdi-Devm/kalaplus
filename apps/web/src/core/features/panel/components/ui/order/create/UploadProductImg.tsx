@@ -1,3 +1,4 @@
+import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Button } from "@/core/components/shadcn/ui/button/button";
@@ -9,7 +10,6 @@ import {
   CardTitle,
 } from "@/core/components/shadcn/ui/card/card";
 import { Input } from "@/core/components/shadcn/ui/input/input";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import { useImageUpload } from "@/core/hooks/useImageUpload";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import { Loader2, Plus, X } from "lucide-react";

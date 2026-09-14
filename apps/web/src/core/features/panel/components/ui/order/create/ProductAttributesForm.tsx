@@ -1,9 +1,9 @@
 "use client";
 
 import { attribute } from "@/core/assets/mock/attribute";
+import { ProductType } from "@/core/assets/types/product/ProductType";
 import { TagInput } from "@/core/components/custom/ui/tagInput/TagInput";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 
 export type AttributeKey = "colors" | "sizes" | "materials";
 

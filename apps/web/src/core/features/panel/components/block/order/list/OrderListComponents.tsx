@@ -1,7 +1,7 @@
 "use client";
 
-import { GetProductsForAdminQuery } from "@/core/features/panel/assets/@types/product/GetProductsForAdminQuery";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
+import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
+import { ProductType } from "@/core/assets/types/product/ProductType";
 import {
   DELETE_PRODUCT,
   GET_PRODUCTS_FOR_ADMIN,
@@ -28,7 +28,7 @@ export default function OrderListComponents({
   limit: string;
   search: string;
 }) {
-  const { loading, data, refetch } = useQuery<GetProductsForAdminQuery>(
+  const { loading, data, refetch } = useQuery<GetProductsForQuery>(
     GET_PRODUCTS_FOR_ADMIN,
     {
       variables: {

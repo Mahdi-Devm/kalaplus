@@ -1,5 +1,5 @@
+import { ProductType } from "@/core/assets/types/product/ProductType";
 import { Button } from "@/core/components/shadcn/ui/button/button";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import { CREATE_PRODUCT } from "@/core/features/panel/gql-shcema/ProductSchema.gql";
 import {
   ProductZodFormData,

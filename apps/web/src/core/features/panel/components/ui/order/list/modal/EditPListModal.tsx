@@ -1,5 +1,5 @@
+import { ProductType } from "@/core/assets/types/product/ProductType";
 import Modal from "@/core/components/custom/ui/modal/Modal";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductType";
 import EditProductListForm from "../EditProductListForm";
 interface EditModalProps {
   open: boolean;

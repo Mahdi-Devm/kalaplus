@@ -20,6 +20,10 @@ function Brands() {
           pauseOnMouseEnter: true,
         }}
         breakpoints={{
+          380: {
+            slidesPerView: 4,
+            spaceBetween: 32,
+          },
           640: {
             slidesPerView: 4,
             spaceBetween: 32,
@@ -36,7 +40,7 @@ function Brands() {
       >
         {brands.map((brand) => (
           <SwiperSlide key={brand} className="flex items-center justify-center">
-            <div className="flex h-24 w-full items-center justify-center">
+            <div className="flex w-full items-center justify-center">
               <Image
                 src={brand}
                 alt={brand}

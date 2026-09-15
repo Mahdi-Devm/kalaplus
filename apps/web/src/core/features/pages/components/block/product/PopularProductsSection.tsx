@@ -373,12 +373,9 @@ export default function PopularProductsSection() {
             </p>
           </div>
         </div>
-        <Button
-          asChild
-          variant="ghost"
-          className="group hidden rounded-xl sm:flex"
-        >
-          <Link href="/products">
+
+        <Button asChild variant="ghost" className="group rounded-xl ">
+          <Link href="/products" className="text-sm">
             مشاهده همه
             <FiArrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
           </Link>
@@ -401,7 +398,7 @@ export default function PopularProductsSection() {
           }}
           speed={700}
           breakpoints={{
-            480: {
+            380: {
               slidesPerView: 2.2,
               spaceBetween: 12,
             },

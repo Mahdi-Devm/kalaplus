@@ -181,30 +181,16 @@ export function FrequentProductsSection() {
               پرتکرارترین کالاها
             </h2>
 
-            <p className="mt-1 text-xs text-muted-foreground sm:text-sm">
+            <p className="mt-1 text-xs text-muted-foreground sm:text-sm hidden sm:flex">
               انتخاب‌هایی که بیشتر از همه دیده می‌شوند
             </p>
           </div>
         </div>
 
-        <Button
-          asChild
-          variant="ghost"
-          className="group hidden rounded-xl sm:flex"
-        >
-          <Link href="/products">
+        <Button asChild variant="ghost" className="group rounded-xl ">
+          <Link href="/products" className="text-sm">
             مشاهده همه
             <FiArrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
-          </Link>
-        </Button>
-      </div>
-
-      {/* Mobile all button */}
-      <div className="mb-4 sm:hidden">
-        <Button asChild variant="outline" size="sm" className="rounded-xl">
-          <Link href="/products">
-            مشاهده همه
-            <FiArrowLeft className="mr-2 size-4" />
           </Link>
         </Button>
       </div>
@@ -221,8 +207,8 @@ export function FrequentProductsSection() {
           spaceBetween={12}
           slidesPerView={1.15}
           breakpoints={{
-            480: {
-              slidesPerView: 1.6,
+            380: {
+              slidesPerView: 2.2,
               spaceBetween: 14,
             },
             640: {

@@ -16,12 +16,9 @@ function Essay() {
             </p>
           </div>
         </div>
-        <Button
-          asChild
-          variant="ghost"
-          className="group hidden rounded-xl sm:flex"
-        >
-          <Link href="/blog">
+
+        <Button asChild variant="ghost" className="group rounded-xl ">
+          <Link href="/blog" className="text-sm">
             مشاهده همه
             <FiArrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
           </Link>

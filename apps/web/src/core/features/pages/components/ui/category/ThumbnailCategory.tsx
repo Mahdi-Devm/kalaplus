@@ -2,7 +2,7 @@ import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCust
 
 function ThumbnailCategory() {
   return (
-    <div className="flex justify-between mt-10">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-2 justify-between mt-10">
       {[
         "/common/img/category/1-768x330.png",
         "/common/img/category/2-768x330.png",

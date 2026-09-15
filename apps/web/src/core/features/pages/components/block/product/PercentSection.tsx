@@ -390,7 +390,7 @@ export default function PercentSection() {
               }}
               speed={700}
               breakpoints={{
-                480: {
+                380: {
                   slidesPerView: 2.2,
                   spaceBetween: 10,
                 },

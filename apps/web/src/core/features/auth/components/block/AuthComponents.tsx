@@ -80,10 +80,14 @@ function AuthComponents() {
           : "وارد شدن به کالا پلاس :)"
       }
       trigger={
-        <Button variant="secondary" className="bg-gray-200 hover:text-white">
+        <Button
+          variant="secondary"
+          size="sm"
+          className="bg-gray-200 hover:text-white"
+        >
           <UserIconHeader />
 
-          <Span className="font-medium">حساب کاربری</Span>
+          <Span className="font-medium sm:flex md:hidden">حساب کاربری</Span>
         </Button>
       }
     >

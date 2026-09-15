@@ -1,14 +1,11 @@
 "use client";
 
-import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
 import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
-import { Skeleton } from "@/core/components/shadcn/ui/skeleton/skeleton";
 import { getImageUrl } from "@/core/utils/getImageUrl";
-import { useQuery } from "@apollo/client/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
@@ -16,8 +13,9 @@ import { FiShoppingCart } from "react-icons/fi";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import { GET_PRODUCTS_FOR_USER } from "../../../gql-shcema/ProductSchema.gql";
+import { useProducts } from "../../../lib/useProducts";
 import { CountdownTimer } from "../../ui/product/CountdownTimer";
+import ProductsSkeleton from "../../ui/product/skeleton/ProductsSkeleton";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Constants                                 */
@@ -25,7 +23,6 @@ import { CountdownTimer } from "../../ui/product/CountdownTimer";
 
 const DISCOUNT_THRESHOLD = 1;
 const CARD_SLICE = 12;
-const QUERY_LIMIT = 20;
 
 /* -------------------------------------------------------------------------- */
 /*                                  Helpers                                   */
@@ -182,58 +179,16 @@ function ProductDiscountCard({ product }: { product: ProductType }) {
   );
 }
 
-/* -------------------------------------------------------------------------- */
-/*                                Skeleton                                    */
-/* -------------------------------------------------------------------------- */
-
-function PercentSectionSkeleton() {
-  return (
-    <Card className="overflow-hidden rounded-[2rem] border-border/60">
-      <CardContent className="flex gap-4 p-4">
-        <Skeleton className="hidden h-48 w-48 shrink-0 rounded-[1.75rem] lg:block" />
-
-        <div className="grid flex-1 grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <div key={index} className="space-y-2">
-              <Skeleton className="aspect-square rounded-xl" />
-              <Skeleton className="h-4 w-4/5" />
-              <Skeleton className="h-5 w-3/5" />
-            </div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
-/*                                Main Section                                */
-/* -------------------------------------------------------------------------- */
-
 export default function PercentSection() {
-  const { loading, error, data } = useQuery<GetProductsForQuery>(
-    GET_PRODUCTS_FOR_USER,
-    {
-      variables: {
-        page: 1,
-        limit: QUERY_LIMIT,
-      },
-    },
-  );
+  const { loading, data } = useProducts();
 
   const deadline = useMemo(() => Date.now() + 24 * 60 * 60 * 1000, []);
-
   const products = useMemo(
     () => filterDiscounted(data?.products?.data ?? []),
     [data],
   );
-  console.log(products);
-  if (error || (!loading && !products.length)) {
-    return null;
-  }
-
   if (loading) {
-    return <PercentSectionSkeleton />;
+    return <ProductsSkeleton />;
   }
 
   return (

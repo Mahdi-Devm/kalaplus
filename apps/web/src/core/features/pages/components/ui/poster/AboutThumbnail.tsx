@@ -8,7 +8,7 @@ function AboutThumbnail() {
     <div className="relative">
       <div className="hidden md:block">
         <ImgNormalCustom
-          src={"/common/img/about/IMG_20241113_181628_315.png"}
+          src={"/common/img/about/IMG_20241113_181628_315.jpg"}
           width={1250}
           height={1250}
           alt=""
@@ -30,7 +30,7 @@ function AboutThumbnail() {
 
       <div className="block md:hidden">
         <ImgNormalCustom
-          src={"/common/img/about/bascet-mob.png"}
+          src={"/common/img/about/bascet-mob.jpg"}
           width={500}
           height={500}
           alt=""

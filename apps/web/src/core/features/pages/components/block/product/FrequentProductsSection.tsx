@@ -1,6 +1,5 @@
 "use client";
 
-import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
 import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
@@ -9,7 +8,6 @@ import { Button } from "@/core/components/shadcn/ui/button/button";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
 import { Skeleton } from "@/core/components/shadcn/ui/skeleton/skeleton";
 import { getImageUrl } from "@/core/utils/getImageUrl";
-import { useQuery } from "@apollo/client/react";
 import Link from "next/link";
 import {
   FiArrowLeft,
@@ -20,10 +18,8 @@ import {
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import "swiper/css";
-
-import { GET_PRODUCTS_FOR_USER } from "../../../gql-shcema/ProductSchema.gql";
-
-const QUERY_LIMIT = 12;
+import { useProducts } from "../../../lib/useProducts";
+import ProductsSkeleton from "../../ui/product/skeleton/ProductsSkeleton";
 
 function formatPrice(value: number) {
   return value.toLocaleString("en-US");
@@ -157,19 +153,12 @@ function FrequentProductSkeleton() {
 }
 
 export function FrequentProductsSection() {
-  const { data, loading } = useQuery<GetProductsForQuery>(
-    GET_PRODUCTS_FOR_USER,
-    {
-      variables: {
-        page: 1,
-        limit: QUERY_LIMIT,
-      },
-    },
-  );
+  const { loading, data } = useProducts();
 
-  const products = (data?.products?.data ?? []).filter(
-    (product): product is ProductType => Boolean(product),
-  );
+  if (loading) {
+    return <ProductsSkeleton />;
+  }
+  const products = data?.products?.data ?? [];
 
   return (
     <section className="my-10 overflow-hidden">
@@ -195,50 +184,35 @@ export function FrequentProductsSection() {
         </Button>
       </div>
 
-      {/* Products */}
-      {loading ? (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <FrequentProductSkeleton key={index} />
-          ))}
-        </div>
-      ) : products.length > 0 ? (
-        <Swiper
-          spaceBetween={12}
-          slidesPerView={1.15}
-          breakpoints={{
-            380: {
-              slidesPerView: 2.2,
-              spaceBetween: 14,
-            },
-            640: {
-              slidesPerView: 2.3,
-              spaceBetween: 16,
-            },
-            768: {
-              slidesPerView: 3,
-              spaceBetween: 18,
-            },
-            1024: {
-              slidesPerView: 5,
-              spaceBetween: 20,
-            },
-          }}
-          className="!overflow-visible"
-        >
-          {products.map((product, index) => (
-            <SwiperSlide key={product.id} className="!h-auto">
-              <FrequentProductCard product={product} index={index} />
-            </SwiperSlide>
-          ))}
-        </Swiper>
-      ) : (
-        <div className="rounded-2xl border border-dashed border-border py-16 text-center">
-          <p className="text-sm text-muted-foreground">
-            محصولی برای نمایش وجود ندارد.
-          </p>
-        </div>
-      )}
+      <Swiper
+        spaceBetween={12}
+        slidesPerView={1.15}
+        breakpoints={{
+          380: {
+            slidesPerView: 2.2,
+            spaceBetween: 14,
+          },
+          640: {
+            slidesPerView: 2.3,
+            spaceBetween: 16,
+          },
+          768: {
+            slidesPerView: 3,
+            spaceBetween: 18,
+          },
+          1024: {
+            slidesPerView: 5,
+            spaceBetween: 20,
+          },
+        }}
+        className="!overflow-visible"
+      >
+        {products.map((product, index) => (
+          <SwiperSlide key={product.id} className="!h-auto">
+            <FrequentProductCard product={product} index={index} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
     </section>
   );
 }

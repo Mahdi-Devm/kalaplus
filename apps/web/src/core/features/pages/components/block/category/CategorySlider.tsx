@@ -6,7 +6,7 @@ import { FiChevronLeft } from "react-icons/fi";
 
 function CategorySlider() {
   return (
-    <Card className=" border-none sm:border-border mt-0">
+    <Card className="border-0 lg:border lg:border-border mt-0">
       <CardContent className="flex flex-col items-center gap-4 p-4 sm:gap-6 sm:p-6 lg:flex-row lg:gap-10">
         <TitleSiwperCategory />
         <SiwperCategory />

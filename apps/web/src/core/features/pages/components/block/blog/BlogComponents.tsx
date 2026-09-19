@@ -6,7 +6,6 @@ function BlogComponents() {
     <>
       <BlogHeroSlider />
       <BlogPage />
-      <BlogHeroSlider />
       <BlogPage />
     </>
   );

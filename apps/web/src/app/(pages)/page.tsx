@@ -29,9 +29,7 @@ export default function Page() {
       <StoriesSection />
       <HeroSectionImg />
 
-      <Suspense fallback={<CategorySliderSkeleton />}>
-        <CategorySlider />
-      </Suspense>
+      <CategorySlider />
 
       <Suspense>
         <PercentSection />

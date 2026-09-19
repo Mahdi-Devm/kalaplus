@@ -7,11 +7,12 @@ import { getImageUrl } from "@/core/utils/getImageUrl";
 import { useQuery } from "@apollo/client/react";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import CategorySliderSkeleton from "./skeleton/CategorySliderSkeleton";
 
 function SiwperCategory() {
-  const { data } = useQuery<GetAllCategories>(GET_ALL_CATEGORY);
+  const { loading, data } = useQuery<GetAllCategories>(GET_ALL_CATEGORY);
   const categories = data?.categories || [];
-
+  if (loading) return <CategorySliderSkeleton />;
   return (
     <div className="w-full lg:w-5/6">
       <Swiper

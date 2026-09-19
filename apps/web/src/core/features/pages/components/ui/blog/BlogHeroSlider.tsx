@@ -4,6 +4,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Span, H2, P } from "@/core/components/custom/ui/typography/Typography";
+import { Button } from "@/core/components/shadcn/ui/button/button";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -28,8 +30,7 @@ function BlogHeroSlider() {
       >
         {bannerBlog.map((banner) => (
           <SwiperSlide key={banner.id}>
-            <article className="group relative min-h-[420px] overflow-hidden rounded-3xl border bg-card sm:min-h-[500px] lg:min-h-[560px]">
-              {/* Image */}
+            <article className="group relative min-h-105 overflow-hidden rounded-3xl border bg-card ">
               <Image
                 src={banner.image}
                 alt={banner.title}
@@ -39,44 +40,32 @@ function BlogHeroSlider() {
                 className="object-cover transition-transform duration-700 group-hover:scale-105"
               />
 
-              {/* Gradient */}
               <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent" />
 
-              {/* Content */}
               <div className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-10 lg:p-14">
                 <div className="max-w-3xl text-right text-white">
-                  {/* Category */}
-                  <span className="inline-flex rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-medium backdrop-blur-md">
-                    {banner.category}
-                  </span>
+                  <Span>{banner.category}</Span>
+                  <H2 className="text-xl md:text-4xl">{banner.title}</H2>
 
-                  {/* Title */}
-                  <h2 className="mt-4 text-2xl font-black leading-[1.4] sm:text-3xl lg:text-5xl">
-                    {banner.title}
-                  </h2>
+                  <P>{banner.description}</P>
 
-                  {/* Description */}
-                  <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80 sm:text-base">
-                    {banner.description}
-                  </p>
-
-                  {/* Meta + CTA */}
                   <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
                     <div className="flex items-center gap-4 text-xs text-white/70 sm:text-sm">
-                      <span>{banner.date}</span>
+                      <Span>{banner.date}</Span>
 
                       <span className="h-1 w-1 rounded-full bg-white/50" />
 
-                      <span>{banner.readTime}</span>
+                      <Span>{banner.readTime}</Span>
                     </div>
-
-                    <Link
-                      href={`/blog/${banner.id}`}
-                      className="inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-black transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/90"
+                    <Button
+                      variant="secondary"
+                      className="hover:bg-muted-foreground"
                     >
-                      مطالعه مقاله
-                      <span aria-hidden>←</span>
-                    </Link>
+                      <Link href={`/blog/${banner.id}`}>
+                        مطالعه مقاله
+                        <Span aria-hidden>←</Span>
+                      </Link>
+                    </Button>
                   </div>
                 </div>
               </div>

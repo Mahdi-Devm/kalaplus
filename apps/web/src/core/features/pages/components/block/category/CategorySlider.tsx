@@ -1,9 +1,6 @@
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
-import { Suspense } from "react";
-import { FiChevronLeft } from "react-icons/fi";
 import SiwperCategory from "../../ui/category/SiwperCategory";
-import CategorySliderSkeleton from "../../ui/category/skeleton/CategorySliderSkeleton";
 import TitleSiwperCategory from "../../ui/category/TitleSiwperCategory";
 
 async function CategorySlider() {
@@ -17,9 +14,7 @@ async function CategorySlider() {
         <Button
           size="sm"
           className="text-xs w-full rounded sm:text-sm flex sm:hidden"
-        >
-          مشاهده همه <FiChevronLeft />
-        </Button>
+        ></Button>
       </CardContent>
     </Card>
   );

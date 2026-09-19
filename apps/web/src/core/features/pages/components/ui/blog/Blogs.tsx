@@ -1,4 +1,4 @@
-import BlogData from "./BlogData";
+import BlogData from "../../../assets/mock/blog/blogDeta";
 import BlogComponent from "./BlogComponent";
 const BlogPage = () => {
   return (

@@ -2,7 +2,7 @@
 
 import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
-import { Span } from "@/core/components/custom/ui/typography/Typography";
+import { Span, H3 } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
@@ -46,9 +46,9 @@ function FrequentProductCard({
         <CardContent className="p-4">
           <div className="mb-3 flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <span className="text-2xl font-black tracking-tighter text-muted-foreground/30 transition-colors group-hover:text-primary/30">
+              <Span className="text-2xl group-hover:text-primary/30">
                 {String(index + 1).padStart(2, "0")}
-              </span>
+              </Span>
 
               <div className="h-5 w-px bg-border" />
 
@@ -86,7 +86,6 @@ function FrequentProductCard({
             )}
           </div>
 
-          {/* Product info */}
           <div>
             {product.category && (
               <Span className="mb-1 block text-[10px] text-muted-foreground">
@@ -94,12 +93,9 @@ function FrequentProductCard({
               </Span>
             )}
 
-            <h3 className="line-clamp-2 min-h-10 text-sm font-bold leading-5 transition-colors group-hover:text-primary">
-              {product.title}
-            </h3>
+            <H3>{product.title}</H3>
           </div>
 
-          {/* Price */}
           <div className="mt-4 flex items-end justify-between gap-2">
             <div>
               {discount > 0 && (
@@ -109,11 +105,9 @@ function FrequentProductCard({
               )}
 
               <div className="flex items-baseline gap-1">
-                <span className="text-base font-black">
-                  {formatPrice(finalPrice)}
-                </span>
+                <Span>{formatPrice(finalPrice)}</Span>
 
-                <span className="text-[9px] text-muted-foreground">تومان</span>
+                <Span>تومان</Span>
               </div>
             </div>
 

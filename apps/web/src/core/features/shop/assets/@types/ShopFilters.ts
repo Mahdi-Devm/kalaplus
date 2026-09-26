@@ -1,7 +1,6 @@
 export interface ShopFiltersState {
   priceRange: [number, number];
   colors: string[];
-  brands: string[];
 }
 
 export interface ShopFiltersProps {

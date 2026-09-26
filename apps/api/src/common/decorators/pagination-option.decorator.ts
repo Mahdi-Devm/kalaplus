@@ -1,6 +1,7 @@
-import { applyDecorators, Type } from '@nestjs/common';
+import type { Type } from '@nestjs/common';
+import { applyDecorators } from '@nestjs/common';
 import { ApiQuery } from '@nestjs/swagger';
-import { SwaggerEnumType } from 'node_modules/@nestjs/swagger/dist/types/swagger-enum.type';
+import type { SwaggerEnumType } from 'node_modules/@nestjs/swagger/dist/types/swagger-enum.type';
 
 interface FilterOption {
   field?: string;

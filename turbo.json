@@ -5,19 +5,53 @@
     "build": {
       "dependsOn": ["^build"],
       "inputs": ["$TURBO_DEFAULT$", ".env*"],
-      "outputs": [".next/**", "dist/**", "!.next/cache/**", "!.next/dev/**"]
+      "outputs": [".next/**", "dist/**", "!.next/cache/**", "!.next/dev/**"],
+      "env": [
+        "NODE_ENV",
+        "PORT",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_USER",
+        "DB_PASSWORD",
+        "DB_NAME",
+        "REDIS_KEY",
+        "ROLES_KEY"
+      ]
     },
+
     "dev": {
       "cache": false,
       "persistent": true
     },
 
     "lint": {
-      "dependsOn": ["^lint"]
+      "dependsOn": ["^lint"],
+      "env": [
+        "NODE_ENV",
+        "PORT",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_USER",
+        "DB_PASSWORD",
+        "DB_NAME",
+        "REDIS_KEY",
+        "ROLES_KEY"
+      ]
     },
 
     "check-types": {
-      "dependsOn": ["^check-types"]
+      "dependsOn": ["^check-types"],
+      "env": [
+        "NODE_ENV",
+        "PORT",
+        "DB_HOST",
+        "DB_PORT",
+        "DB_USER",
+        "DB_PASSWORD",
+        "DB_NAME",
+        "REDIS_KEY",
+        "ROLES_KEY"
+      ]
     },
 
     "test": {

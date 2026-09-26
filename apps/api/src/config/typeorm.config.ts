@@ -1,4 +1,7 @@
-import { TypeOrmModuleOptions, TypeOrmOptionsFactory } from '@nestjs/typeorm';
+import type {
+  TypeOrmModuleOptions,
+  TypeOrmOptionsFactory,
+} from '@nestjs/typeorm';
 import { config } from 'dotenv';
 
 config();

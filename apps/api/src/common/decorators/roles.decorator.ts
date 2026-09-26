@@ -1,4 +1,4 @@
-import { Roles } from '@common/enums/role-app.enum';
+import type { Roles } from '@common/enums/role-app.enum';
 import { SetMetadata } from '@nestjs/common';
 
 export const RolesDecorator = (...roles: Roles[]) =>

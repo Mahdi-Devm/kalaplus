@@ -1,5 +1,5 @@
-import { Product } from 'src/modules/products/entities/product.entity';
-import { Category } from '../entities/category.entity';
+import type { Product } from 'src/modules/products/entities/product.entity';
+import type { Category } from '../entities/category.entity';
 
 export const createProductSeed = (
   categories: Category[],

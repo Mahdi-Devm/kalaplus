@@ -1,4 +1,4 @@
-import { Roles } from '@common/enums/role-app.enum';
+import type { Roles } from '@common/enums/role-app.enum';
 
 export type JwtPayload = {
   sub: string;

@@ -1,36 +1,50 @@
 name: Shared CI setup
 
 description: >-
-  Composite action shared by all KalaPlus CI workflows: checkout, pnpm setup
-  with dependency caching, and a frozen-lockfile install.
+  Composite action shared by all KalaPlus CI workflows.
 
 inputs:
   node-version:
     description: Node.js version to use
     required: false
-    default: '22'
+    default: "22"
 
 runs:
   using: composite
-  steps:
-    - name: Setup pnpm
-      uses: pnpm/action-setup@v4
-      with:
-        # Matches package.json "devEngines.packageManager" (11.25.0).
-        # pnpm/action-setup does not parse "devEngines" (only "packageManager"),
-        # so the version is pinned here on purpose.
-        version: 11.25.0
 
+  steps:
     - name: Setup Node.js
       uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
-        cache: pnpm
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: 11.25.0
+        run_install: false
+
+    - name: Verify toolchain
+      shell: bash
+      run: |
+        echo "===== TOOLCHAIN ====="
+        echo "Node:"
+        node -v
+        echo "pnpm:"
+        pnpm -v
+        echo "Corepack:"
+        corepack --version
+        echo "===================="
 
     - name: Install dependencies
       shell: bash
-      run: pnpm install --frozen-lockfile
+      run: |
+        echo "===== INSTALL DEPENDENCIES ====="
+        pnpm install --frozen-lockfile
+        echo "===== INSTALL PASSED ====="
 
     - name: Show turbo version
       shell: bash
-      run: pnpm exec turbo --version
+      run: |
+        echo "===== TURBO ====="
+        pnpm exec turbo --version

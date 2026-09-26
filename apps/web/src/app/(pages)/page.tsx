@@ -13,7 +13,6 @@ import SliderImgPP from "@/core/features/pages/components/block/product/SliderIm
 import HeroSectionImg from "@/core/features/pages/components/block/section-img/HeroSectionImg";
 
 import Brands from "@/core/features/pages/components/ui/brand/Brands";
-import CategorySliderSkeleton from "@/core/features/pages/components/ui/category/skeleton/CategorySliderSkeleton";
 import ThumbnailCategory from "@/core/features/pages/components/ui/category/ThumbnailCategory";
 import Essay from "@/core/features/pages/components/ui/essay/Essay";
 import AboutThumbnail from "@/core/features/pages/components/ui/poster/AboutThumbnail";

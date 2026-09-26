@@ -1,5 +1,5 @@
-import { CookieOptions } from '@common/@types/cookie-options';
-import { Response } from 'express';
+import type { CookieOptions } from '@common/@types/cookie-options';
+import type { Response } from 'express';
 
 export function setCookies(res: Response, cookies: CookieOptions[]): void {
   cookies.forEach((cookie) => {

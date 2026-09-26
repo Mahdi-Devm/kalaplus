@@ -1,6 +1,7 @@
 import { generateQueryParams } from '@common/utils/generate-url-params';
-import { createParamDecorator, ExecutionContext } from '@nestjs/common';
-import { Request } from 'express';
+import type { ExecutionContext } from '@nestjs/common';
+import { createParamDecorator } from '@nestjs/common';
+import type { Request } from 'express';
 
 export const Url = createParamDecorator((_, context: ExecutionContext) => {
   const request: Request = context.switchToHttp().getRequest();

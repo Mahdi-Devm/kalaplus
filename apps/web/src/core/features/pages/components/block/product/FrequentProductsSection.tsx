@@ -2,11 +2,10 @@
 
 import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
-import { Span, H3 } from "@/core/components/custom/ui/typography/Typography";
+import { H3, Span } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
-import { Skeleton } from "@/core/components/shadcn/ui/skeleton/skeleton";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import Link from "next/link";
 import {
@@ -118,31 +117,6 @@ function FrequentProductCard({
         </CardContent>
       </Card>
     </Link>
-  );
-}
-
-function FrequentProductSkeleton() {
-  return (
-    <Card className="overflow-hidden rounded-2xl">
-      <CardContent className="p-4">
-        <div className="mb-3 flex justify-between">
-          <Skeleton className="h-7 w-12" />
-          <Skeleton className="size-8 rounded-full" />
-        </div>
-
-        <Skeleton className="aspect-[1.25/1] w-full rounded-xl" />
-
-        <div className="mt-4 space-y-2">
-          <Skeleton className="h-3 w-16" />
-          <Skeleton className="h-10 w-full" />
-        </div>
-
-        <div className="mt-4 flex justify-between">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="size-9 rounded-xl" />
-        </div>
-      </CardContent>
-    </Card>
   );
 }
 

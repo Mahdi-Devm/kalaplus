@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import {
   H3,
   Muted,
@@ -45,11 +46,11 @@ const ContactComponentQuestion = ({ title, text, image }: BoxComponentType) => {
       >
         {image && (
           <div className="relative w-full overflow-hidden">
-            <img
+            <ImgNormalCustom
               src={image}
               alt={title}
-              loading="lazy"
-              decoding="async"
+              width={100}
+              height={100}
               className="block aspect-video w-full object-cover"
             />
           </div>

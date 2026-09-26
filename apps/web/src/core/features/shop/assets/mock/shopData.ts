@@ -29,16 +29,6 @@ export interface SortOption {
   label: string;
 }
 
-export const SORT_OPTIONS: SortOption[] = [
-  { value: "default", label: "مرتب سازی پیش‌فرض" },
-  { value: "best-selling", label: "پر فروش ترین" },
-  { value: "popularity", label: "محبوبیت" },
-  { value: "top-rated", label: "میانگین امتیاز" },
-  { value: "newest", label: "جدیدترین" },
-  { value: "cheapest", label: "ارزان‌ترین" },
-  { value: "expensive", label: "گران‌ترین" },
-];
-
 export const COLOR_OPTIONS: ColorOption[] = [
   { id: "blue", label: "آبی", hex: "#2563eb" },
   { id: "purple-dark", label: "بنفش تیره", hex: "#6d28d9" },

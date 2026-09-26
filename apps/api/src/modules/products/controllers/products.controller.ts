@@ -115,6 +115,14 @@ export class ProductsController {
     ],
   })
   listForUser(@Paginate() query: PaginateQuery) {
+    const priceFilter = query.filter?.price;
+
+    if (typeof priceFilter === 'string' && priceFilter.includes(',')) {
+      query.filter = {
+        ...query.filter,
+        price: priceFilter.split(','),
+      };
+    }
     return this.productsService.listForUser(query);
   }
 

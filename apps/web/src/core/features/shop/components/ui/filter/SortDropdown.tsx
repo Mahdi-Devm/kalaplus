@@ -7,21 +7,32 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/shadcn/ui/dropdown-menu/dropdown-menu";
+import { SortBy } from "@/core/assets/types/sortBy";
+import { useUpdateQuery } from "@/core/hooks/useUpdataQuery";
+import { getSortBy } from "@/core/utils/getsortBy";
 import { cn } from "@/core/utils/shadcn/utils";
 import { FiSliders } from "react-icons/fi";
-import { SORT_OPTIONS } from "../../../assets/mock/shopData";
 
 interface SortDropdownProps {
   value: string;
-  onChange: (value: string) => void;
   className?: string;
 }
 
-export function SortDropdown({
-  value,
-  onChange,
-  className,
-}: SortDropdownProps) {
+const SORT_FIELD = "price";
+
+export function SortDropdown({ value, className }: SortDropdownProps) {
+  const updateQuery = useUpdateQuery();
+
+  const handleSortChange = (value: string) => {
+    const sort = value as SortBy;
+
+    const sortBy = `${SORT_FIELD}:${sort}`;
+
+    updateQuery("sortBy", sortBy);
+  };
+
+  const sortOptions = Object.values(SortBy) as SortBy[];
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -36,11 +47,12 @@ export function SortDropdown({
           مرتب سازی
         </button>
       </DropdownMenuTrigger>
+
       <DropdownMenuContent align="start" className="w-56">
-        <DropdownMenuRadioGroup value={value} onValueChange={onChange}>
-          {SORT_OPTIONS.map((option) => (
-            <DropdownMenuRadioItem key={option.value} value={option.value}>
-              {option.label}
+        <DropdownMenuRadioGroup value={value} onValueChange={handleSortChange}>
+          {sortOptions.map((option) => (
+            <DropdownMenuRadioItem key={option} value={option}>
+              {getSortBy(option)}
             </DropdownMenuRadioItem>
           ))}
         </DropdownMenuRadioGroup>

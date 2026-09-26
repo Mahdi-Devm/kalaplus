@@ -25,11 +25,17 @@ import {
 import Logo from "@/core/components/custom/ui/logo/Logo";
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import AuthComponents from "@/core/features/auth/components/block/AuthComponents";
+import { Home } from "lucide-react";
 
 function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
 
   const navItems = [
+    {
+      title: "خانه",
+      href: "/",
+      icon: Home,
+    },
     {
       title: "پرفروش‌ترین‌ها",
       href: "/best-selling",

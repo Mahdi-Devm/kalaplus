@@ -49,7 +49,6 @@ export default function OrderListComponents({
     null,
   );
   const products = data?.products?.data ?? [];
-  console.log(products);
   if (loading) return <OrderListSkeleton />;
 
   function handleEdit(product: ProductType) {

@@ -1,7 +1,7 @@
-name: Master Production Validation
+name: CI (Pull Request)
 
 on:
-  push:
+  pull_request:
     branches:
       - master
   workflow_dispatch:

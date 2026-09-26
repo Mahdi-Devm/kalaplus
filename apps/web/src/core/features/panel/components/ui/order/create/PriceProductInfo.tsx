@@ -1,3 +1,4 @@
+import { ProductFormType } from "@/core/assets/types/product/ProductType";
 import { Muted } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import {
@@ -8,13 +9,12 @@ import {
 } from "@/core/components/shadcn/ui/card/card";
 import { Input } from "@/core/components/shadcn/ui/input/input";
 import { Separator } from "@/core/components/shadcn/ui/separator/separator";
-import { ProductType } from "@/core/features/panel/assets/@types/product/ProductTYpe";
 
 function PriceProductInfo({
   form,
   handleChange,
 }: {
-  form: ProductType;
+  form: ProductFormType;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;

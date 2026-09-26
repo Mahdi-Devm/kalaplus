@@ -1,7 +1,7 @@
 "use client";
 
 import { attribute } from "@/core/assets/mock/attribute";
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductFormType } from "@/core/assets/types/product/ProductType";
 import { TagInput } from "@/core/components/custom/ui/tagInput/TagInput";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
 
@@ -11,8 +11,8 @@ export function ProductAttributesForm({
   form,
   setForm,
 }: {
-  form: ProductType;
-  setForm: React.Dispatch<React.SetStateAction<ProductType>>;
+  form: ProductFormType;
+  setForm: React.Dispatch<React.SetStateAction<ProductFormType>>;
 }) {
   return (
     <Card className="space-y-4">

@@ -1,7 +1,10 @@
 "use client";
 
 import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import {
+  ProductFormType,
+  ProductType,
+} from "@/core/assets/types/product/ProductType";
 import {
   DELETE_PRODUCT,
   GET_PRODUCTS_FOR_ADMIN,
@@ -59,7 +62,7 @@ export default function OrderListComponents({
     setDeleteModalOpen(true);
   }
 
-  async function confirmEdit(updatedProduct: ProductType) {
+  async function confirmEdit(updatedProduct: ProductFormType) {
     if (!selectedProduct) return;
 
     try {

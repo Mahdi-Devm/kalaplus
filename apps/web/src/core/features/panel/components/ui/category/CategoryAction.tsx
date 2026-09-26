@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client/react";
 import { Dispatch, SetStateAction, useState } from "react";
-import { ProductType } from "../../../../../assets/types/product/ProductType";
+import { ProductFormType } from "../../../../../assets/types/product/ProductType";
 import { GET_ALL_CATEGORY } from "../../../../../gql-shcema/actionCategoryShema.gql";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
 import { GetAllCategories } from "../../../assets/@types/category/GetAllCategories";
@@ -11,8 +11,8 @@ function CategoryAction({
   setForm,
   form,
 }: {
-  form: ProductType;
-  setForm: Dispatch<SetStateAction<ProductType>>;
+  form: ProductFormType;
+  setForm: Dispatch<SetStateAction<ProductFormType>>;
 }) {
   const [openCategoryModal, setOpenCategoryModal] = useState(false);
   const [editingCategory, setEditingCategory] =

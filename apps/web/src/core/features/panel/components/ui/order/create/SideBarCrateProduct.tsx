@@ -1,4 +1,4 @@
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductFormType } from "@/core/assets/types/product/ProductType";
 import { Dispatch, SetStateAction } from "react";
 import CategoryAction from "../../category/CategoryAction";
 import BtnSubmitProduct from "./BtnSubmitProduct";
@@ -10,11 +10,11 @@ function SideBarCrateProduct({
   setForm,
   handleChange,
 }: {
-  form: ProductType;
+  form: ProductFormType;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
-  setForm: Dispatch<SetStateAction<ProductType>>;
+  setForm: Dispatch<SetStateAction<ProductFormType>>;
 }) {
   return (
     <div className="space-y-6">

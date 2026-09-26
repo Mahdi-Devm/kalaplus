@@ -1,11 +1,14 @@
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import {
+  ProductFormType,
+  ProductType,
+} from "@/core/assets/types/product/ProductType";
 import Modal from "@/core/components/custom/ui/modal/Modal";
 import EditProductListForm from "../EditProductListForm";
 interface EditModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   selectedProduct: ProductType | null;
-  onConfirm: (updatedProduct: ProductType) => void;
+  onConfirm: (updatedProduct: ProductFormType) => void;
 }
 
 export default function EditPListModal({

@@ -1,11 +1,10 @@
+import { H2 } from "@/core/components/custom/ui/typography/Typography";
+import { Button } from "@/core/components/shadcn/ui/button/button";
 import Image from "next/image";
 import Link from "next/link";
-import { H2, Small } from "@/core/components/custom/ui/typography/Typography";
-import { Button } from "@/core/components/shadcn/ui/button/button";
 type BlComponent = {
   img: string;
   title: string;
-  date: string;
   id: string;
 };
 

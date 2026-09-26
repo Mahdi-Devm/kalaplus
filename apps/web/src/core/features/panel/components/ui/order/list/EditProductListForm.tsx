@@ -1,9 +1,14 @@
 "use client";
 
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import {
+  ProductFormType,
+  ProductType,
+} from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
+import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import { Input } from "@/core/components/shadcn/ui/input/input";
+import { Textarea } from "@/core/components/shadcn/ui/Textarea/textarea";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import Form from "next/form";
 import { useState } from "react";
@@ -11,7 +16,7 @@ import { ProductAttributesForm } from "../create/ProductAttributesForm";
 
 interface EditProductFormProps {
   product: ProductType;
-  onSubmit: (product: ProductType) => void;
+  onSubmit: (product: ProductFormType) => void;
   onCancel: () => void;
 }
 
@@ -20,11 +25,17 @@ export default function EditProductListForm({
   onSubmit,
   onCancel,
 }: EditProductFormProps) {
-  const [formData, setFormData] = useState({
-    ...product,
+  const [formData, setFormData] = useState<ProductFormType>({
+    title: product.title ?? "",
+    slug: product.slug ?? "",
+    categoryId: product.categoryId ?? "",
+    description: product.description ?? "",
+    shortDescription: product.shortDescription ?? "",
     price: String(product.price ?? ""),
     discountPercent: String(product.discountPercent ?? 0),
     stock: String(product.stock ?? ""),
+    mainImage: product.mainImage ?? "",
+    images: product.images ?? [],
     colors: product.colors ?? [],
     sizes: product.sizes ?? [],
     materials: product.materials ?? [],
@@ -105,8 +116,8 @@ export default function EditProductListForm({
       <ProductAttributesForm form={formData} setForm={setFormData} />
 
       <div className="space-y-1">
-        <span className="text-sm font-medium">توضیحات کامل</span>
-        <textarea
+        <Span>توضیحات کامل</Span>
+        <Textarea
           name="description"
           value={formData.description}
           onChange={handleChange}

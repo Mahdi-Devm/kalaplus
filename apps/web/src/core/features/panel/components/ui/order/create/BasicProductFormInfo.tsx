@@ -1,4 +1,4 @@
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductFormType } from "@/core/assets/types/product/ProductType";
 import { Small } from "@/core/components/custom/ui/typography/Typography";
 import {
   Card,
@@ -13,7 +13,7 @@ function BasicProductFormInfo({
   form,
   handleChange,
 }: {
-  form: ProductType;
+  form: ProductFormType;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;

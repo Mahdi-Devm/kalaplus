@@ -1,12 +1,12 @@
 "use client";
 
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductFormType } from "@/core/assets/types/product/ProductType";
 import { useState } from "react";
 import BasicProductFormInfo from "./BasicProductFormInfo";
 import SideBarCrateProduct from "./SideBarCrateProduct";
 import UploadProductImg from "./UploadProductImg";
 function FormCreateProduct() {
-  const [form, setForm] = useState<ProductType>({
+  const [form, setForm] = useState<ProductFormType>({
     title: "",
     slug: "",
     categoryId: "",

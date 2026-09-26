@@ -6,7 +6,6 @@ import {
   H3,
   Muted,
   Span,
-Button
 } from "@/core/components/custom/ui/typography/Typography";
 
 type BoxComponentType = {
@@ -15,11 +14,7 @@ type BoxComponentType = {
   image?: string;
 };
 
-const ContactComponentQuestion = ({
-  title,
-  text,
-  image,
-}: BoxComponentType) => {
+const ContactComponentQuestion = ({ title, text, image }: BoxComponentType) => {
   const [showFullText, setShowFullText] = useState(false);
 
   const toggleAnswer = () => {
@@ -80,11 +75,7 @@ const ContactComponentQuestion = ({
             sm:px-5
             sm:py-5
             lg:px-6
-            ${
-              showFullText
-                ? "bg-primary/10"
-                : "bg-card hover:bg-muted/50"
-            }
+            ${showFullText ? "bg-primary/10" : "bg-card hover:bg-muted/50"}
             ${!text ? "cursor-default" : "cursor-pointer"}
           `}
         >
@@ -98,11 +89,7 @@ const ContactComponentQuestion = ({
               transition-colors
               duration-300
               sm:text-lg
-              ${
-                showFullText
-                  ? "text-primary"
-                  : "text-foreground"
-              }
+              ${showFullText ? "text-primary" : "text-foreground"}
             `}
           >
             {title}
@@ -133,9 +120,7 @@ const ContactComponentQuestion = ({
                 }
               `}
             >
-              <Span className="leading-none">
-                {showFullText ? "−" : "+"}
-              </Span>
+              <Span className="leading-none">{showFullText ? "−" : "+"}</Span>
             </span>
           )}
         </button>

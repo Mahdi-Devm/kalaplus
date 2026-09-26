@@ -1,4 +1,4 @@
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductFormType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Button } from "@/core/components/shadcn/ui/button/button";
@@ -21,11 +21,11 @@ function UploadProductImg({
   handleChange,
   setForm,
 }: {
-  form: ProductType;
+  form: ProductFormType;
   handleChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => void;
-  setForm: Dispatch<SetStateAction<ProductType>>;
+  setForm: Dispatch<SetStateAction<ProductFormType>>;
 }) {
   const {
     uploading,

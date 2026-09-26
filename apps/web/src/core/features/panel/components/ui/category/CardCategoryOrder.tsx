@@ -14,7 +14,7 @@ import {
 } from "@/core/components/shadcn/ui/select/select";
 import { Plus } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
-import { ProductType } from "../../../../../assets/types/product/ProductType";
+import { ProductFormType } from "../../../../../assets/types/product/ProductType";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
 function CardCategoryOrder({
   categories,
@@ -24,8 +24,8 @@ function CardCategoryOrder({
   form,
   loading,
 }: {
-  form: ProductType;
-  setForm: Dispatch<SetStateAction<ProductType>>;
+  form: ProductFormType;
+  setForm: Dispatch<SetStateAction<ProductFormType>>;
   categories: CategoryProductType[];
   resetCategoryForm: () => void;
   setOpenCategoryModal: (v: boolean) => void;

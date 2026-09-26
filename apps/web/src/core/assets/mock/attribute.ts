@@ -1,4 +1,4 @@
-import { AttributeKey } from "@/core/components/custom/ui/tagInput/TagInput";
+import { AttributeKey } from "@/core/features/panel/components/ui/order/create/ProductAttributesForm";
 
 export const attribute: {
   key: AttributeKey;

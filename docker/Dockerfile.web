@@ -1,9 +1,9 @@
 
-FROM oven/bun:1.3.9 AS base
+FROM oven/pnpm:1.3.9 AS base
 
 WORKDIR /app
 
-RUN bun add -g turbo
+RUN pnpm add -g turbo
 
 # -------------------------
 
@@ -15,21 +15,21 @@ RUN turbo prune web --docker
 
 # -------------------------
 
-FROM oven/bun:1.3.9 AS installer
+FROM oven/pnpm:1.3.9 AS installer
 
 WORKDIR /app
 
 COPY --from=pruner /app/out/json/ .
 
-RUN bun install --frozen-lockfile
+RUN pnpm install --frozen-lockfile
 
 COPY --from=pruner /app/out/full/ .
 
-RUN bun run --filter web build
+RUN pnpm run --filter web build
 
 # -------------------------
 
-FROM oven/bun:1.3.9 AS runner
+FROM oven/pnpm:1.3.9 AS runner
 
 WORKDIR /app
 
@@ -43,4 +43,4 @@ COPY --from=installer /app/apps/web/public ./apps/web/public
 
 EXPOSE 3000
 
-CMD ["bun",  "apps/web/server.js"]
+CMD ["pnpm",  "apps/web/server.js"]

@@ -3,8 +3,7 @@ import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 
 import { Separator } from "@/core/components/shadcn/ui/separator/separator";
-import footer1 from "../../../../../../public/common/img/footer/footer1img.png";
-import footer2 from "../../../../../../public/common/img/footer/footer2img.png";
+
 import { H3, Muted, P, Span } from "../../ui/typography/Typography";
 
 function FooterSection({
@@ -74,7 +73,7 @@ function Footer() {
             <div className="mt-6 flex items-center gap-3">
               <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-background p-2 transition-transform duration-200 hover:-translate-y-1">
                 <Image
-                  src={footer1}
+                  src={"/common/img/footer/footer1img.png"}
                   alt="نماد اعتماد کالاپلاس"
                   width={100}
                   height={100}
@@ -84,7 +83,7 @@ function Footer() {
 
               <div className="flex h-24 w-24 items-center justify-center rounded-xl bg-background p-2 transition-transform duration-200 hover:-translate-y-1">
                 <Image
-                  src={footer2}
+                  src={"/common/img/footer/footer2img.png"}
                   alt="نماد کالاپلاس"
                   width={100}
                   height={100}

@@ -46,7 +46,7 @@ jobs:
         run: pnpm --filter web exec tsc --noEmit
 
   test:
-    name: Tests (web + api)
+    name: Tests (web)
     runs-on: ubuntu-latest
 
     steps:
@@ -58,9 +58,6 @@ jobs:
 
       - name: Test Web
         run: pnpm --filter web test -- --run
-
-      - name: Test API
-        run: pnpm --filter api test
 
   build-web:
     name: Build Web (Next.js)

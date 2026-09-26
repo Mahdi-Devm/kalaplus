@@ -1,13 +1,14 @@
-name: CI (Pull Request)
+name: Master Production Validation
 
 on:
-  pull_request:
+  push:
     branches:
       - master
+  workflow_dispatch:
 
 concurrency:
-  group: ci-pr-${{ github.event.pull_request.number }}
-  cancel-in-progress: true
+  group: ci-master-${{ github.ref }}
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -24,8 +25,24 @@ jobs:
       - name: Setup monorepo
         uses: ./.github/actions/setup-monorepo
 
+      - name: Environment info
+        run: |
+          echo "===== LINT ENVIRONMENT ====="
+          echo "Node:"
+          node -v
+          echo "pnpm:"
+          pnpm -v
+          echo "Working directory:"
+          pwd
+          echo "Git commit:"
+          git rev-parse --short HEAD
+          echo "============================"
+
       - name: Lint
-        run: pnpm lint
+        run: |
+          echo "===== START LINT ====="
+          pnpm lint
+          echo "===== LINT PASSED ====="
 
   typecheck:
     name: Typecheck (web + api)
@@ -38,14 +55,37 @@ jobs:
       - name: Setup monorepo
         uses: ./.github/actions/setup-monorepo
 
+      - name: Environment info
+        run: |
+          echo "===== TYPECHECK ENVIRONMENT ====="
+          echo "Node:"
+          node -v
+          echo "pnpm:"
+          pnpm -v
+          echo "TypeScript API:"
+          pnpm --filter api exec tsc --version
+          echo "TypeScript Web:"
+          pnpm --filter web exec tsc --version
+          echo "Working directory:"
+          pwd
+          echo "Git commit:"
+          git rev-parse --short HEAD
+          echo "================================="
+
       - name: Typecheck API
-        run: pnpm --filter api exec tsc --noEmit
+        run: |
+          echo "===== START API TYPECHECK ====="
+          pnpm --filter api exec tsc --noEmit
+          echo "===== API TYPECHECK PASSED ====="
 
       - name: Typecheck Web
-        run: pnpm --filter web exec tsc --noEmit
+        run: |
+          echo "===== START WEB TYPECHECK ====="
+          pnpm --filter web exec tsc --noEmit
+          echo "===== WEB TYPECHECK PASSED ====="
 
   test:
-    name: Tests (web )
+    name: Tests (web)
     runs-on: ubuntu-latest
 
     steps:
@@ -55,12 +95,29 @@ jobs:
       - name: Setup monorepo
         uses: ./.github/actions/setup-monorepo
 
+      - name: Environment info
+        run: |
+          echo "===== TEST ENVIRONMENT ====="
+          echo "Node:"
+          node -v
+          echo "pnpm:"
+          pnpm -v
+          echo "Working directory:"
+          pwd
+          echo "Git commit:"
+          git rev-parse --short HEAD
+          echo "============================"
+
       - name: Test Web
-        run: pnpm --filter web test -- --run
+        run: |
+          echo "===== START WEB TESTS ====="
+          pnpm --filter web test -- --run
+          echo "===== WEB TESTS PASSED ====="
 
   build-web:
     name: Build Web (Next.js)
     runs-on: ubuntu-latest
+
     needs:
       - lint
       - typecheck
@@ -73,12 +130,31 @@ jobs:
       - name: Setup monorepo
         uses: ./.github/actions/setup-monorepo
 
+      - name: Environment info
+        run: |
+          echo "===== WEB BUILD ENVIRONMENT ====="
+          echo "Node:"
+          node -v
+          echo "pnpm:"
+          pnpm -v
+          echo "Next.js:"
+          pnpm --filter web exec next --version
+          echo "Working directory:"
+          pwd
+          echo "Git commit:"
+          git rev-parse --short HEAD
+          echo "================================="
+
       - name: Build Web
-        run: pnpm --filter web build
+        run: |
+          echo "===== START NEXT.JS BUILD ====="
+          pnpm --filter web build
+          echo "===== NEXT.JS BUILD PASSED ====="
 
   build-api:
     name: Build API (NestJS)
     runs-on: ubuntu-latest
+
     needs:
       - lint
       - typecheck
@@ -91,12 +167,29 @@ jobs:
       - name: Setup monorepo
         uses: ./.github/actions/setup-monorepo
 
+      - name: Environment info
+        run: |
+          echo "===== API BUILD ENVIRONMENT ====="
+          echo "Node:"
+          node -v
+          echo "pnpm:"
+          pnpm -v
+          echo "Working directory:"
+          pwd
+          echo "Git commit:"
+          git rev-parse --short HEAD
+          echo "================================="
+
       - name: Build API
-        run: pnpm --filter api build
+        run: |
+          echo "===== START NESTJS BUILD ====="
+          pnpm --filter api build
+          echo "===== NESTJS BUILD PASSED ====="
 
   docker:
-    name: Docker Build (web + api)
+    name: Production Docker Images
     runs-on: ubuntu-latest
+
     needs:
       - build-web
       - build-api
@@ -105,25 +198,67 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Docker environment info
+        run: |
+          echo "===== DOCKER ENVIRONMENT ====="
+          docker --version
+          docker buildx version
+          echo "Working directory:"
+          pwd
+          echo "Git commit:"
+          git rev-parse --short HEAD
+          echo "=============================="
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Build API image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: docker/Dockerfile.api
-          push: false
-          tags: kalaplus/api:ci-${{ github.event.pull_request.number }}
-          cache-from: type=gha,scope=api-ci
-          cache-to: type=gha,mode=max,scope=api-ci
+      - name: Build API production image
+        run: |
+          echo "===== START API DOCKER BUILD ====="
+          docker build \
+            --file docker/Dockerfile.api \
+            --tag kalaplus/api:${{ github.sha }} \
+            .
+          echo "===== API DOCKER BUILD PASSED ====="
 
-      - name: Build Web image
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          file: docker/Dockerfile.web
-          push: false
-          tags: kalaplus/web:ci-${{ github.event.pull_request.number }}
-          cache-from: type=gha,scope=web-ci
-          cache-to: type=gha,mode=max,scope=web-ci
+      - name: Build Web production image
+        run: |
+          echo "===== START WEB DOCKER BUILD ====="
+          docker build \
+            --file docker/Dockerfile.web \
+            --tag kalaplus/web:${{ github.sha }} \
+            .
+          echo "===== WEB DOCKER BUILD PASSED ====="
+
+      - name: Docker images summary
+        run: |
+          echo "===== DOCKER IMAGES ====="
+          docker images | grep kalaplus || true
+          echo "========================"
+
+  deploy-placeholder:
+    name: Deployment (not configured)
+    runs-on: ubuntu-latest
+
+    needs:
+      - docker
+
+    steps:
+      - name: Deployment status
+        run: |
+          echo "======================================"
+          echo "   KALAPLUS PRODUCTION VALIDATION"
+          echo "======================================"
+          echo ""
+          echo "Docker validation completed successfully."
+          echo ""
+          echo "Deployment is not configured yet."
+          echo "No deployment provider or registry is configured."
+          echo ""
+          echo "Commit:"
+          echo "${{ github.sha }}"
+          echo ""
+          echo "Branch:"
+          echo "${{ github.ref_name }}"
+          echo ""
+          echo "======================================"

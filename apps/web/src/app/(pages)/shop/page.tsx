@@ -1,7 +1,10 @@
 import SectionLayout from "@/core/components/custom/ui/wrapper/SectionLayout";
+import ShopComponents from "@/core/features/shop/components/block/ShopComponents";
 
-function page() {
-  return <SectionLayout>page</SectionLayout>;
+export default function ShopPage() {
+  return (
+    <SectionLayout>
+      <ShopComponents />
+    </SectionLayout>
+  );
 }
-
-export default page;

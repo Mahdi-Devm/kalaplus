@@ -16,7 +16,6 @@ import {
 } from "react-icons/fi";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import "swiper/css";
 import { useProducts } from "../../../lib/useProducts";
 import ProductsSkeleton from "../../ui/product/skeleton/ProductsSkeleton";
 

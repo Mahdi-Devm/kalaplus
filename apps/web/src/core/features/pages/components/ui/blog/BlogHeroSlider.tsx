@@ -7,8 +7,6 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Span, H2, P } from "@/core/components/custom/ui/typography/Typography";
 import { Button } from "@/core/components/shadcn/ui/button/button";
 
-import "swiper/css";
-import "swiper/css/pagination";
 import { bannerBlog } from "../../../assets/mock/blog/bannerBlog";
 
 function BlogHeroSlider() {

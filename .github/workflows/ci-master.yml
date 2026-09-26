@@ -113,7 +113,7 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Build API production image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: docker/Dockerfile.api
@@ -123,7 +123,7 @@ jobs:
           cache-to: type=gha,mode=max,scope=api-production
 
       - name: Build Web production image
-        uses: docker/build-push-action@v6
+        uses: docker/build-push-action@v7
         with:
           context: .
           file: docker/Dockerfile.web

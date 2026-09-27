@@ -36,6 +36,8 @@ export type Query = {
   ProductsController_listForUser?: Maybe<PaginateProductResponse>;
   /** اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف. */
   ProductsController_findOne?: Maybe<Product>;
+  /** اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف. */
+  ProductsController_findOneBySlug?: Maybe<Product>;
   /** دریافت همه دسته‌ بندی‌ ها */
   CategoriesController_findAll?: Maybe<Array<Maybe<Category>>>;
   /** دریافت یک دسته‌ بندی */
@@ -79,6 +81,11 @@ export type QueryProductsController_listForUserArgs = {
 
 export type QueryProductsController_findOneArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryProductsController_findOneBySlugArgs = {
+  slug: Scalars['String']['input'];
 };
 
 
@@ -440,6 +447,9 @@ export type HTTPMethod =
   /** اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف. **/
 
   ProductsController_findOne: InContextSdkMethod<Query['ProductsController_findOne'], QueryProductsController_findOneArgs, BaseMeshContext>,
+  /** اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف. **/
+
+  ProductsController_findOneBySlug: InContextSdkMethod<Query['ProductsController_findOneBySlug'], QueryProductsController_findOneBySlugArgs, BaseMeshContext>,
   /** دریافت همه دسته‌ بندی‌ ها **/
 
   CategoriesController_findAll: InContextSdkMethod<Query['CategoriesController_findAll'], {}, BaseMeshContext>,

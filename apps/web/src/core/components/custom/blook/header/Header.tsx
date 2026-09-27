@@ -43,7 +43,7 @@ function Header() {
     },
     {
       title: "مقالات",
-      href: "/blogs",
+      href: "/blog",
       icon: FiBookOpen,
     },
     {

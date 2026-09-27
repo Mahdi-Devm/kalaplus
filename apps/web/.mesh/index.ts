@@ -44,6 +44,8 @@ export type Query = {
   ProductsController_listForUser?: Maybe<PaginateProductResponse>;
   /** اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف. */
   ProductsController_findOne?: Maybe<Product>;
+  /** اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف. */
+  ProductsController_findOneBySlug?: Maybe<Product>;
   /** دریافت همه دسته‌ بندی‌ ها */
   CategoriesController_findAll?: Maybe<Array<Maybe<Category>>>;
   /** دریافت یک دسته‌ بندی */
@@ -87,6 +89,11 @@ export type QueryProductsController_listForUserArgs = {
 
 export type QueryProductsController_findOneArgs = {
   id: Scalars['String']['input'];
+};
+
+
+export type QueryProductsController_findOneBySlugArgs = {
+  slug: Scalars['String']['input'];
 };
 
 
@@ -652,6 +659,7 @@ export type QueryResolvers<ContextType = MeshContext, ParentType extends Resolve
   ProductsController_listForAdmin?: Resolver<Maybe<ResolversTypes['PaginateProductResponse']>, ParentType, ContextType, Partial<QueryProductsController_listForAdminArgs>>;
   ProductsController_listForUser?: Resolver<Maybe<ResolversTypes['PaginateProductResponse']>, ParentType, ContextType, Partial<QueryProductsController_listForUserArgs>>;
   ProductsController_findOne?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsController_findOneArgs, 'id'>>;
+  ProductsController_findOneBySlug?: Resolver<Maybe<ResolversTypes['Product']>, ParentType, ContextType, RequireFields<QueryProductsController_findOneBySlugArgs, 'slug'>>;
   CategoriesController_findAll?: Resolver<Maybe<Array<Maybe<ResolversTypes['Category']>>>, ParentType, ContextType>;
   CategoriesController_findOne?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoriesController_findOneArgs, 'id'>>;
   CategoriesController_findBySlug?: Resolver<Maybe<ResolversTypes['Category']>, ParentType, ContextType, RequireFields<QueryCategoriesController_findBySlugArgs, 'slug'>>;

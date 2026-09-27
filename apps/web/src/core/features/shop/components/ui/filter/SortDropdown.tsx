@@ -13,20 +13,19 @@ import { getSortBy } from "@/core/utils/getsortBy";
 import { cn } from "@/core/utils/shadcn/utils";
 import { FiSliders } from "react-icons/fi";
 
-interface SortDropdownProps {
+export function SortDropdown({
+  value,
+  className,
+}: {
   value: string;
   className?: string;
-}
-
-const SORT_FIELD = "price";
-
-export function SortDropdown({ value, className }: SortDropdownProps) {
+}) {
   const updateQuery = useUpdateQuery();
 
   const handleSortChange = (value: string) => {
     const sort = value as SortBy;
 
-    const sortBy = `${SORT_FIELD}:${sort}`;
+    const sortBy = `price:${sort}`;
 
     updateQuery("sortBy", sortBy);
   };

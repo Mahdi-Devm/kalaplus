@@ -5,7 +5,9 @@ import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCust
 import { P, Span } from "@/core/components/custom/ui/typography/Typography";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import { cn } from "@/core/utils/shadcn/utils";
+import Link from "next/link";
 import { FiImage } from "react-icons/fi";
+import { formatToman } from "../../../utils/formatToman";
 
 export function ProductCard({
   product,
@@ -24,9 +26,6 @@ export function ProductCard({
   const originalPrice =
     numericDiscount > 0 ? numericPrice / (1 - numericDiscount / 100) : null;
 
-  const formatToman = (value: number) =>
-    new Intl.NumberFormat("fa-IR").format(Math.round(value));
-
   return (
     <div
       className={cn(
@@ -34,7 +33,10 @@ export function ProductCard({
         className,
       )}
     >
-      <div className="relative mb-3 aspect-square overflow-hidden rounded-lg bg-foreground-box">
+      <Link
+        href={`/shop/${product.slug}`}
+        className="relative mb-3 aspect-square overflow-hidden rounded-lg bg-foreground-box"
+      >
         {image ? (
           <div className="flex h-full w-full items-center justify-center p-6">
             <ImgNormalCustom
@@ -50,7 +52,7 @@ export function ProductCard({
             <FiImage className="h-10 w-10 text-foreground-box/60" />
           </div>
         )}
-      </div>
+      </Link>
 
       <P className="mb-2 line-clamp-1 text-right text-sm font-medium">
         {title}

@@ -135,6 +135,15 @@ export class ProductsController {
   findOne(@Param('id') id: string) {
     return this.productsService.findOne(id);
   }
+  @Get('slug/:slug')
+  @ApiOperation({
+    summary: 'دریافت جزئیات محصول',
+    description:
+      'اطلاعات کامل یک محصول شامل قیمت اصلی، قیمت تخفیف‌خورده و وضعیت تخفیف.',
+  })
+  findOneBySlug(@Param('slug') slug: string) {
+    return this.productsService.findOneBySlug(slug);
+  }
 
   @Put(':id')
   @ApiOperation({

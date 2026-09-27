@@ -3,15 +3,6 @@ import { cn } from "@/core/utils/shadcn/utils";
 import { getColorHex, getDiscountedPrice } from "../../../assets/mock/shopData";
 import { formatToman } from "../../../utils/formatToman";
 
-interface ProductDetailProps {
-  price: string;
-  discountPercent: string;
-  stock: string;
-  colors?: string[];
-  sizes?: string[];
-  materials?: string[];
-}
-
 function ProductDetail({
   price,
   discountPercent,
@@ -19,7 +10,14 @@ function ProductDetail({
   colors,
   sizes,
   materials,
-}: ProductDetailProps) {
+}: {
+  price: string;
+  discountPercent: string;
+  stock: string;
+  colors?: string[];
+  sizes?: string[];
+  materials?: string[];
+}) {
   const inStock = Number(stock) > 0;
 
   const discountedPrice = getDiscountedPrice({

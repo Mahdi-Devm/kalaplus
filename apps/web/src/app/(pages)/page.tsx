@@ -14,7 +14,6 @@ import HeroSectionImg from "@/core/features/pages/components/block/section-img/H
 
 import Brands from "@/core/features/pages/components/ui/brand/Brands";
 import ThumbnailCategory from "@/core/features/pages/components/ui/category/ThumbnailCategory";
-import Essay from "@/core/features/pages/components/ui/essay/Essay";
 import AboutThumbnail from "@/core/features/pages/components/ui/poster/AboutThumbnail";
 import { Metadata } from "next";
 export const metadata: Metadata = {
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
   description:
     "کالا پلاس؛ فروشگاه آنلاین برای خرید انواع محصولات با بهترین قیمت و تخفیف‌های ویژه.",
 };
-export default function Page() {
+function Page() {
   return (
     <SectionLayout>
       <StoriesSection />
@@ -46,8 +45,8 @@ export default function Page() {
       </Suspense>
 
       <AboutThumbnail />
-      <Essay />
       <Brands />
     </SectionLayout>
   );
 }
+export default Page;

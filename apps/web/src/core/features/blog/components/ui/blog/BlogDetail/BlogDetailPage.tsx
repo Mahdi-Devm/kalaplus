@@ -1,23 +1,16 @@
-"use client";
-
-import BlogDetailData from "@/core/features/blog/assets/mock/blog/BlogDetailData";
-import { useParams } from "next/navigation";
+import { blogPosts } from "@/core/features/blog/assets/mock/blog/blogPosts";
 import BlogDetailComponent from "./BlogDetailComponent";
 
-function BlogDetailPage() {
-  const { id } = useParams();
+function BlogDetailPage({ slug }: { slug?: string }) {
+  const blog = blogPosts.find((item) => item.slug === slug);
 
-  const blog = BlogDetailData.find((item) => item.id === Number(id));
+  if (!blog) {
+    return null;
+  }
 
   return (
-    <div className=" mb-6">
-      {blog && (
-        <BlogDetailComponent
-          img={blog.img}
-          title={blog.title}
-          text={blog.text}
-        />
-      )}
+    <div className="mb-6">
+      <BlogDetailComponent blog={blog} />
     </div>
   );
 }

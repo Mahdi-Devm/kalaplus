@@ -1,7 +1,7 @@
+import { H3, Muted } from "@/core/components/custom/ui/typography/Typography";
+import { Button } from "@/core/components/shadcn/ui/button/button";
 import { Input } from "@/core/components/shadcn/ui/input/input";
 import { Textarea } from "@/core/components/shadcn/ui/Textarea/textarea";
-import { Button } from "@/core/components/shadcn/ui/button/button";
-import { H3, Muted } from "@/core/components/custom/ui/typography/Typography";
 
 const ContactForm = () => {
   return (
@@ -48,8 +48,10 @@ const ContactForm = () => {
           </div>
         </div>
 
-        <div className="flex justify-start">
-          <Button type="submit">ارسال پیام</Button>
+        <div className="flex justify-start w-full">
+          <Button type="submit" className=" w-full">
+            ارسال پیام
+          </Button>
         </div>
       </form>
     </div>

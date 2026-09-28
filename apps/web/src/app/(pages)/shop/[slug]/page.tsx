@@ -3,11 +3,7 @@ import SingleProductComponents from "@/core/features/shop/components/block/Singl
 import SingleProductSkeleton from "@/core/features/shop/components/ui/skeleton/SingleProductSkeleton";
 import { Suspense } from "react";
 
-export default async function SingleProductPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+async function page({ params }: { params: Promise<{ slug: string }> }) {
   const param = await params;
 
   return (
@@ -18,3 +14,4 @@ export default async function SingleProductPage({
     </SectionLayout>
   );
 }
+export default page;

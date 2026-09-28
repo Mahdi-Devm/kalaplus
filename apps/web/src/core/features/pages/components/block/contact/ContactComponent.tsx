@@ -1,9 +1,8 @@
 import Contactdescription from "../../ui/contact/Contactdescription";
-import ContactQuestion from "../../ui/contact/ContactQuestion";
-import ContactSupport from "../../ui/contact/ContactSupport";
 import ContactForm from "../../ui/contact/ContactForm";
+import ContactQuestion from "../../ui/contact/ContactQuestion";
 
-const ContactComponent = () => {
+function ContactComponent() {
   return (
     <>
       <div>
@@ -19,9 +18,8 @@ const ContactComponent = () => {
       </div>
 
       <ContactQuestion />
-      <ContactSupport />
     </>
   );
-};
+}
 
 export default ContactComponent;

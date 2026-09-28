@@ -19,6 +19,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useProducts } from "../../../lib/useProducts";
 import ProductsSkeleton from "../../ui/product/skeleton/ProductsSkeleton";
+import { formatPrice } from "../../../utils/formatPrice";
 
 /* -------------------------------------------------------------------------- */
 /*                                  Constants                                 */
@@ -27,10 +28,6 @@ import ProductsSkeleton from "../../ui/product/skeleton/ProductsSkeleton";
 /* -------------------------------------------------------------------------- */
 /*                                  Helpers                                   */
 /* -------------------------------------------------------------------------- */
-
-function formatPrice(value: number) {
-  return Math.round(value).toLocaleString("en-US");
-}
 
 function getFinalPrice(price: number, discount: number) {
   return discount > 0 ? Math.round(price - (price * discount) / 100) : price;

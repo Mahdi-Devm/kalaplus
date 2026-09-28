@@ -4,16 +4,18 @@ import { useIsMobile } from "@/core/hooks/useIsMobile";
 
 export default function CategorySliderSkeleton() {
   const isMobile = useIsMobile();
+
   return (
     <Card className="mt-0 border-none sm:border-border">
-      <CardContent className="flex flex-col gap-4 p-4 sm:gap-6 sm:p-6 lg:flex-row lg:gap-10">
+      <CardContent className="flex flex-col gap-4 sm:gap-6 lg:flex-row lg:gap-10">
         <div className="flex w-full gap-3 overflow-hidden">
-          {Array.from({ length: isMobile ? 6 : 3 }).map((_, index) => (
-            <Skeleton key={index} className="h-24 min-w-24 rounded-xl" />
+          {Array.from({ length: isMobile ? 3 : 7 }).map((_, index) => (
+            <Skeleton
+              key={index}
+              className="h-20 min-w-10 rounded-xl sm:h-30 sm:min-w-30"
+            />
           ))}
         </div>
-
-        <Skeleton className="hidden h-9 w-24 shrink-0 lg:block" />
       </CardContent>
     </Card>
   );

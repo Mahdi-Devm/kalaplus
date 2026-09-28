@@ -18,10 +18,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useProducts } from "../../../lib/useProducts";
 import ProductsSkeleton from "../../ui/product/skeleton/ProductsSkeleton";
-
-function formatPrice(value: number) {
-  return value.toLocaleString("en-US");
-}
+import { formatPrice } from "../../../utils/formatPrice";
 
 function getFinalPrice(price: number, discount: number) {
   return discount ? price - (price * discount) / 100 : price;

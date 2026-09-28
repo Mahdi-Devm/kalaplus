@@ -12,19 +12,8 @@ type ViewMode = "grid" | "list";
 
 function BlogGrid() {
   const [viewMode, setViewMode] = useState<ViewMode>("grid");
-  const [postsPerPage, setPostsPerPage] = useState(6);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const displayedPosts = blogPosts.slice(0, postsPerPage);
-  const hasMorePosts = postsPerPage < blogPosts.length;
-
-  const handleLoadMore = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setPostsPerPage((prev) => Math.min(prev + 6, blogPosts.length));
-      setIsLoading(false);
-    }, 500);
-  };
+  const displayedPosts = blogPosts.slice(0, 6);
 
   const gridColumns = {
     grid: "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6",

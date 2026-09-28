@@ -1,11 +1,12 @@
+import SectionLayout from "@/core/components/custom/ui/wrapper/SectionLayout";
 import ContactComponent from "@/core/features/pages/components/block/contact/ContactComponent";
 
-const ContactPage = () => {
+function page() {
   return (
-    <>
+    <SectionLayout>
       <ContactComponent />
-    </>
+    </SectionLayout>
   );
-};
+}
 
-export default ContactPage;
+export default page;

@@ -1,7 +1,7 @@
 import SectionLayout from "@/core/components/custom/ui/wrapper/SectionLayout";
 import ShopComponents from "@/core/features/shop/components/block/ShopComponents";
 
-export default function ShopPage({
+function page({
   searchParams,
 }: {
   searchParams: Promise<{ page: string; limit: string; search: string }>;
@@ -12,3 +12,4 @@ export default function ShopPage({
     </SectionLayout>
   );
 }
+export default page;

@@ -1,7 +1,7 @@
 import SectionLayout from "@/core/components/custom/ui/wrapper/SectionLayout";
 import BlogComponents from "@/core/features/blog/components/block/blog/BlogComponents";
 
-function Blog() {
+function page() {
   return (
     <SectionLayout>
       <BlogComponents />
@@ -9,4 +9,4 @@ function Blog() {
   );
 }
 
-export default Blog;
+export default page;

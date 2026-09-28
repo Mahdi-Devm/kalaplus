@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/core/utils/shadcn/utils";
+import { formatToman } from "../../../utils/formatToman";
 
 interface PriceRangeSliderProps {
   min: number;
@@ -11,16 +12,6 @@ interface PriceRangeSliderProps {
   className?: string;
 }
 
-function formatToman(n: number) {
-  return n.toLocaleString("fa-IR");
-}
-
-/**
- * A dual-thumb range slider for price filtering.
- * Radix doesn't ship a slider primitive in this project's dependencies,
- * so this is built from two stacked native <input type="range"> elements.
- * Uses CSS logical properties (inset-inline-*) so it flips correctly for RTL.
- */
 export function PriceRangeSlider({
   min,
   max,
@@ -81,36 +72,6 @@ export function PriceRangeSlider({
         <span>{formatToman(minVal)} تومان</span>
         <span>{formatToman(maxVal)} تومان</span>
       </div>
-
-      <style jsx>{`
-        .range-thumb::-webkit-slider-thumb {
-          pointer-events: auto;
-          appearance: none;
-          width: 16px;
-          height: 16px;
-          border-radius: 9999px;
-          background: var(--primary);
-          border: 2px solid var(--card);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-          cursor: pointer;
-        }
-        .range-thumb::-moz-range-thumb {
-          pointer-events: auto;
-          width: 16px;
-          height: 16px;
-          border-radius: 9999px;
-          background: var(--primary);
-          border: 2px solid var(--card);
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
-          cursor: pointer;
-        }
-        .range-thumb::-webkit-slider-runnable-track {
-          background: transparent;
-        }
-        .range-thumb::-moz-range-track {
-          background: transparent;
-        }
-      `}</style>
     </div>
   );
 }

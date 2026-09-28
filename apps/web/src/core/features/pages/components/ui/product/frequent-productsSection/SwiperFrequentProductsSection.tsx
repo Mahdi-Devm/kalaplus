@@ -1,18 +1,15 @@
 "use client";
 
-import { useProducts } from "@/core/features/pages/lib/useProducts";
+import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
 import { Swiper, SwiperSlide } from "swiper/react";
-import ProductsSkeleton from "../skeleton/ProductsSkeleton";
 import FrequentProductCard from "./FrequentProductCard";
 
-function SwiperFrequentProductsSection() {
-  const { loading, data } = useProducts();
-
-  if (loading) {
-    return <ProductsSkeleton />;
-  }
+function SwiperFrequentProductsSection({
+  data,
+}: {
+  data: GetProductsForQuery;
+}) {
   const products = data?.products?.data ?? [];
-
   return (
     <Swiper
       spaceBetween={12}

@@ -4,7 +4,7 @@ function Logo({ classname, width }: { classname?: string; width?: number }) {
   return (
     <ImgNormalCustom
       src={"/common/img/logo/kplogo.png"}
-      alt=""
+      alt="Logo"
       height={100}
       width={width ? width : 100}
       className={classname}

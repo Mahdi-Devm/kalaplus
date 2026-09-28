@@ -1,3 +1,4 @@
+import { AuthorizationModule } from '@common/modules/authorization.module';
 import { AppCacheModule } from '@common/modules/cache.module';
 import { RedisModule } from '@common/modules/redis.module';
 import { BullModule } from '@nestjs/bullmq';
@@ -21,6 +22,7 @@ import { ProductsModule } from './modules/products/products.module';
         port: 6379,
       },
     }),
+    AuthorizationModule,
     AppCacheModule,
     AuthModule,
     ProductsModule,

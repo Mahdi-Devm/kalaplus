@@ -13,6 +13,7 @@ import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateCategoryDto } from '../dto/create-category.dto';
 import { UpdateCategoryDto } from '../dto/update-category.dto';
 import { CategoriesService } from '../services/categories.service';
+import { Public } from '@common/decorators/public.decorator';
 
 @ApiTags('Categories')
 @ApiBearerAuth()
@@ -28,6 +29,7 @@ export class CategoriesController {
   }
 
   @Get()
+  @Public()
   @ApiOperation({ summary: 'دریافت همه دسته‌ بندی‌ ها' })
   findAll() {
     return this.categoriesService.findAll();

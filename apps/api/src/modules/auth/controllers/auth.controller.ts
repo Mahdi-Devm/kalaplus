@@ -8,6 +8,7 @@ import {
   refreshTokenName,
 } from '@common/constants/jwt.constants';
 import { Cookie } from '@common/decorators/cookie.decorator';
+import { Public } from '@common/decorators/public.decorator';
 import { setCookies } from '@common/utils/set-cookie';
 import { Body, Controller, Patch, Post, Res } from '@nestjs/common';
 import type { Response } from 'express';
@@ -19,11 +20,13 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('request-otp')
+  @Public()
   ReqOtp(@Body() ReqOtpDto: RequestOtpDto) {
     return this.authService.ReqOtp(ReqOtpDto);
   }
 
   @Post('vrify-otp')
+  @Public()
   async VrifyOtp(@Body() vrifyOtpDto: VrifyOtpDto, @Res() response: Response) {
     const tokens = await this.authService.VrifyOtp(vrifyOtpDto);
 

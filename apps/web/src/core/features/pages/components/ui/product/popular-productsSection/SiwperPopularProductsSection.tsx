@@ -1,20 +1,12 @@
 "use client";
+import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PopularProductCard from "./PopularProductCard";
 
-import { useProducts } from "@/core/features/pages/lib/useProducts";
-import ProductsSkeleton from "../skeleton/ProductsSkeleton";
-function SiwperPopularProductsSection() {
-  const { loading, data } = useProducts();
-  if (loading) {
-    return <ProductsSkeleton />;
-  }
+function SiwperPopularProductsSection({ data }: { data: GetProductsForQuery }) {
   const products = data?.products?.data ?? [];
 
-  if (!products.length) {
-    return null;
-  }
   return (
     <div className="relative">
       <Swiper

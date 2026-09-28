@@ -11,7 +11,7 @@ function AboutThumbnail() {
           src={"/common/img/about/IMG_20241113_181628_315.jpg"}
           width={1250}
           height={1250}
-          alt=""
+          alt="About Iamge"
         />
         <div className="absolute md:top-10 lg:top-30 right-15 w-1/2 space-y-5">
           <H3>درباره کلا پلاس</H3>
@@ -33,7 +33,7 @@ function AboutThumbnail() {
           src={"/common/img/about/bascet-mob.jpg"}
           width={500}
           height={500}
-          alt=""
+          alt="About Iamge"
         />
       </div>
     </div>

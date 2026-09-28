@@ -1,11 +1,10 @@
 import SectionLayout from "@/core/components/custom/ui/wrapper/SectionLayout";
 import BlogDetailComponents from "@/core/features/pages/components/block/blogdetail/BlogDetailComponents";
-async function page({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  console.log("SLUG:", id);
+async function page({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
   return (
     <SectionLayout>
-      <BlogDetailComponents slug={id} />
+      <BlogDetailComponents slug={slug} />
     </SectionLayout>
   );
 }

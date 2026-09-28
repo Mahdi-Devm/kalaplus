@@ -1,4 +1,7 @@
-schema @transport(subgraph: "NestJS", kind: "rest", location: "http://localhost:3001") {
+schema @transport(subgraph: "NestJS", kind: "rest", location: "http://localhost:3001", headers: [
+  ["Authorization", "{context.headers['authorization']}"]
+  ["Cookie", "{context.headers['cookie']}"]
+]) {
   query: Query
   mutation: Mutation
 }

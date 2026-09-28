@@ -1,21 +1,12 @@
 import { Home } from "lucide-react";
-import {
-  FiBookOpen,
-  FiGrid,
-  FiShoppingBag,
-  FiTrendingUp,
-} from "react-icons/fi";
+import { FiBookOpen, FiGrid, FiShoppingBag } from "react-icons/fi";
 export const navItemsHeader = [
   {
     title: "خانه",
     href: "/",
     icon: Home,
   },
-  {
-    title: "پرفروش‌ترین‌ها",
-    href: "/best-selling",
-    icon: FiTrendingUp,
-  },
+
   {
     title: "مقالات",
     href: "/blog",

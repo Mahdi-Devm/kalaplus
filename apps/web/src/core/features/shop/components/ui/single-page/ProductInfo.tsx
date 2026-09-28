@@ -60,6 +60,16 @@ export function ProductInfo({
       <ActionBtnProductInfo
         quantity={quantity}
         inStock={inStock}
+        product={{
+          id: product.id,
+          title: product.title,
+          slug: product.slug,
+          price: product.price,
+          discountPercent: product.discountPercent,
+          stock: product.stock,
+          mainImage: product.mainImage,
+          category: product.category,
+        }}
         onIncrease={increaseQuantity}
         onDecrease={decreaseQuantity}
       />

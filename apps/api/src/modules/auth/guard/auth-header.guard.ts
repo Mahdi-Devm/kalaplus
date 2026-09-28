@@ -34,7 +34,7 @@ export class AuthWithHeader implements CanActivate {
 
       const payload = await this.JwtService.verifyAccessToken(token);
       request.user = payload;
-
+      console.log('JWT PAYLOAD:', payload);
       return true;
     } catch (error) {
       throw new UnauthorizedException(error.message);

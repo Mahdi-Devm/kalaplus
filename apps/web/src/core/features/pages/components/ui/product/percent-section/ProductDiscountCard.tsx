@@ -5,6 +5,7 @@ import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
 import { formatPrice } from "@/core/features/pages/utils/formatPrice";
 import { getFinalPrice } from "@/core/features/pages/utils/getFinalPrice";
+import { LikeButton } from "@/core/features/like/components/ui/LikeButton";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import Link from "next/link";
 import { FiShoppingCart } from "react-icons/fi";
@@ -18,7 +19,7 @@ function ProductDiscountCard({ product }: { product: ProductType }) {
     <article className="group h-full">
       <Card
         className="
-          h-full overflow-hidden
+          relative h-full overflow-hidden
           rounded-2xl
           border-border/50
           bg-background
@@ -29,6 +30,11 @@ function ProductDiscountCard({ product }: { product: ProductType }) {
           hover:shadow-xl
         "
       >
+        <LikeButton
+          product={product}
+          className="absolute left-2 top-2 z-20 size-8 border border-border/50 bg-background/90 text-muted-foreground shadow-sm backdrop-blur transition-all hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive"
+        />
+
         <Link
           href={`/shop/${product.slug}`}
           className="flex h-full flex-col"

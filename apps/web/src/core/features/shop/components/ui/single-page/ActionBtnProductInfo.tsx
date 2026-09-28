@@ -1,15 +1,13 @@
+import { LikeButton } from "@/core/features/like/components/ui/LikeButton";
 import { Button } from "@/core/components/shadcn/ui/button/button";
-import {
-  FiHeart,
-  FiMinus,
-  FiPlus,
-  FiRepeat,
-  FiShoppingCart,
-} from "react-icons/fi";
+import { FiMinus, FiPlus, FiRepeat, FiShoppingCart } from "react-icons/fi";
+
+import type { LikeTarget } from "@/core/features/like/lib/useLike";
 
 interface ActionBtnProductInfoProps {
   quantity: number;
   inStock: boolean;
+  product: LikeTarget;
   onIncrease: () => void;
   onDecrease: () => void;
 }
@@ -17,6 +15,7 @@ interface ActionBtnProductInfoProps {
 function ActionBtnProductInfo({
   quantity,
   inStock,
+  product,
   onIncrease,
   onDecrease,
 }: ActionBtnProductInfoProps) {
@@ -52,13 +51,12 @@ function ActionBtnProductInfo({
         {inStock ? "افزودن به سبد خرید" : "ناموجود"}
       </Button>
 
-      <Button
-        variant="outline"
-        size="icon"
-        aria-label="افزودن به علاقه‌مندی‌ها"
-      >
-        <FiHeart className="h-4 w-4" />
-      </Button>
+      <LikeButton
+        product={product}
+        ariaLabel="افزودن به علاقه‌مندی‌ها"
+        className="size-10 border border-primary text-primary hover:bg-primary/10 disabled:opacity-100"
+        iconClassName="size-4"
+      />
 
       <Button variant="outline" size="icon" aria-label="افزودن به مقایسه">
         <FiRepeat className="h-4 w-4" />

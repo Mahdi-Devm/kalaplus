@@ -5,3 +5,6 @@ sources:
         source: http://localhost:3001/docs-json
         endpoint: http://localhost:3001
         ignoreErrorResponses: true
+        operationHeaders:
+          Authorization: "{context.headers['authorization']}"
+          Cookie: "{context.headers['cookie']}"

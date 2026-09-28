@@ -5,9 +5,10 @@ import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
 import { formatPrice } from "@/core/features/pages/utils/formatPrice";
 import { getFinalPrice } from "@/core/features/pages/utils/getFinalPrice";
+import { LikeButton } from "@/core/features/like/components/ui/LikeButton";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import Link from "next/link";
-import { FiHeart, FiShoppingCart, FiTrendingUp } from "react-icons/fi";
+import { FiShoppingCart, FiTrendingUp } from "react-icons/fi";
 
 function PopularProductCard({
   product,
@@ -27,13 +28,10 @@ function PopularProductCard({
         {rank}
       </div>
 
-      <button
-        type="button"
-        aria-label="افزودن به علاقه‌مندی‌ها"
-        className="absolute right-3 top-3 z-20 grid size-8 place-items-center rounded-full border border-border/50 bg-background/90 text-muted-foreground shadow-sm backdrop-blur transition-all hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive"
-      >
-        <FiHeart className="size-4" />
-      </button>
+      <LikeButton
+        product={product}
+        className="absolute right-3 top-3 z-20 size-8 border border-border/50 bg-background/90 text-muted-foreground shadow-sm backdrop-blur transition-all hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive"
+      />
 
       <Link
         href={`/product/${product.slug}`}

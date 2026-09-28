@@ -1,15 +1,11 @@
 import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
-import {
-  H3,
-  H4,
-  Large,
-  Span,
-} from "@/core/components/custom/ui/typography/Typography";
+import { Large, Span } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
 import { formatPrice } from "@/core/features/pages/utils/formatPrice";
 import { getFinalPrice } from "@/core/features/pages/utils/getFinalPrice";
+import { LikeButton } from "@/core/features/like/components/ui/LikeButton";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import Link from "next/link";
 import { FiArrowUpLeft, FiShoppingBag, FiTrendingUp } from "react-icons/fi";
@@ -69,6 +65,10 @@ function FrequentProductCard({
                 {discount}٪
               </Badge>
             )}
+            <LikeButton
+              product={product}
+              className="absolute bottom-2 left-2 z-20 size-8 border border-border/50 bg-background/90 text-muted-foreground shadow-sm backdrop-blur transition-all hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive"
+            />
           </div>
 
           <div>

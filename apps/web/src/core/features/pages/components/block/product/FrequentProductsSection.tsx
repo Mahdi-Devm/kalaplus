@@ -4,21 +4,16 @@ import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { H3, Span } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
-import { Button } from "@/core/components/shadcn/ui/button/button";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import Link from "next/link";
-import {
-  FiArrowLeft,
-  FiArrowUpLeft,
-  FiShoppingBag,
-  FiTrendingUp,
-} from "react-icons/fi";
+import { FiArrowUpLeft, FiShoppingBag, FiTrendingUp } from "react-icons/fi";
 import { Swiper, SwiperSlide } from "swiper/react";
 
 import { useProducts } from "../../../lib/useProducts";
-import ProductsSkeleton from "../../ui/product/skeleton/ProductsSkeleton";
 import { formatPrice } from "../../../utils/formatPrice";
+import ProductsSkeleton from "../../ui/product/skeleton/ProductsSkeleton";
+import TopProductDetail from "../../ui/product/TopProductDetail";
 
 function getFinalPrice(price: number, discount: number) {
   return discount ? price - (price * discount) / 100 : price;
@@ -125,28 +120,11 @@ export function FrequentProductsSection() {
   const products = data?.products?.data ?? [];
 
   return (
-    <section className="my-10 overflow-hidden">
-      {/* Header */}
-      <div className="mb-6 flex items-end justify-between gap-4">
-        <div className="flex items-center gap-4">
-          <div>
-            <h2 className="text-lg font-black sm:text-xl">
-              پرتکرارترین کالاها
-            </h2>
-
-            <p className="mt-1 text-xs text-muted-foreground sm:text-sm hidden sm:flex">
-              انتخاب‌هایی که بیشتر از همه دیده می‌شوند
-            </p>
-          </div>
-        </div>
-
-        <Button asChild variant="ghost" className="group rounded-xl ">
-          <Link href="/products" className="text-sm">
-            مشاهده همه
-            <FiArrowLeft className="mr-2 size-4 transition-transform group-hover:-translate-x-1" />
-          </Link>
-        </Button>
-      </div>
+    <div className="my-10 overflow-hidden">
+      <TopProductDetail
+        description="   انتخاب‌هایی که بیشتر از همه دیده می‌شوند"
+        title="  پرتکرارترین کالاها"
+      />
 
       <Swiper
         spaceBetween={12}
@@ -177,6 +155,6 @@ export function FrequentProductsSection() {
           </SwiperSlide>
         ))}
       </Swiper>
-    </section>
+    </div>
   );
 }

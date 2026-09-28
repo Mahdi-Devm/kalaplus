@@ -1,10 +1,10 @@
 "use client";
 
-import BlogDetailData from "@/core/features/pages/assets/mock/blog/BlogDetailData";
+import BlogDetailData from "@/core/features/blog/assets/mock/blog/BlogDetailData";
 import { useParams } from "next/navigation";
 import BlogDetailComponent from "./BlogDetailComponent";
 
-const BlogDetailPage = () => {
+function BlogDetailPage() {
   const { id } = useParams();
 
   const blog = BlogDetailData.find((item) => item.id === Number(id));
@@ -20,6 +20,6 @@ const BlogDetailPage = () => {
       )}
     </div>
   );
-};
+}
 
 export default BlogDetailPage;

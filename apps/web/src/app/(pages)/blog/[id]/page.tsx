@@ -3,7 +3,7 @@ import BlogDetailComponents from "@/core/features/pages/components/block/blogdet
 function PageDetailBlog() {
   return (
     <SectionLayout>
-      <BlogDetailComponents />;
+      <BlogDetailComponents />
     </SectionLayout>
   );
 }

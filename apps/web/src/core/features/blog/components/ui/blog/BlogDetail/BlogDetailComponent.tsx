@@ -1,13 +1,15 @@
-import Image from "next/image";
 import { H2, P } from "@/core/components/custom/ui/typography/Typography";
+import Image from "next/image";
 
-type BlogDetailType = {
+function BlogDetailComponent({
+  img,
+  title,
+  text,
+}: {
   img: string;
   title: string;
   text: string;
-};
-
-const BlogDetailComponent = ({ img, title, text }: BlogDetailType) => {
+}) {
   return (
     <article className="mx-auto w-full max-w-5xl">
       <div className="relative mb-8 h-[250px] w-full overflow-hidden rounded-2xl sm:h-[350px] md:h-[450px]">
@@ -32,6 +34,6 @@ const BlogDetailComponent = ({ img, title, text }: BlogDetailType) => {
       </div>
     </article>
   );
-};
+}
 
 export default BlogDetailComponent;

@@ -1,8 +1,8 @@
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import Link from "next/link";
 import { FiArrowLeft } from "react-icons/fi";
-import BlogPage from "../blog/Blogs";
 
+import BlogDetailPage from "@/core/features/blog/components/ui/blog/BlogDetail/BlogDetailPage";
 import Image from "next/image";
 
 function Essay() {
@@ -27,7 +27,7 @@ function Essay() {
             </Link>
           </Button>
         </div>
-        <BlogPage />
+        <BlogDetailPage />
       </div>
     </div>
   );

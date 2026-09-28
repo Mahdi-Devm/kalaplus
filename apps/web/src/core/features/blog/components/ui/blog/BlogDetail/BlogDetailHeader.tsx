@@ -2,7 +2,7 @@ import { P } from "@/core/components/custom/ui/typography/Typography";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 
-const BlogDetailHeader = () => {
+function BlogDetailHeader() {
   return (
     <div className="mb-6 mt-6 pages-container">
       <div className="flex items-center gap-2">
@@ -24,6 +24,6 @@ const BlogDetailHeader = () => {
       </div>
     </div>
   );
-};
+}
 
 export default BlogDetailHeader;

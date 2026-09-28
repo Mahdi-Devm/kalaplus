@@ -92,7 +92,10 @@ function Header() {
                         </div>
 
                         {item.hasArrow && (
-                          <FiChevronDown className="size-4 text-muted-foreground" />
+                          <>
+                            <FiChevronDown className="size-4 text-muted-foreground" />
+                            asd
+                          </>
                         )}
                       </Link>
                     );
@@ -126,7 +129,6 @@ function Header() {
             </Sheet>
           </div>
 
-          {/* Logo */}
           <Link
             href="/"
             className="shrink-0 transition-opacity hover:opacity-80"
@@ -139,6 +141,42 @@ function Header() {
             {navItems.map((item) => {
               const Icon = item.icon;
 
+              if (item.hasArrow) {
+                return (
+                  <div key={item.title} className="group relative">
+                    <button
+                      type="button"
+                      className="flex items-center gap-2 px-4 py-2 text-[14px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      <Icon className="size-[17px]" />
+
+                      <span>{item.title}</span>
+
+                      <FiChevronDown className="size-3.5 transition-transform group-hover:rotate-180" />
+                    </button>
+
+                    {/* Dropdown */}
+                    <div className="invisible absolute left-1/2 top-full z-50 w-44 -translate-x-1/2 pt-2 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+                      <div className="rounded-lg border bg-background p-1 shadow-lg">
+                        <Link
+                          href="/about"
+                          className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                        >
+                          درباره ما
+                        </Link>
+
+                        <Link
+                          href="/contact"
+                          className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                        >
+                          تماس با ما
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+
               return (
                 <Link
                   key={item.title}
@@ -146,12 +184,7 @@ function Header() {
                   className="group flex items-center gap-2 px-4 py-2 text-[14px] font-medium text-muted-foreground transition-colors hover:text-foreground"
                 >
                   <Icon className="size-[17px]" />
-
                   <span>{item.title}</span>
-
-                  {item.hasArrow && (
-                    <FiChevronDown className="size-3.5 transition-transform group-hover:rotate-180" />
-                  )}
                 </Link>
               );
             })}

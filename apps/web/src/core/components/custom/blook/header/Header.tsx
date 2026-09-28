@@ -1,18 +1,5 @@
-"use client";
-
 import Link from "next/link";
-import { useState } from "react";
-import {
-  FiBookOpen,
-  FiChevronDown,
-  FiGrid,
-  FiHeart,
-  FiMenu,
-  FiSearch,
-  FiShoppingBag,
-  FiTrendingUp,
-  FiX,
-} from "react-icons/fi";
+import { FiChevronDown, FiHeart, FiMenu, FiShoppingBag } from "react-icons/fi";
 
 import {
   Sheet,
@@ -22,47 +9,16 @@ import {
   SheetTrigger,
 } from "@/components/shadcn/ui/sheet/sheet";
 
+import { navItemsHeader } from "@/core/assets/mock/navItemsHeader";
 import Logo from "@/core/components/custom/ui/logo/Logo";
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import AuthComponents from "@/core/features/auth/components/block/AuthComponents";
-import { Home } from "lucide-react";
 
 function Header() {
-  const [searchOpen, setSearchOpen] = useState(false);
-
-  const navItems = [
-    {
-      title: "خانه",
-      href: "/",
-      icon: Home,
-    },
-    {
-      title: "پرفروش‌ترین‌ها",
-      href: "/best-selling",
-      icon: FiTrendingUp,
-    },
-    {
-      title: "مقالات",
-      href: "/blog",
-      icon: FiBookOpen,
-    },
-    {
-      title: "فروشگاه",
-      href: "/shop",
-      icon: FiShoppingBag,
-    },
-    {
-      title: "صفحات",
-      href: "#",
-      icon: FiGrid,
-      hasArrow: true,
-    },
-  ];
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-white">
       <div className="mx-auto max-w-7xl px-4">
-        <div className="flex h-[76px] items-center justify-between gap-6">
+        <div className="flex h-19 items-center justify-between gap-6">
           <div className="lg:hidden">
             <Sheet>
               <SheetTrigger asChild>
@@ -71,13 +27,13 @@ function Header() {
                 </Button>
               </SheetTrigger>
 
-              <SheetContent side="right" className="w-[300px] sm:w-[360px]">
+              <SheetContent side="right" className="w-75 sm:w-90">
                 <SheetHeader>
                   <SheetTitle className="text-right">منوی کالا پلاس</SheetTitle>
                 </SheetHeader>
 
                 <nav className="mt-8 flex flex-col">
-                  {navItems.map((item) => {
+                  {navItemsHeader.map((item) => {
                     const Icon = item.icon;
 
                     return (
@@ -87,12 +43,15 @@ function Header() {
                         className="flex items-center justify-between border-b py-4 text-sm font-medium"
                       >
                         <div className="flex items-center gap-3">
-                          <Icon className="size-[18px] text-muted-foreground" />
+                          <Icon className="size-4.5 text-muted-foreground" />
                           <span>{item.title}</span>
                         </div>
 
                         {item.hasArrow && (
-                          <FiChevronDown className="size-4 text-muted-foreground" />
+                          <>
+                            <FiChevronDown className="size-4 text-muted-foreground" />
+                            asd
+                          </>
                         )}
                       </Link>
                     );
@@ -104,7 +63,7 @@ function Header() {
                     href="/favorites"
                     className="flex items-center gap-3 py-4 text-sm font-medium"
                   >
-                    <FiHeart className="size-[18px]" />
+                    <FiHeart className="size-4.5" />
                     علاقه‌مندی‌ها
                   </Link>
 
@@ -113,7 +72,7 @@ function Header() {
                     className="flex items-center justify-between py-4 text-sm font-medium"
                   >
                     <div className="flex items-center gap-3">
-                      <FiShoppingBag className="size-[18px]" />
+                      <FiShoppingBag className="size-4.5" />
                       سبد خرید
                     </div>
 
@@ -126,7 +85,6 @@ function Header() {
             </Sheet>
           </div>
 
-          {/* Logo */}
           <Link
             href="/"
             className="shrink-0 transition-opacity hover:opacity-80"
@@ -134,10 +92,44 @@ function Header() {
             <Logo width={95} classname="h-auto" />
           </Link>
 
-          {/* Navigation */}
           <nav className="hidden flex-1 items-center justify-center gap-1 lg:flex">
-            {navItems.map((item) => {
+            {navItemsHeader.map((item) => {
               const Icon = item.icon;
+
+              if (item.hasArrow) {
+                return (
+                  <div key={item.title} className="group relative">
+                    <button
+                      type="button"
+                      className="flex items-center gap-2 px-4 py-2 text-[14px] font-medium text-muted-foreground transition-colors hover:text-foreground"
+                    >
+                      <Icon className="size-4.25" />
+
+                      <span>{item.title}</span>
+
+                      <FiChevronDown className="size-3.5 transition-transform group-hover:rotate-180" />
+                    </button>
+
+                    <div className="invisible absolute left-1/2 top-full z-50 w-44 -translate-x-1/2 pt-2 opacity-0 transition-all group-hover:visible group-hover:opacity-100">
+                      <div className="rounded-lg border bg-white p-1 shadow-lg">
+                        <Link
+                          href="/about"
+                          className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                        >
+                          درباره ما
+                        </Link>
+
+                        <Link
+                          href="/contact"
+                          className="block rounded-md px-3 py-2 text-sm text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                        >
+                          تماس با ما
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
 
               return (
                 <Link
@@ -145,35 +137,14 @@ function Header() {
                   href={item.href}
                   className="group flex items-center gap-2 px-4 py-2 text-[14px] font-medium text-muted-foreground transition-colors hover:text-foreground"
                 >
-                  <Icon className="size-[17px]" />
-
+                  <Icon className="size-4.25" />
                   <span>{item.title}</span>
-
-                  {item.hasArrow && (
-                    <FiChevronDown className="size-3.5 transition-transform group-hover:rotate-180" />
-                  )}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Actions */}
           <div className="flex items-center gap-1">
-            {/* Search */}
-            <Button
-              variant="ghost"
-              size="icon"
-              className="rounded-lg"
-              onClick={() => setSearchOpen((prev) => !prev)}
-            >
-              {searchOpen ? (
-                <FiX className="size-[19px]" />
-              ) : (
-                <FiSearch className="size-[19px]" />
-              )}
-            </Button>
-
-            {/* Favorites */}
             <Button
               variant="ghost"
               size="icon"
@@ -181,11 +152,10 @@ function Header() {
               asChild
             >
               <Link href="/favorites">
-                <FiHeart className="size-[19px]" />
+                <FiHeart className="size-4.75" />
               </Link>
             </Button>
 
-            {/* Cart */}
             <Button
               variant="ghost"
               size="icon"
@@ -193,7 +163,7 @@ function Header() {
               asChild
             >
               <Link href="/cart">
-                <FiShoppingBag className="size-[19px]" />
+                <FiShoppingBag className="size-4.75" />
 
                 <span className="absolute right-0 top-0 flex size-4 items-center justify-center rounded-full bg-primary text-[9px] font-bold text-primary-foreground">
                   2
@@ -201,28 +171,11 @@ function Header() {
               </Link>
             </Button>
 
-            {/* Auth */}
             <div className="hidden sm:block">
               <AuthComponents />
             </div>
           </div>
         </div>
-
-        {/* Search */}
-        {searchOpen && (
-          <div className="border-t py-4">
-            <div className="relative">
-              <FiSearch className="absolute right-4 top-1/2 size-5 -translate-y-1/2 text-muted-foreground" />
-
-              <input
-                autoFocus
-                type="search"
-                placeholder="جستجوی محصول..."
-                className="h-12 w-full rounded-xl bg-muted/50 px-12 text-sm outline-none transition focus:bg-background focus:ring-1 focus:ring-primary"
-              />
-            </div>
-          </div>
-        )}
       </div>
     </header>
   );

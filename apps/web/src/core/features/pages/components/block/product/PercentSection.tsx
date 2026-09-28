@@ -6,7 +6,6 @@ import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
 import { getImageUrl } from "@/core/utils/getImageUrl";
-import Image from "next/image";
 import Link from "next/link";
 import { useMemo } from "react";
 import { FiShoppingCart } from "react-icons/fi";
@@ -70,7 +69,7 @@ function ProductDiscountCard({ product }: { product: ProductType }) {
         "
       >
         <Link
-          href={`/product/${product.slug}`}
+          href={`/shop/${product.slug}`}
           className="flex h-full flex-col"
           aria-label={product.title}
         >
@@ -87,16 +86,11 @@ function ProductDiscountCard({ product }: { product: ProductType }) {
                 src={getImageUrl(product.mainImage)}
                 alt={product.title}
                 fill
-                sizes="
-                  (max-width: 640px) 44vw,
-                  (max-width: 768px) 30vw,
-                  (max-width: 1024px) 22vw,
-                  18vw
-                "
                 className="
                   object-contain p-3
                   transition-transform duration-500
                   group-hover:scale-105
+                  bg-foreground-box
                 "
               />
 
@@ -192,57 +186,33 @@ export default function PercentSection() {
   }
 
   return (
-    <section
+    <div
       className="
         relative
         overflow-hidden
         rounded-[2rem]
         border border-border/50
-        bg-background
+         bg-primary
         shadow-sm
       "
     >
-      {/* ------------------------------------------------------------------ */}
-      {/* Background                                                         */}
-      {/* ------------------------------------------------------------------ */}
-
-      <div className="pointer-events-none absolute inset-0">
-        <Image
-          src="/common/img/percent-section/image.png"
-          alt=""
-          fill
-          sizes="100vw"
-          className="object-cover object-center opacity-10"
-        />
-
-        <div className="absolute inset-0 bg-background/90" />
-      </div>
-
-      {/* ------------------------------------------------------------------ */}
-      {/* Content                                                            */}
-      {/* ------------------------------------------------------------------ */}
-
       <div className="relative z-10 p-3 sm:p-4 lg:p-5">
         <div className="flex flex-col gap-4 lg:flex-row">
-          {/* ================================================================ */}
-          {/* Discount Banner                                                   */}
-          {/* ================================================================ */}
-
           <aside
             className="
               relative
               min-h-[210px]
               shrink-0
               overflow-hidden
-              rounded-[1.75rem]
-              bg-primary
+              rounded-tr-[1.75rem]
+              rounded-br-[1.75rem]
               p-5
+              bg-white/10
               text-primary-foreground
               lg:w-48
               xl:w-56
             "
           >
-            {/* Decorative Circle */}
             <div
               className="
                 pointer-events-none
@@ -255,7 +225,6 @@ export default function PercentSection() {
               "
             />
 
-            {/* Decorative Circle */}
             <div
               className="
                 pointer-events-none
@@ -267,22 +236,6 @@ export default function PercentSection() {
                 bg-white/10
               "
             />
-
-            {/* Decorative Percentage */}
-            <div
-              className="
-                pointer-events-none
-                absolute
-                right-2
-                top-20
-                rotate-12
-                text-7xl
-                font-black
-                text-white/10
-              "
-            >
-              %
-            </div>
 
             {/* Main Content */}
             <div className="relative z-10 flex h-full flex-col justify-between gap-6">
@@ -328,12 +281,11 @@ export default function PercentSection() {
                 </p>
               </div>
 
-              {/* Countdown */}
               <CountdownTimer deadline={deadline} />
             </div>
           </aside>
 
-          <div className="min-w-0 flex-1">
+          <div className="min-w-0 flex-1 bg-w ">
             <Swiper
               modules={[Autoplay]}
               slidesPerView={2}
@@ -370,10 +322,9 @@ export default function PercentSection() {
                   spaceBetween: 14,
                 },
               }}
-              className="!pb-1"
             >
               {products.map((product) => (
-                <SwiperSlide key={product.id} className="!h-auto">
+                <SwiperSlide key={product.id}>
                   <ProductDiscountCard product={product} />
                 </SwiperSlide>
               ))}
@@ -381,6 +332,6 @@ export default function PercentSection() {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 }

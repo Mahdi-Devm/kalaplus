@@ -14,7 +14,9 @@ async function CategorySlider() {
         <Button
           size="sm"
           className="text-xs w-full rounded sm:text-sm flex sm:hidden"
-        ></Button>
+        >
+          مشاهده همه
+        </Button>
       </CardContent>
     </Card>
   );

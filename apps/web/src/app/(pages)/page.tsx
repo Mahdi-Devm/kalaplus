@@ -6,12 +6,12 @@ import CategorySlider from "@/core/features/pages/components/block/category/Cate
 import StoriesSection from "@/core/features/pages/components/block/home/StoriesSection";
 
 import { FrequentProductsSection } from "@/core/features/pages/components/block/product/FrequentProductsSection";
-import PercentSection from "@/core/features/pages/components/block/product/PercentSection";
 import PopularProductsSection from "@/core/features/pages/components/block/product/PopularProductsSection";
 import SliderImgPP from "@/core/features/pages/components/block/product/SliderImgPP";
 
 import HeroSectionImg from "@/core/features/pages/components/block/section-img/HeroSectionImg";
 
+import PercentSection from "@/core/features/pages/components/block/product/PercentSection";
 import Brands from "@/core/features/pages/components/ui/brand/Brands";
 import ThumbnailCategory from "@/core/features/pages/components/ui/category/ThumbnailCategory";
 import Essay from "@/core/features/pages/components/ui/essay/Essay";

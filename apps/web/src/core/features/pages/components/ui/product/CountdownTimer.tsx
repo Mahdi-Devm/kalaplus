@@ -1,5 +1,6 @@
 "use client";
 
+import { P } from "@/core/components/custom/ui/typography/Typography";
 import { useEffect, useState } from "react";
 
 const TIMER_UNITS = [
@@ -42,12 +43,12 @@ export function CountdownTimer({ deadline }: { deadline: number }) {
   };
 
   return (
-    <div>
-      <p className="mb-2 text-[10px] text-primary-foreground/70">
-        زمان باقی‌مانده
-      </p>
+    <div className="flex sm:flex-col items-center justify-between">
+      <P className="mb-2 text-[10px] text-primary-foreground/70">
+        زمان باقی‌مانده:
+      </P>
 
-      <div className="flex items-center gap-1" dir="ltr">
+      <div className="flex items-center gap-1">
         {TIMER_UNITS.map(({ key, label }, index) => (
           <div key={key} className="flex items-center gap-1">
             {index > 0 && (

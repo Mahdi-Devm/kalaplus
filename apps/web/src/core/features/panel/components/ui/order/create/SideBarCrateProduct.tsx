@@ -1,4 +1,4 @@
-import { ProductFormType } from "@/core/assets/types/product/ProductType";
+import { ProductFormType } from "@/core/assets/@types/product/ProductType";
 import { Dispatch, SetStateAction } from "react";
 import CategoryAction from "../../category/CategoryAction";
 import BtnSubmitProduct from "./BtnSubmitProduct";

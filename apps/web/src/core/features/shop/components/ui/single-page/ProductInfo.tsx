@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductType } from "@/core/assets/@types/product/ProductType";
 import { H2, P, Span } from "@/core/components/custom/ui/typography/Typography";
 import { cn } from "@/core/utils/shadcn/utils";
 import { useState } from "react";
@@ -60,6 +60,7 @@ export function ProductInfo({
       <ActionBtnProductInfo
         quantity={quantity}
         inStock={inStock}
+        product={product}
         onIncrease={increaseQuantity}
         onDecrease={decreaseQuantity}
       />

@@ -1,4 +1,5 @@
 import { PaginationOptions } from '@common/decorators/pagination-option.decorator';
+import { Public } from '@common/decorators/public.decorator';
 import { RolesDecorator } from '@common/decorators/roles.decorator';
 import { Roles } from '@common/enums/role-app.enum';
 import {
@@ -80,6 +81,7 @@ export class ProductsController {
   }
 
   @Get('user/list')
+  @Public()
   @ApiOkResponse({ type: PaginateProductResponse })
   @PaginationOptions({
     searchOptions: [
@@ -136,6 +138,7 @@ export class ProductsController {
     return this.productsService.findOne(id);
   }
   @Get('slug/:slug')
+  @Public()
   @ApiOperation({
     summary: 'دریافت جزئیات محصول',
     description:

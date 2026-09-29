@@ -1,4 +1,4 @@
-import { PaginatedResponse } from "@/core/assets/types/PaginationType";
+import { PaginatedResponse } from "../PaginationType";
 import { ProductType } from "./ProductType";
 
 export interface GetProductsForQuery {

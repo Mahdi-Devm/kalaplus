@@ -1,4 +1,4 @@
-import { GenderEnum } from "../assets/types/gender.enum";
+import { GenderEnum } from "../assets/@types/gender.enum";
 
 export function getGender(type: GenderEnum): string {
   switch (type) {

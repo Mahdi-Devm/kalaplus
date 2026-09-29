@@ -7,10 +7,10 @@ import BlogGrid from "@/core/features/blog/components/ui/blog/BlogGrid/BlogGrid"
 function BlogComponents() {
   return (
     <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
-      <main className="flex-1 min-w-0">
+      <div className="flex-1 min-w-0">
         <BlogHeroSlider />
         <BlogGrid />
-      </main>
+      </div>
       <aside className="hidden lg:block">
         <BlogSidebar />
       </aside>

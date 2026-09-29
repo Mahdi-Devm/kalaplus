@@ -1,4 +1,4 @@
-import { SortBy } from "../assets/types/sortBy";
+import { SortBy } from "../assets/@types/sortBy";
 
 export function getSortBy(sortType: SortBy): string {
   switch (sortType) {

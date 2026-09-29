@@ -1,4 +1,7 @@
-import type { BlogCategory, BlogPost } from "@/core/assets/@types/blog";
+import type {
+  BlogCategory,
+  BlogPost,
+} from "@/core/features/blog/assets/@types/blog";
 
 export const blogCategories: BlogCategory[] = [
   {

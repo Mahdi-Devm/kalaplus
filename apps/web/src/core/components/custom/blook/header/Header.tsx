@@ -1,3 +1,4 @@
+"use client";
 import Link from "next/link";
 import { FiChevronDown, FiHeart, FiMenu, FiShoppingBag } from "react-icons/fi";
 
@@ -13,8 +14,12 @@ import { navItemsHeader } from "@/core/assets/mock/navItemsHeader";
 import Logo from "@/core/components/custom/ui/logo/Logo";
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import AuthComponents from "@/core/features/auth/components/block/AuthComponents";
+import FavoritesPopover from "@/core/features/like/components/block/FavoritesPopover";
+import { useFavoriteCount } from "@/core/features/like/lib/useLike";
 
 function Header() {
+  const favoriteCount = useFavoriteCount();
+
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border bg-white">
       <div className="mx-auto max-w-7xl px-4">
@@ -58,13 +63,21 @@ function Header() {
                   })}
                 </nav>
 
-                <div className="mt-6 flex flex-col">
+                <div className="mt-6 flex flex-col ">
                   <Link
                     href="/favorites"
-                    className="flex items-center gap-3 py-4 text-sm font-medium"
+                    className="flex items-center justify-between py-4 text-sm font-medium"
                   >
-                    <FiHeart className="size-4.5" />
-                    علاقه‌مندی‌ها
+                    <span className="flex items-center gap-3">
+                      <FiHeart className="size-4.5" />
+                      علاقه‌مندی‌ها
+                    </span>
+
+                    {favoriteCount > 0 && (
+                      <span className="text-xs text-muted-foreground">
+                        {favoriteCount.toLocaleString("fa-IR")} محصول
+                      </span>
+                    )}
                   </Link>
 
                   <Link
@@ -145,16 +158,9 @@ function Header() {
           </nav>
 
           <div className="flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="hidden rounded-lg sm:inline-flex"
-              asChild
-            >
-              <Link href="/favorites">
-                <FiHeart className="size-4.75" />
-              </Link>
-            </Button>
+            <span className="hidden sm:inline-flex">
+              <FavoritesPopover />
+            </span>
 
             <Button
               variant="ghost"

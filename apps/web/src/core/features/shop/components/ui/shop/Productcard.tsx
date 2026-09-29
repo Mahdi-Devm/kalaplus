@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductFormType } from "@/core/assets/types/product/ProductType";
+import { ProductType } from "@/core/assets/@types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { P, Span } from "@/core/components/custom/ui/typography/Typography";
 import { getImageUrl } from "@/core/utils/getImageUrl";
@@ -13,7 +13,7 @@ export function ProductCard({
   product,
   className,
 }: {
-  product: ProductFormType;
+  product: ProductType;
   className?: string;
 }) {
   const { title, price, discountPercent, mainImage } = product;
@@ -29,7 +29,7 @@ export function ProductCard({
   return (
     <div
       className={cn(
-        "flex flex-col rounded-xl border border-border bg-card p-3 transition-shadow hover:shadow-md",
+        "relative flex flex-col rounded-xl border border-border bg-card p-3 transition-shadow hover:shadow-md",
         className,
       )}
     >

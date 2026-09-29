@@ -38,7 +38,7 @@ export class LikeService {
       userId,
     });
 
-    this.likeRepo.save(like);
+    await this.likeRepo.save(like);
     return 'با موفقیت اضافه شد.';
   }
 

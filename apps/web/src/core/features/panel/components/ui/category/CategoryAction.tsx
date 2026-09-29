@@ -1,6 +1,6 @@
+import { ProductFormType } from "@/core/assets/@types/product/ProductType";
 import { useQuery } from "@apollo/client/react";
 import { Dispatch, SetStateAction, useState } from "react";
-import { ProductFormType } from "../../../../../assets/types/product/ProductType";
 import { GET_ALL_CATEGORY } from "../../../../../gql-shcema/actionCategoryShema.gql";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
 import { GetAllCategories } from "../../../assets/@types/category/GetAllCategories";

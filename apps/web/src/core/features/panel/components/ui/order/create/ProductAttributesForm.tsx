@@ -1,7 +1,7 @@
 "use client";
 
+import { ProductFormType } from "@/core/assets/@types/product/ProductType";
 import { attribute } from "@/core/assets/mock/attribute";
-import { ProductFormType } from "@/core/assets/types/product/ProductType";
 import { TagInput } from "@/core/components/custom/ui/tagInput/TagInput";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
 

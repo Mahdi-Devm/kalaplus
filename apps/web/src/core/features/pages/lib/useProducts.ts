@@ -1,6 +1,6 @@
 "use client";
 
-import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
+import { GetProductsForQuery } from "@/core/assets/@types/product/GetProductsForAdminQuery";
 import { GET_PRODUCTS_FOR_USER } from "@/core/features/pages/gql-shcema/ProductSchema.gql";
 import { useQuery } from "@apollo/client/react";
 

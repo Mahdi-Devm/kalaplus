@@ -9,7 +9,9 @@ export const UserInfo = createParamDecorator(
     if (!user) {
       throw new BadRequestException('کاربر لاگین نکرده است');
     }
-
+    if (data === 'userId') {
+      return user.sub;
+    }
     if (data) {
       return user[data];
     }

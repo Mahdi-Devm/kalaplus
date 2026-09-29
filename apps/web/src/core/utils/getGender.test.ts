@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { GenderEnum } from "../assets/types/gender.enum";
+import { GenderEnum } from "../assets/@types/gender.enum";
 import { getGender } from "./getGender";
 
 describe("getGender", () => {

@@ -1,7 +1,7 @@
 import {
   ListItemTypograph,
   TypographyTs,
-} from "@/core/assets/types/Typography";
+} from "@/core/assets/@types/Typography";
 import { cn } from "@/core/utils/shadcn/utils";
 import { HTMLAttributes } from "react";
 

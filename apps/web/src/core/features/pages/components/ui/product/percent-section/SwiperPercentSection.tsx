@@ -1,5 +1,5 @@
+import { GetProductsForQuery } from "@/core/assets/@types/product/GetProductsForAdminQuery";
 import { ProductType } from "@/core/assets/@types/product/ProductType";
-import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ProductDiscountCard from "./ProductDiscountCard";

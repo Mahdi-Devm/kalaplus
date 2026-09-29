@@ -1,10 +1,10 @@
 "use client";
 
+import { GetProductsForQuery } from "@/core/assets/@types/product/GetProductsForAdminQuery";
 import {
   ProductFormType,
   ProductType,
 } from "@/core/assets/@types/product/ProductType";
-import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
 import {
   DELETE_PRODUCT,
   GET_PRODUCTS_FOR_ADMIN,

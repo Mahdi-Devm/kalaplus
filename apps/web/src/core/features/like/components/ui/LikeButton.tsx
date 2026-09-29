@@ -1,6 +1,6 @@
 "use client";
 
-import { LikeButtonProps } from "@/core/features/like/assets/@types/LikeButtonProps";
+import { LikeButtonProps } from "@/core/assets/@types/LikeButtonProps";
 import { useLike } from "@/core/features/like/lib/useLike";
 import { cn } from "@/core/utils/shadcn/utils";
 import { FiHeart } from "react-icons/fi";

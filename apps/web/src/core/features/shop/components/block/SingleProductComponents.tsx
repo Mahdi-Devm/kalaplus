@@ -2,11 +2,11 @@
 
 import { useSuspenseQuery } from "@apollo/client/react";
 
-import { ProductType } from "@/core/assets/types/product/ProductType";
 import { ImageGallery } from "@/core/components/custom/ui/ImageGallery/ImageGallery";
 import { ProductInfo } from "@/core/features/shop/components/ui/single-page/ProductInfo";
 import { ProductTabs } from "@/core/features/shop/components/ui/single-page/ProductTabs";
 import { GET_ONE_PRODUCTS } from "@/core/features/shop/gql-shcema/ProductSchema.gql";
+import { ProductType } from "@/core/assets/@types/product/ProductType";
 
 export default function SingleProductComponents({
   params,

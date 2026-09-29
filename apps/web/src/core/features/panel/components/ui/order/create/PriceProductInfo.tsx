@@ -1,4 +1,4 @@
-import { ProductFormType } from "@/core/assets/types/product/ProductType";
+import { ProductFormType } from "@/core/assets/@types/product/ProductType";
 import { Muted } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import {

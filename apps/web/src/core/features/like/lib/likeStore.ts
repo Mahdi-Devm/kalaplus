@@ -1,7 +1,7 @@
 "use client";
 
-import type { LikeType } from "@/core/assets/types/like/LikeType";
 import { makeVar } from "@apollo/client";
+import { LikeType } from "../assets/@types/like/LikeType";
 
 export const likesVar = makeVar<LikeType[]>([]);
 

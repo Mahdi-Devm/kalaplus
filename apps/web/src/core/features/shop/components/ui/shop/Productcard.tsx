@@ -1,9 +1,8 @@
 "use client";
 
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductType } from "@/core/assets/@types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { P, Span } from "@/core/components/custom/ui/typography/Typography";
-import { LikeButton } from "@/core/features/like/components/ui/LikeButton";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import { cn } from "@/core/utils/shadcn/utils";
 import Link from "next/link";
@@ -14,7 +13,6 @@ export function ProductCard({
   product,
   className,
 }: {
-  /** Products come from paginated lists, so the full entity (with id) is available. */
   product: ProductType;
   className?: string;
 }) {
@@ -35,20 +33,6 @@ export function ProductCard({
         className,
       )}
     >
-      <LikeButton
-        product={{
-          id: product.id,
-          title: product.title,
-          slug: product.slug,
-          price: product.price,
-          discountPercent: product.discountPercent,
-          stock: product.stock,
-          mainImage: product.mainImage,
-          category: product.category,
-        }}
-        className="absolute right-2 top-2 z-20 size-8 border border-border/50 bg-background/90 text-muted-foreground shadow-sm backdrop-blur hover:border-destructive/20 hover:bg-destructive/10 hover:text-destructive"
-      />
-
       <Link
         href={`/shop/${product.slug}`}
         className="relative mb-3 aspect-square overflow-hidden rounded-lg bg-foreground-box"

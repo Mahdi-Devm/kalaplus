@@ -1,6 +1,6 @@
 "use client";
 
-import { ProductFormType } from "@/core/assets/types/product/ProductType";
+import { ProductFormType } from "@/core/assets/@types/product/ProductType";
 import { useState } from "react";
 import BasicProductFormInfo from "./BasicProductFormInfo";
 import SideBarCrateProduct from "./SideBarCrateProduct";

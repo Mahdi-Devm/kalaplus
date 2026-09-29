@@ -1,16 +1,10 @@
-import { LikeButton } from "@/core/features/like/components/ui/LikeButton";
 import { Button } from "@/core/components/shadcn/ui/button/button";
-import { FiMinus, FiPlus, FiRepeat, FiShoppingCart } from "react-icons/fi";
+import { LikeButton } from "@/core/features/like/components/ui/LikeButton";
+import { FiMinus, FiPlus, FiShoppingCart } from "react-icons/fi";
 
-import type { LikeTarget } from "@/core/features/like/lib/useLike";
-
-interface ActionBtnProductInfoProps {
-  quantity: number;
-  inStock: boolean;
-  product: LikeTarget;
-  onIncrease: () => void;
-  onDecrease: () => void;
-}
+import { ProductType } from "@/core/assets/@types/product/ProductType";
+import { useCart } from "@/core/store/cart.store";
+import { toast } from "sonner";
 
 function ActionBtnProductInfo({
   quantity,
@@ -18,7 +12,21 @@ function ActionBtnProductInfo({
   product,
   onIncrease,
   onDecrease,
-}: ActionBtnProductInfoProps) {
+}: {
+  quantity: number;
+  inStock: boolean;
+  product: ProductType;
+  onIncrease: () => void;
+  onDecrease: () => void;
+}) {
+  const addItemCart = useCart((state) => state.addCart);
+
+  function handleAddToCart() {
+    addItemCart(product, quantity);
+
+    toast.success("محصول با موفقیت به سبد خرید اضافه شد.");
+  }
+
   return (
     <div className="flex flex-col gap-3 sm:flex-row sm:items-center">
       <div className="flex w-fit items-center gap-3 rounded-lg border border-border p-1">
@@ -45,7 +53,11 @@ function ActionBtnProductInfo({
         </button>
       </div>
 
-      <Button className="flex-1 gap-2" disabled={!inStock}>
+      <Button
+        className="flex-1 gap-2"
+        disabled={!inStock}
+        onClick={handleAddToCart}
+      >
         <FiShoppingCart className="h-4 w-4" />
 
         {inStock ? "افزودن به سبد خرید" : "ناموجود"}
@@ -57,10 +69,6 @@ function ActionBtnProductInfo({
         className="size-10 border border-primary text-primary hover:bg-primary/10 disabled:opacity-100"
         iconClassName="size-4"
       />
-
-      <Button variant="outline" size="icon" aria-label="افزودن به مقایسه">
-        <FiRepeat className="h-4 w-4" />
-      </Button>
     </div>
   );
 }

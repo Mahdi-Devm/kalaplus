@@ -1,6 +1,5 @@
 "use client";
 
-import { LikeProduct } from "@/core/assets/types/like/LikeType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { P, Span } from "@/core/components/custom/ui/typography/Typography";
 import { Button } from "@/core/components/shadcn/ui/button/button";
@@ -9,6 +8,7 @@ import { formatToman } from "@/core/features/shop/utils/formatToman";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import Link from "next/link";
 import { FiTrash2 } from "react-icons/fi";
+import { LikeProduct } from "../../assets/@types/like/LikeType";
 
 /**
  * A liked product row inside the Header favorites dropdown. Removal goes

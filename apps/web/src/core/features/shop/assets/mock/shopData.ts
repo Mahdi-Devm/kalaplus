@@ -1,4 +1,4 @@
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductType } from "@/core/assets/@types/product/ProductType";
 
 export const PRICE_BOUNDS = { min: 0, max: 8_000_000, step: 10_000 };
 

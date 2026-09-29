@@ -1,4 +1,4 @@
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductType } from "@/core/assets/@types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";

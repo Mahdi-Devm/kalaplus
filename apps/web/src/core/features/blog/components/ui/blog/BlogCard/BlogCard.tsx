@@ -1,8 +1,8 @@
 "use client";
 
-import { BlogPost } from "@/core/assets/@types/blog";
 import { H3 } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
+import { BlogPost } from "@/core/features/blog/assets/@types/blog";
 import {
   baseBlogClasses,
   contentBlogClasses,

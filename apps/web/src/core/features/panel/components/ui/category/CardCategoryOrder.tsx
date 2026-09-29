@@ -1,3 +1,4 @@
+import { ProductFormType } from "@/core/assets/@types/product/ProductType";
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import {
   Card,
@@ -14,7 +15,6 @@ import {
 } from "@/core/components/shadcn/ui/select/select";
 import { Plus } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
-import { ProductFormType } from "../../../../../assets/types/product/ProductType";
 import { CategoryProductType } from "../../../assets/@types/category/CategoryType";
 function CardCategoryOrder({
   categories,

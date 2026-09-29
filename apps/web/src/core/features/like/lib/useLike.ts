@@ -1,6 +1,5 @@
 "use client";
 
-import { GetMyLikesQuery } from "@/core/assets/types/like/LikeType";
 import {
   addLikeLocal,
   likeIdsVar,
@@ -17,6 +16,7 @@ import { getErrorMessage } from "@/core/utils/getErrorMessage";
 import { useMutation, useQuery, useReactiveVar } from "@apollo/client/react";
 import { useCallback, useEffect, useMemo } from "react";
 import { toast } from "sonner";
+import { GetMyLikesQuery } from "../assets/@types/like/LikeType";
 
 export interface LikeTarget {
   id: string;

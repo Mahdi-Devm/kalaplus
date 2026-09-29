@@ -50,7 +50,6 @@ export class AuthService {
     }
     const code = generateOtp();
     await this.cacheService.set(`otp_code_${phone}`, code, 120);
-    console.log(code);
     return {
       message: 'کد تایید ارسال شد',
       remainingAttempts: 3 - newAttempts,

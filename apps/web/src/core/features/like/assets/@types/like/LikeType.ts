@@ -1,4 +1,4 @@
-import { ProductType } from "../product/ProductType";
+import { ProductType } from "../../../../../assets/@types/product/ProductType";
 
 type CategoryProductType = {
   id: string;

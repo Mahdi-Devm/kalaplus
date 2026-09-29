@@ -7,7 +7,7 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuTrigger,
 } from "@/components/shadcn/ui/dropdown-menu/dropdown-menu";
-import { SortBy } from "@/core/assets/types/sortBy";
+import { SortBy } from "@/core/assets/@types/sortBy";
 import { useUpdateQuery } from "@/core/hooks/useUpdataQuery";
 import { getSortBy } from "@/core/utils/getsortBy";
 import { cn } from "@/core/utils/shadcn/utils";

@@ -1,11 +1,11 @@
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductType } from "@/core/assets/@types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Badge } from "@/core/components/shadcn/ui/badge/badge";
 import { Card, CardContent } from "@/core/components/shadcn/ui/card/card";
+import { LikeButton } from "@/core/features/like/components/ui/LikeButton";
 import { formatPrice } from "@/core/features/pages/utils/formatPrice";
 import { getFinalPrice } from "@/core/features/pages/utils/getFinalPrice";
-import { LikeButton } from "@/core/features/like/components/ui/LikeButton";
 import { getImageUrl } from "@/core/utils/getImageUrl";
 import Link from "next/link";
 import { FiShoppingCart, FiTrendingUp } from "react-icons/fi";

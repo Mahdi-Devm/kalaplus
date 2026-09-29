@@ -1,4 +1,4 @@
-import { ProductFormType } from "@/core/assets/types/product/ProductType";
+import { ProductFormType } from "@/core/assets/@types/product/ProductType";
 import { ImgNormalCustom } from "@/core/components/custom/ui/image/ImgNormalCustom";
 import { Span } from "@/core/components/custom/ui/typography/Typography";
 import { Button } from "@/core/components/shadcn/ui/button/button";

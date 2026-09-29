@@ -1,4 +1,4 @@
-import { ProductType } from "@/core/assets/types/product/ProductType";
+import { ProductType } from "@/core/assets/@types/product/ProductType";
 
 const DISCOUNT_THRESHOLD = 1;
 const CARD_SLICE = 12;

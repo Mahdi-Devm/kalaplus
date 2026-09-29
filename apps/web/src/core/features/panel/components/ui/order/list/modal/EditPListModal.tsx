@@ -1,7 +1,7 @@
 import {
   ProductFormType,
   ProductType,
-} from "@/core/assets/types/product/ProductType";
+} from "@/core/assets/@types/product/ProductType";
 import Modal from "@/core/components/custom/ui/modal/Modal";
 import EditProductListForm from "../EditProductListForm";
 interface EditModalProps {

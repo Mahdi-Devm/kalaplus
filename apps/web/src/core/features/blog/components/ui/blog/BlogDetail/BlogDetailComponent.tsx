@@ -1,5 +1,5 @@
-import { BlogPost } from "@/core/assets/@types/blog";
 import { H1, P, Span } from "@/core/components/custom/ui/typography/Typography";
+import { BlogPost } from "@/core/features/blog/assets/@types/blog";
 import Image from "next/image";
 import Link from "next/link";
 

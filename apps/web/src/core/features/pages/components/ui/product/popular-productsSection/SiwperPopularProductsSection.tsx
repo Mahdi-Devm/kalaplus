@@ -1,5 +1,5 @@
 "use client";
-import { GetProductsForQuery } from "@/core/assets/types/product/GetProductsForAdminQuery";
+import { GetProductsForQuery } from "@/core/assets/@types/product/GetProductsForAdminQuery";
 import { Autoplay } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import PopularProductCard from "./PopularProductCard";

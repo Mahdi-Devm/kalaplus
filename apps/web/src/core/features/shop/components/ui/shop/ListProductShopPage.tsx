@@ -1,4 +1,3 @@
-import { ProductType } from "@/core/assets/types/product/ProductType";
 import { H2, Span } from "@/core/components/custom/ui/typography/Typography";
 import { Button } from "@/core/components/shadcn/ui/button/button";
 import { useSearchParams } from "next/navigation";
@@ -9,6 +8,7 @@ import { ShopFilters } from "../filter/Shopfilters";
 import { SortDropdown } from "../filter/SortDropdown";
 import ShopSkeleton from "../skeleton/ShopSkeleton";
 import { ProductCard } from "./Productcard";
+import { ProductType } from "@/core/assets/@types/product/ProductType";
 
 function ListProductShopPage({
   products,
